@@ -8,19 +8,19 @@
 
 #### Цель разработки: проверка сварного соединения на соответствие п. 14.1.16, 14.1.17, 14.1.18 СП 16.13330.2017.
 
-<h1 align="center">
+<p align="center">
 <img src="images/base.png" alt="drawing" width="650"/>
-</h1>
+</p>
 
 #### В приложении использована архитектура с разделенной моделью (separable model architecture)
 #### или отношение модель-представитель (model-delegate).
 
 ***В приложении предусмотрены следующие расположения ребер:***
 
-<h1 align="center">
+<p align="center">
 <img src="images/1_4.png" alt="drawing" width="650"/>
 <img src="images/5_8.png" alt="drawing" width="650"/>
-</h1>
+</p>
 
 #### N.B. Приложение в стадии разработки. Планируются изменения.
 
