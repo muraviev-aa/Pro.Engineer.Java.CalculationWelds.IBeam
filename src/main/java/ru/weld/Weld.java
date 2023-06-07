@@ -89,6 +89,26 @@ public class Weld extends JFrame {
             {"C355П", "св. 16 до 40 включ.", "2240"}
     };
 
+    public double getFactor() {
+        return factor;
+    }
+
+    public void setFactorF(double factorF) {
+        this.factorF = factorF;
+    }
+
+    public void setFactorZ(double factorZ) {
+        this.factorZ = factorZ;
+    }
+
+    public double getFactorF() {
+        return factorF;
+    }
+
+    public double getFactorZ() {
+        return factorZ;
+    }
+
     public Weld() {
         super("Расчет сварного шва приварки двутавра");
         setContentPane(panel);
@@ -194,7 +214,9 @@ public class Weld extends JFrame {
                 double heightBeam = Double.parseDouble(textFieldHeightBeam.getText());
                 double flangeThickness = Double.parseDouble(textFieldtFlangeThickness.getText());
                 double sideW = Double.parseDouble(textFieldWallKf.getText());
-                selectSectionCalc();
+                double rwf = Double.parseDouble(labelRwf.getText());
+                double rwz = Double.parseDouble(labelRwz.getText());
+                selectSectionCalc(rwf, rwz);
                 /**
                  * Выводим factor
                  */
@@ -288,10 +310,8 @@ public class Weld extends JFrame {
         });
     }
 
-    public void selectSectionCalc() {
-        double rwf = Double.parseDouble(labelRwf.getText());
+    public void selectSectionCalc(double rwf, double rwz) {
         double f = factorF * rwf;
-        double rwz = Double.parseDouble(labelRwz.getText());
         double z = factorZ * rwz;
         double res = f / z;
         if (res <= 1) {

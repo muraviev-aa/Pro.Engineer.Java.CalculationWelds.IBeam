@@ -93,7 +93,20 @@ class MomentInertiaWallTest {
     }
 
     @Test
-    void when25B1() {
+    void when25B1Then1293Point73() {
+        double heightBeam = 24.8;
+        double flangeThickness = 0.8;
+        double side = 1;
+        double factor = 1.0;
+        double radius = 1.2;
+        double expected = 1293.73;
+        MomentInertiaWall miw = new MomentInertiaWall();
+        double out = miw.momentInertiaWallX(heightBeam, flangeThickness, side, factor, radius);
+        Assertions.assertEquals(expected, out, 0.01);
+    }
+
+    @Test
+    void when25B119Point87() {
         double heightBeam = 24.8;
         double flangeThickness = 0.8;
         double side = 1;
@@ -104,6 +117,21 @@ class MomentInertiaWallTest {
         MomentInertiaWall miw = new MomentInertiaWall();
         double out = miw.momentInertiaWallY(heightBeam, flangeThickness, side, factor,
         radius, wallThickness);
+        Assertions.assertEquals(expected, out, 0.01);
+    }
+
+    @Test
+    void when25BThen25Point57() {
+        double heightBeam = 24.8;
+        double flangeThickness = 0.8;
+        double side = 1;
+        double factor = 1.0;
+        double radius = 1.2;
+        double wallThickness = 0.5;
+        double expected = 25.57;
+        MomentInertiaWall miw = new MomentInertiaWall();
+        double out = miw.momentInertiaWallY(heightBeam, flangeThickness, side, factor,
+                radius, wallThickness);
         Assertions.assertEquals(expected, out, 0.01);
     }
 }
