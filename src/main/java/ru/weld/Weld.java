@@ -129,6 +129,8 @@ public class Weld extends JFrame {
         checkBoxGroupBz.add(checkBox1And15);
         checkBoxGroupBz.add(checkBox1And05);
         checkBoxGroupBz.add(checkBox1);
+        final ButtonGroup checkBoxGroup25B1 = new ButtonGroup();
+        checkBoxGroup25B1.add(checkBox25B1);
         setSize(950, 700);
         label1.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().
                 getImage(getClass().getResource("/withoutRibs.png"))));
@@ -172,6 +174,7 @@ public class Weld extends JFrame {
                 textFieldtFlangeThickness.setText("");
                 textFieldWallThickness.setText("");
                 textFieldRadius.setText("");
+                checkBoxGroup25B1.clearSelection();
             }
         });
         buttonResetWeld.addActionListener(new ActionListener() {
