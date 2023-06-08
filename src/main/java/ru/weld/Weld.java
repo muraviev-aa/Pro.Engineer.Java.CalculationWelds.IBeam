@@ -216,20 +216,29 @@ public class Weld extends JFrame {
                 MomentInertiaWall momentInertiaWall = new MomentInertiaWall();
                 double heightBeam = Double.parseDouble(textFieldHeightBeam.getText());
                 double flangeThickness = Double.parseDouble(textFieldtFlangeThickness.getText());
+                double wallThickness = Double.parseDouble(textFieldWallThickness.getText());
                 double sideW = Double.parseDouble(textFieldWallKf.getText());
                 double rwf = Double.parseDouble(labelRwf.getText());
                 double rwz = Double.parseDouble(labelRwz.getText());
+                double radius = Double.parseDouble(textFieldRadius.getText());
+                double heightWeldX = momentInertiaWall.heightWeldX(heightBeam, flangeThickness, radius);
                 selectSectionCalc(rwf, rwz);
+                double heightWeldY = momentInertiaWall.heightWeldY(sideW, factor);
                 /**
                  * Выводим factor
                  */
                 System.out.println(factor);
-                double radius = Double.parseDouble(textFieldRadius.getText());
-                double wallThickness = Double.parseDouble(textFieldWallThickness.getText());
-                textFieldIx.setText(Double.toString(momentInertiaWall.momentInertiaWallX(heightBeam,
-                        flangeThickness, sideW, factor, radius)));
-                textFieldIy.setText(Double.toString(momentInertiaWall.momentInertiaWallY(heightBeam,
-                        flangeThickness, sideW, factor, radius, wallThickness)));
+                double ix = momentInertiaWall.momentInertiaWallX(heightBeam,
+                        flangeThickness, sideW, factor, radius);
+                double iy = momentInertiaWall.momentInertiaWallY(heightBeam,
+                        flangeThickness, sideW, factor, radius, wallThickness);
+                textFieldIx.setText(Double.toString(ix));
+                textFieldIy.setText(Double.toString(iy));
+                MomentResistanceWall momentResistanceWall = new MomentResistanceWall();
+                double wx = momentResistanceWall.momentResistanceWallX(ix, heightWeldX);
+                double wy = momentResistanceWall.momentResistanceWallY(iy, heightWeldY, wallThickness);
+                textFieldWx.setText(Double.toString(wx));
+                textFieldWy.setText(Double.toString(wy));
             }
         });
         checkBox1And15.addActionListener(new ActionListener() {
