@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 class WeldTest {
     @Test
-    void whenC245And08G2C() {
+    void whenRwf2200SlashRwz1690ThenIx1293Point73AndIy25Point57() {
         double heightBeam = 24.8;
         double flangeThickness = 0.8;
         double sideW = 1.0;
@@ -27,5 +27,18 @@ class WeldTest {
         radius, wallThickness);
         Assertions.assertEquals(expectedX, outX, 0.01);
         Assertions.assertEquals(expectedY, outY, 0.01);
+    }
+
+    @Test
+    void whenRwf1850SlashRwz2240Then0Point9() {
+        double rwf = 2200;
+        double rwz = 1690;
+        Weld weld = new Weld();
+        weld.setFactorF(1.1);
+        weld.setFactorZ(1);
+        weld.selectSectionCalc(rwf, rwz);
+        double expected = weld.getFactor();
+        double out = 0.9;
+        Assertions.assertEquals(expected, out, 0.1);
     }
 }
