@@ -10,10 +10,4 @@ public class MomentResistanceWall implements RoundUp {
         double wy = momentInertiaWallY / (heightWeldY + 0.5 * wallThickness);
         return roundTwo(wy);
     }
-
-    public static void main(String[] args) {
-        MomentResistanceWall momentResistanceWall = new MomentResistanceWall();
-        System.out.println(momentResistanceWall.momentResistanceWallX(1164.36, 19.8));
-        System.out.println(momentResistanceWall.momentResistanceWallY(19.87, 0.9, 0.5));
-    }
 }

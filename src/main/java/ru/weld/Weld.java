@@ -228,61 +228,26 @@ public class Weld extends JFrame {
                  * Выводим factor
                  */
                 System.out.println(factor);
-                double ix = momentInertiaWall.momentInertiaWallX(heightBeam,
+                double wallIx = momentInertiaWall.momentInertiaWallX(heightBeam,
                         flangeThickness, sideW, factor, radius);
-                double iy = momentInertiaWall.momentInertiaWallY(heightBeam,
+                double wallIy = momentInertiaWall.momentInertiaWallY(heightBeam,
                         flangeThickness, sideW, factor, radius, wallThickness);
-                textFieldIx.setText(Double.toString(ix));
-                textFieldIy.setText(Double.toString(iy));
+                textFieldIx.setText(Double.toString(wallIx));
+                textFieldIy.setText(Double.toString(wallIy));
                 MomentResistanceWall momentResistanceWall = new MomentResistanceWall();
-                double wx = momentResistanceWall.momentResistanceWallX(ix, heightWeldX);
-                double wy = momentResistanceWall.momentResistanceWallY(iy, heightWeldY, wallThickness);
+                double wx = momentResistanceWall.momentResistanceWallX(wallIx, heightWeldX);
+                double wy = momentResistanceWall.momentResistanceWallY(wallIy, heightWeldY, wallThickness);
                 textFieldWx.setText(Double.toString(wx));
                 textFieldWy.setText(Double.toString(wy));
             }
         });
-        checkBox1And15.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                factorZ = 1.15;
-            }
-        });
-        checkBox1And05.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                factorZ = 1.05;
-            }
-        });
-        checkBox1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                factorZ = 1;
-            }
-        });
-        checkBox1And1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                factorF = 1.1;
-            }
-        });
-        checkBox0And9.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                factorF = 0.9;
-            }
-        });
-        checkBox0And8.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                factorF = 0.8;
-            }
-        });
-        checkBox0And7.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                factorF = 0.7;
-            }
-        });
+        checkBox1And15.addActionListener(e -> factorZ = 1.15);
+        checkBox1And05.addActionListener(e -> factorZ = 1.05);
+        checkBox1.addActionListener(e -> factorZ = 1);
+        checkBox1And1.addActionListener(e -> factorF = 1.1);
+        checkBox0And9.addActionListener(e -> factorF = 0.9);
+        checkBox0And8.addActionListener(e -> factorF = 0.8);
+        checkBox0And7.addActionListener(e -> factorF = 0.7);
     }
 
     public void createTableRwf() {
