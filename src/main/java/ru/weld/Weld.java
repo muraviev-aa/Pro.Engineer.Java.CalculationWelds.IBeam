@@ -266,6 +266,7 @@ public class Weld extends JFrame implements RoundUp {
     public void baseWithoutRibs() {
         MomentInertiaWall momentInertiaWall = new MomentInertiaWall();
         MomentInertiaFlange momentInertiaFlange = new MomentInertiaFlange();
+        MomentResistanceIBeam momentResistanceIBeam = new MomentResistanceIBeam();
         double heightBeam = Double.parseDouble(textFieldHeightBeam.getText());
         double flangeWidth = Double.parseDouble(textFieldFlangeWidth.getText());
         double flangeThickness = Double.parseDouble(textFieldFlangeThickness.getText());
@@ -275,9 +276,7 @@ public class Weld extends JFrame implements RoundUp {
         double rwf = Double.parseDouble(labelRwf.getText());
         double rwz = Double.parseDouble(labelRwz.getText());
         double radius = Double.parseDouble(textFieldRadius.getText());
-        double heightWeldX = momentInertiaWall.heightWeldX(heightBeam, flangeThickness, radius);
         selectSectionCalc(rwf, rwz);
-        double heightWeldY = momentInertiaWall.heightWeldY(sideW, factor);
         /**
          * Выводим factor
          */
@@ -289,14 +288,18 @@ public class Weld extends JFrame implements RoundUp {
         double flangeBelowIx = momentInertiaFlange.momentInertiaBelowFlangeX(heightBeam, flangeWidth,
                 flangeThickness, wallThickness, radius, sideF, factor);
         double sumIx = roundTwo(wallIx + flangeOverIx + flangeBelowIx);
+        textFieldIx.setText(Double.toString(sumIx));
         double wallIy = momentInertiaWall.momentInertiaWallY(heightBeam,
                 flangeThickness, sideW, factor, radius, wallThickness);
         double flangeOverIy = momentInertiaFlange.momentInertiaOverFlangeY(flangeWidth, sideF, factor);
         double flangeBelowIy = momentInertiaFlange.momentInertiaBelowFlangeY(flangeWidth, wallThickness,
                 radius, sideF, factor);
         double sumIy = roundTwo(wallIy + flangeOverIy + flangeBelowIy);
-        textFieldIx.setText(Double.toString(sumIx));
         textFieldIy.setText(Double.toString(sumIy));
+        double wx = roundTwo(sumIx / momentResistanceIBeam.distanceMaxX(heightBeam, sideF, factor));
+        textFieldWx.setText(Double.toString(wx));
+        double wy = roundTwo(sumIy / momentResistanceIBeam.distanceMaxY(flangeWidth));
+        textFieldWy.setText(Double.toString(wy));
     }
 
     public static void main(String[] args) {
