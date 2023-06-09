@@ -111,7 +111,7 @@ public class Weld extends JFrame implements RoundUp {
 
     public Weld() {
         super("Расчет сварного шва приварки двутавра");
-        setContentPane(panel);
+        setContentPane(this.panel);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         Dimension dimension = new Dimension(205, 30);
         buttonIW.setPreferredSize(dimension);
@@ -144,108 +144,64 @@ public class Weld extends JFrame implements RoundUp {
                         getImage(getClass().getResource("/" + str + ".png"))));
             }
         });
-        button3.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                createTableRwf();
-            }
+        button3.addActionListener(e -> createTableRwf());
+        button4.addActionListener(e -> createTableRwz());
+        checkBox25B1.addActionListener(e -> {
+            textFieldHeightBeam.setText("24.8");
+            textFieldFlangeWidth.setText("12.4");
+            textFieldFlangeThickness.setText("0.8");
+            textFieldWallThickness.setText("0.5");
+            textFieldRadius.setText("1.2");
         });
-        button4.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                createTableRwz();
-            }
+        buttonResetSection.addActionListener(e -> {
+            textFieldHeightBeam.setText("");
+            textFieldFlangeWidth.setText("");
+            textFieldFlangeThickness.setText("");
+            textFieldWallThickness.setText("");
+            textFieldRadius.setText("");
+            checkBoxGroup25B1.clearSelection();
         });
-        checkBox25B1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                textFieldHeightBeam.setText("24.8");
-                textFieldFlangeWidth.setText("12.4");
-                textFieldFlangeThickness.setText("0.8");
-                textFieldWallThickness.setText("0.5");
-                textFieldRadius.setText("1.2");
-            }
+        buttonResetWeld.addActionListener(e -> {
+            textFieldFlangeKf.setText("");
+            textFieldWallKf.setText("");
+            labelRwf.setText("Rwf");
+            labelRwz.setText("Rwz");
+            labelClassSteel.setText("C...");
+            checkBoxGroupBf.clearSelection();
+            checkBoxGroupBz.clearSelection();
+            factorF = 0;
+            labelF.setText("");
+            labelZ.setText("");
         });
-        buttonResetSection.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                textFieldHeightBeam.setText("");
-                textFieldFlangeWidth.setText("");
-                textFieldFlangeThickness.setText("");
-                textFieldWallThickness.setText("");
-                textFieldRadius.setText("");
-                checkBoxGroup25B1.clearSelection();
-            }
+        button2.addActionListener(e -> {
+            textFieldIx.setText("");
+            textFieldIy.setText("");
+            textFieldWx.setText("");
+            textFieldWy.setText("");
         });
-        buttonResetWeld.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                textFieldFlangeKf.setText("");
-                textFieldWallKf.setText("");
-                labelRwf.setText("Rwf");
-                labelRwz.setText("Rwz");
-                labelClassSteel.setText("C...");
-                checkBoxGroupBf.clearSelection();
-                checkBoxGroupBz.clearSelection();
-                factorF = 0;
-                labelF.setText("");
-                labelZ.setText("");
-            }
+        button2.addActionListener(e -> {
+            textFieldIx.setText("");
+            textFieldIy.setText("");
+            textFieldWx.setText("");
+            textFieldWy.setText("");
         });
-        button2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                textFieldIx.setText("");
-                textFieldIy.setText("");
-                textFieldWx.setText("");
-                textFieldWy.setText("");
-            }
-        });
-        button2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                textFieldIx.setText("");
-                textFieldIy.setText("");
-                textFieldWx.setText("");
-                textFieldWy.setText("");
-            }
-        });
-        buttonIW.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                MomentInertiaWall momentInertiaWall = new MomentInertiaWall();
-                MomentInertiaFlange momentInertiaFlange = new MomentInertiaFlange();
-                double heightBeam = Double.parseDouble(textFieldHeightBeam.getText());
-                double flangeWidth = Double.parseDouble(textFieldFlangeWidth.getText());
-                double flangeThickness = Double.parseDouble(textFieldFlangeThickness.getText());
-                double wallThickness = Double.parseDouble(textFieldWallThickness.getText());
-                double sideW = Double.parseDouble(textFieldWallKf.getText());
-                double sideF = Double.parseDouble(textFieldFlangeKf.getText());
-                double rwf = Double.parseDouble(labelRwf.getText());
-                double rwz = Double.parseDouble(labelRwz.getText());
-                double radius = Double.parseDouble(textFieldRadius.getText());
-                double heightWeldX = momentInertiaWall.heightWeldX(heightBeam, flangeThickness, radius);
-                selectSectionCalc(rwf, rwz);
-                double heightWeldY = momentInertiaWall.heightWeldY(sideW, factor);
-                /**
-                 * Выводим factor
-                 */
-                System.out.println(factor);
-                double wallIx = momentInertiaWall.momentInertiaWallX(heightBeam,
-                        flangeThickness, sideW, factor, radius);
-                double flangeOverIx = momentInertiaFlange.momentInertiaOverFlangeX(heightBeam,
-                        flangeWidth, sideF, factor);
-                double flangeBelowIx = momentInertiaFlange.momentInertiaBelowFlangeX(heightBeam, flangeWidth,
-                        flangeThickness, wallThickness, radius, sideF, factor);
-                double sumIx = roundTwo(wallIx + flangeOverIx + flangeBelowIx);
-                double wallIy = momentInertiaWall.momentInertiaWallY(heightBeam,
-                        flangeThickness, sideW, factor, radius, wallThickness);
-                double flangeOverIy = momentInertiaFlange.momentInertiaOverFlangeY(flangeWidth, sideF, factor);
-                double flangeBelowIy = momentInertiaFlange.momentInertiaBelowFlangeY(flangeWidth, wallThickness,
-                        radius, sideF, factor);
-                double sumIy = roundTwo(wallIy + flangeOverIy + flangeBelowIy);
-                textFieldIx.setText(Double.toString(sumIx));
-                textFieldIy.setText(Double.toString(sumIy));
+        buttonIW.addActionListener(e -> {
+            if (comboBox1.getSelectedItem() == "withoutRibs") {
+                baseWithoutRibs();
+            } else if (comboBox1.getSelectedItem() == "allRibs") {
+                System.out.println("allRibs");
+            } else if (comboBox1.getSelectedItem() == "ribsNumberOne") {
+                System.out.println("ribsNumberOne");
+            } else if (comboBox1.getSelectedItem() == "ribsNumberTwo") {
+                System.out.println("ribsNumberTwo");
+            } else if (comboBox1.getSelectedItem() == "ribsNumberThree") {
+                System.out.println("ribsNumberThree");
+            } else if (comboBox1.getSelectedItem() == "ribsNumbersOneTwo") {
+                System.out.println("ribsNumbersOneTwo");
+            } else if (comboBox1.getSelectedItem() == "ribsNumbersOneThree") {
+                System.out.println("ribsNumbersOneThree");
+            } else if (comboBox1.getSelectedItem() == "ribsNumbersTwoThree") {
+                System.out.println("ribsNumbersTwoThree");
             }
         });
         checkBox1And15.addActionListener(e -> factorZ = 1.15);
@@ -305,6 +261,42 @@ public class Weld extends JFrame implements RoundUp {
             factor = factorZ;
             labelZ.setText("По границе сплавления");
         }
+    }
+
+    public void baseWithoutRibs() {
+        MomentInertiaWall momentInertiaWall = new MomentInertiaWall();
+        MomentInertiaFlange momentInertiaFlange = new MomentInertiaFlange();
+        double heightBeam = Double.parseDouble(textFieldHeightBeam.getText());
+        double flangeWidth = Double.parseDouble(textFieldFlangeWidth.getText());
+        double flangeThickness = Double.parseDouble(textFieldFlangeThickness.getText());
+        double wallThickness = Double.parseDouble(textFieldWallThickness.getText());
+        double sideW = Double.parseDouble(textFieldWallKf.getText());
+        double sideF = Double.parseDouble(textFieldFlangeKf.getText());
+        double rwf = Double.parseDouble(labelRwf.getText());
+        double rwz = Double.parseDouble(labelRwz.getText());
+        double radius = Double.parseDouble(textFieldRadius.getText());
+        double heightWeldX = momentInertiaWall.heightWeldX(heightBeam, flangeThickness, radius);
+        selectSectionCalc(rwf, rwz);
+        double heightWeldY = momentInertiaWall.heightWeldY(sideW, factor);
+        /**
+         * Выводим factor
+         */
+        System.out.println(factor);
+        double wallIx = momentInertiaWall.momentInertiaWallX(heightBeam,
+                flangeThickness, sideW, factor, radius);
+        double flangeOverIx = momentInertiaFlange.momentInertiaOverFlangeX(heightBeam,
+                flangeWidth, sideF, factor);
+        double flangeBelowIx = momentInertiaFlange.momentInertiaBelowFlangeX(heightBeam, flangeWidth,
+                flangeThickness, wallThickness, radius, sideF, factor);
+        double sumIx = roundTwo(wallIx + flangeOverIx + flangeBelowIx);
+        double wallIy = momentInertiaWall.momentInertiaWallY(heightBeam,
+                flangeThickness, sideW, factor, radius, wallThickness);
+        double flangeOverIy = momentInertiaFlange.momentInertiaOverFlangeY(flangeWidth, sideF, factor);
+        double flangeBelowIy = momentInertiaFlange.momentInertiaBelowFlangeY(flangeWidth, wallThickness,
+                radius, sideF, factor);
+        double sumIy = roundTwo(wallIy + flangeOverIy + flangeBelowIy);
+        textFieldIx.setText(Double.toString(sumIx));
+        textFieldIy.setText(Double.toString(sumIy));
     }
 
     public static void main(String[] args) {
