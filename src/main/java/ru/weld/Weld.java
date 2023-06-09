@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Weld extends JFrame {
+public class Weld extends JFrame implements RoundUp {
     private double factorF;
     private double factorZ;
     private double factor;
@@ -18,7 +18,7 @@ public class Weld extends JFrame {
     private JLabel label1;
     private JTextField textFieldHeightBeam;
     private JTextField textFieldFlangeWidth;
-    private JTextField textFieldtFlangeThickness;
+    private JTextField textFieldFlangeThickness;
     private JTextField textFieldWallThickness;
     private JTextField textFieldRadius;
     private JTextField textFieldFlangeKf;
@@ -161,7 +161,7 @@ public class Weld extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 textFieldHeightBeam.setText("24.8");
                 textFieldFlangeWidth.setText("12.4");
-                textFieldtFlangeThickness.setText("0.8");
+                textFieldFlangeThickness.setText("0.8");
                 textFieldWallThickness.setText("0.5");
                 textFieldRadius.setText("1.2");
             }
@@ -171,7 +171,7 @@ public class Weld extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 textFieldHeightBeam.setText("");
                 textFieldFlangeWidth.setText("");
-                textFieldtFlangeThickness.setText("");
+                textFieldFlangeThickness.setText("");
                 textFieldWallThickness.setText("");
                 textFieldRadius.setText("");
                 checkBoxGroup25B1.clearSelection();
@@ -214,10 +214,13 @@ public class Weld extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 MomentInertiaWall momentInertiaWall = new MomentInertiaWall();
+                MomentInertiaFlange momentInertiaFlange = new MomentInertiaFlange();
                 double heightBeam = Double.parseDouble(textFieldHeightBeam.getText());
-                double flangeThickness = Double.parseDouble(textFieldtFlangeThickness.getText());
+                double flangeWidth = Double.parseDouble(textFieldFlangeWidth.getText());
+                double flangeThickness = Double.parseDouble(textFieldFlangeThickness.getText());
                 double wallThickness = Double.parseDouble(textFieldWallThickness.getText());
                 double sideW = Double.parseDouble(textFieldWallKf.getText());
+                double sideF = Double.parseDouble(textFieldFlangeKf.getText());
                 double rwf = Double.parseDouble(labelRwf.getText());
                 double rwz = Double.parseDouble(labelRwz.getText());
                 double radius = Double.parseDouble(textFieldRadius.getText());
@@ -230,15 +233,19 @@ public class Weld extends JFrame {
                 System.out.println(factor);
                 double wallIx = momentInertiaWall.momentInertiaWallX(heightBeam,
                         flangeThickness, sideW, factor, radius);
+                double flangeOverIx = momentInertiaFlange.momentInertiaOverFlangeX(heightBeam,
+                        flangeWidth, sideF, factor);
+                double flangeBelowIx = momentInertiaFlange.momentInertiaBelowFlangeX(heightBeam, flangeWidth,
+                        flangeThickness, wallThickness, radius, sideF, factor);
+                double sumIx = roundTwo(wallIx + flangeOverIx + flangeBelowIx);
                 double wallIy = momentInertiaWall.momentInertiaWallY(heightBeam,
                         flangeThickness, sideW, factor, radius, wallThickness);
-                textFieldIx.setText(Double.toString(wallIx));
-                textFieldIy.setText(Double.toString(wallIy));
-                MomentResistanceWall momentResistanceWall = new MomentResistanceWall();
-                double wx = momentResistanceWall.momentResistanceWallX(wallIx, heightWeldX);
-                double wy = momentResistanceWall.momentResistanceWallY(wallIy, heightWeldY, wallThickness);
-                textFieldWx.setText(Double.toString(wx));
-                textFieldWy.setText(Double.toString(wy));
+                double flangeOverIy = momentInertiaFlange.momentInertiaOverFlangeY(flangeWidth, sideF, factor);
+                double flangeBelowIy = momentInertiaFlange.momentInertiaBelowFlangeY(flangeWidth, wallThickness,
+                        radius, sideF, factor);
+                double sumIy = roundTwo(wallIy + flangeOverIy + flangeBelowIy);
+                textFieldIx.setText(Double.toString(sumIx));
+                textFieldIy.setText(Double.toString(sumIy));
             }
         });
         checkBox1And15.addActionListener(e -> factorZ = 1.15);

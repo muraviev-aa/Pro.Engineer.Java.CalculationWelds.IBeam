@@ -23,7 +23,7 @@ class MomentInertiaFlangeTest {
         double flangeWidth = 12.4;
         double expected = 11.4;
         MomentInertiaFlange momentInertiaFlange = new MomentInertiaFlange();
-        double out = momentInertiaFlange.lengthAboveFlange(flangeWidth);
+        double out = momentInertiaFlange.lengthOverFlange(flangeWidth);
         Assertions.assertEquals(expected, out, 0.1);
     }
 
@@ -34,7 +34,7 @@ class MomentInertiaFlangeTest {
         double factor = 1;
         double expected = 12.9;
         MomentInertiaFlange momentInertiaFlange = new MomentInertiaFlange();
-        double out = momentInertiaFlange.distanceCenterGravityAboveX(heightBeam, side, factor);
+        double out = momentInertiaFlange.distanceCenterGravityOverX(heightBeam, side, factor);
         Assertions.assertEquals(expected, out, 0.1);
     }
 
@@ -58,7 +58,7 @@ class MomentInertiaFlangeTest {
         double factor = 1;
         double expected = 3796.05;
         MomentInertiaFlange momentInertiaFlange = new MomentInertiaFlange();
-        double out = momentInertiaFlange.momentInertiaAboveFlangeX(heightBeam, flangeWidth, side, factor);
+        double out = momentInertiaFlange.momentInertiaOverFlangeX(heightBeam, flangeWidth, side, factor);
         Assertions.assertEquals(expected, out, 0.01);
     }
 
@@ -85,7 +85,7 @@ class MomentInertiaFlangeTest {
         double factor = 1;
         double expected = 246.93;
         MomentInertiaFlange momentInertiaFlange = new MomentInertiaFlange();
-        double out = momentInertiaFlange.momentInertiaAboveFlangeY(flangeWidth, side, factor);
+        double out = momentInertiaFlange.momentInertiaOverFlangeY(flangeWidth, side, factor);
         Assertions.assertEquals(expected, out, 0.01);
     }
 

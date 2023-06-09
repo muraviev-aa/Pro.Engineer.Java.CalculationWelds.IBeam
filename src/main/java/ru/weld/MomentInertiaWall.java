@@ -42,7 +42,7 @@ public class MomentInertiaWall implements RoundUp {
         double x = widthWeldX(sideW, factor);
         double y = heightWeldX(heightBeam, flangeThickness, radius);
         double ix = (x * Math.pow(y, 3)) / 12;
-        return 2 * roundTwo(ix);
+        return 2 * ix;
     }
 
     public double momentInertiaWallY(double heightBeam, double flangeThickness, double sideW, double factor,
@@ -52,6 +52,6 @@ public class MomentInertiaWall implements RoundUp {
         double d = distanceCenterGravityY(wallThickness, sideW, factor);
         double a = heightWeldY(sideW, factor) * widthWeldY(heightBeam, flangeThickness, radius);
         double iy = ((x * Math.pow(y, 3)) / 12) + (Math.pow(d, 2) * a);
-        return 2 * roundTwo(iy);
+        return 2 * iy;
     }
 }
