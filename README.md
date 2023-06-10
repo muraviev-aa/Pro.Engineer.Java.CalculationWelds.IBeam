@@ -22,6 +22,12 @@
 <img src="images/5_8.png" alt="drawing" width="650"/>
 </p>
 
+***При расчете характеристик сварных швов учитываются геометрические размеры каждого ребра***
+
+<p align="center">
+<img src="images/ribs123.png" alt="drawing" width="650"/>
+</p>
+
 #### N.B. Приложение в стадии разработки. Планируются изменения.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
