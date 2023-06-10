@@ -135,6 +135,9 @@ public class Weld extends JFrame implements RoundUp {
         setSize(950, 700);
         label1.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().
                 getImage(getClass().getResource("/withoutRibs.png"))));
+        tabbedPane1.setEnabledAt(1, false);
+        tabbedPane1.setEnabledAt(2, false);
+        tabbedPane1.setEnabledAt(3, false);
         setLocationRelativeTo(null);
         setVisible(true);
         comboBox1.addActionListener(new ActionListener() {
@@ -192,6 +195,7 @@ public class Weld extends JFrame implements RoundUp {
             } else if (comboBox1.getSelectedItem() == "allRibs") {
                 System.out.println("allRibs");
             } else if (comboBox1.getSelectedItem() == "ribsNumberOne") {
+                tabbedPane1.setEnabledAt(1, true);
                 System.out.println("ribsNumberOne");
             } else if (comboBox1.getSelectedItem() == "ribsNumberTwo") {
                 System.out.println("ribsNumberTwo");
@@ -212,14 +216,42 @@ public class Weld extends JFrame implements RoundUp {
         checkBox0And9.addActionListener(e -> factorF = 0.9);
         checkBox0And8.addActionListener(e -> factorF = 0.8);
         checkBox0And7.addActionListener(e -> factorF = 0.7);
-        checkBox70B4.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                textFieldHeightBeam.setText("71");
-                textFieldFlangeWidth.setText("26.2");
-                textFieldFlangeThickness.setText("2.5");
-                textFieldWallThickness.setText("1.7");
-                textFieldRadius.setText("2.4");
+        checkBox70B4.addActionListener(e -> {
+            textFieldHeightBeam.setText("71");
+            textFieldFlangeWidth.setText("26.2");
+            textFieldFlangeThickness.setText("2.5");
+            textFieldWallThickness.setText("1.7");
+            textFieldRadius.setText("2.4");
+        });
+        comboBox1.addActionListener(e -> {
+            if (comboBox1.getSelectedItem() == "allRibs") {
+                tabbedPane1.setEnabledAt(1, true);
+                tabbedPane1.setEnabledAt(2, true);
+                tabbedPane1.setEnabledAt(3, true);
+            } else if (comboBox1.getSelectedItem() == "ribsNumberOne") {
+                tabbedPane1.setEnabledAt(1, true);
+                tabbedPane1.setEnabledAt(2, false);
+                tabbedPane1.setEnabledAt(3, false);
+            } else if (comboBox1.getSelectedItem() == "ribsNumberTwo") {
+                tabbedPane1.setEnabledAt(1, false);
+                tabbedPane1.setEnabledAt(2, true);
+                tabbedPane1.setEnabledAt(3, false);
+            } else if (comboBox1.getSelectedItem() == "ribsNumberThree") {
+                tabbedPane1.setEnabledAt(1, false);
+                tabbedPane1.setEnabledAt(2, false);
+                tabbedPane1.setEnabledAt(3, true);
+            } else if (comboBox1.getSelectedItem() == "ribsNumbersOneTwo") {
+                tabbedPane1.setEnabledAt(1, true);
+                tabbedPane1.setEnabledAt(2, true);
+                tabbedPane1.setEnabledAt(3, false);
+            } else if (comboBox1.getSelectedItem() == "ribsNumbersOneThree") {
+                tabbedPane1.setEnabledAt(1, true);
+                tabbedPane1.setEnabledAt(2, false);
+                tabbedPane1.setEnabledAt(3, true);
+            } else if (comboBox1.getSelectedItem() == "ribsNumbersTwoThree") {
+                tabbedPane1.setEnabledAt(1, false);
+                tabbedPane1.setEnabledAt(2, true);
+                tabbedPane1.setEnabledAt(3, true);
             }
         });
     }
