@@ -47,6 +47,12 @@ public class Weld extends JFrame implements RoundUp {
     private JLabel labelF;
     private JLabel labelZ;
     private JCheckBox checkBox70B4;
+    private JTextField textFieldRibLength1;
+    private JTextField textFieldRibBevel1;
+    private JTextField textFieldRibLength2;
+    private JTextField textFieldRibBevel2;
+    private JTextField textFieldRibLength3;
+    private JTextField textFieldRibBevel3;
 
     private final Object[] columnsRwf = new String[]{
             "Тип электрода / марка проволоки", "Rwf [кг/см^2]"
@@ -130,8 +136,9 @@ public class Weld extends JFrame implements RoundUp {
         checkBoxGroupBz.add(checkBox1And15);
         checkBoxGroupBz.add(checkBox1And05);
         checkBoxGroupBz.add(checkBox1);
-        final ButtonGroup checkBoxGroup25B1 = new ButtonGroup();
-        checkBoxGroup25B1.add(checkBox25B1);
+        final ButtonGroup checkBoxGroupIBeam = new ButtonGroup();
+        checkBoxGroupIBeam.add(checkBox25B1);
+        checkBoxGroupIBeam.add(checkBox70B4);
         setSize(950, 700);
         label1.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().
                 getImage(getClass().getResource("/withoutRibs.png"))));
@@ -163,7 +170,7 @@ public class Weld extends JFrame implements RoundUp {
             textFieldFlangeThickness.setText("");
             textFieldWallThickness.setText("");
             textFieldRadius.setText("");
-            checkBoxGroup25B1.clearSelection();
+            checkBoxGroupIBeam.clearSelection();
         });
         buttonResetWeld.addActionListener(e -> {
             textFieldFlangeKf.setText("");
@@ -252,6 +259,10 @@ public class Weld extends JFrame implements RoundUp {
                 tabbedPane1.setEnabledAt(1, false);
                 tabbedPane1.setEnabledAt(2, true);
                 tabbedPane1.setEnabledAt(3, true);
+            } else if (comboBox1.getSelectedItem() == "withoutRibs") {
+                tabbedPane1.setEnabledAt(1, false);
+                tabbedPane1.setEnabledAt(2, false);
+                tabbedPane1.setEnabledAt(3, false);
             }
         });
     }
