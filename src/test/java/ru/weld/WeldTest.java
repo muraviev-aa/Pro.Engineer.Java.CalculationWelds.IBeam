@@ -117,4 +117,42 @@ class WeldTest implements RoundUp {
         double outWy = roundTwo(outSumIy / momentResistanceIBeam.distanceMaxY(flangeWidth));
         Assertions.assertEquals(expectedWy, outWy, 0.01);
     }
+
+    @Test
+    void when70B4SideF1Point6SideW1Point2ThenIx208647Point87Iy8743Point55Wx5623Point94Wy693Point94() {
+        double heightBeam = 71;
+        double flangeWidth = 26.2;
+        double flangeThickness = 2.5;
+        double wallThickness = 1.7;
+        double radius = 2.4;
+        double sideF = 1.6;
+        double sideW = 1.2;
+        double expectedIx = 208647.87;
+        double expectedIy = 8743.55;
+        double expectedWx = 5623.94;
+        double expectedWy = 693.94;
+        double factor = 1;
+        MomentInertiaWall momentInertiaWall = new MomentInertiaWall();
+        MomentInertiaFlange momentInertiaFlange = new MomentInertiaFlange();
+        MomentResistanceIBeam momentResistanceIBeam = new MomentResistanceIBeam();
+        double wallIx = momentInertiaWall.momentInertiaWallX(heightBeam,
+                flangeThickness, sideW, factor, radius);
+        double flangeOverIx = momentInertiaFlange.momentInertiaOverFlangeX(heightBeam,
+                flangeWidth, sideF, factor);
+        double flangeBelowIx = momentInertiaFlange.momentInertiaBelowFlangeX(heightBeam, flangeWidth,
+                flangeThickness, wallThickness, radius, sideF, factor);
+        double outSumIx = roundTwo(wallIx + flangeOverIx + flangeBelowIx);
+        Assertions.assertEquals(expectedIx, outSumIx, 0.01);
+        double wallIy = momentInertiaWall.momentInertiaWallY(heightBeam,
+                flangeThickness, sideW, factor, radius, wallThickness);
+        double flangeOverIy = momentInertiaFlange.momentInertiaOverFlangeY(flangeWidth, sideF, factor);
+        double flangeBelowIy = momentInertiaFlange.momentInertiaBelowFlangeY(flangeWidth, wallThickness,
+                radius, sideF, factor);
+        double outSumIy = roundTwo(wallIy + flangeOverIy + flangeBelowIy);
+        Assertions.assertEquals(expectedIy, outSumIy, 0.01);
+        double outWx = roundTwo(outSumIx / momentResistanceIBeam.distanceMaxX(heightBeam, sideF, factor));
+        Assertions.assertEquals(expectedWx, outWx, 0.01);
+        double outWy = roundTwo(outSumIy / momentResistanceIBeam.distanceMaxY(flangeWidth));
+        Assertions.assertEquals(expectedWy, outWy, 0.01);
+    }
 }

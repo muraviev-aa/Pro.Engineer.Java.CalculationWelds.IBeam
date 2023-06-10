@@ -46,6 +46,7 @@ public class Weld extends JFrame implements RoundUp {
     private JButton buttonResetWeld;
     private JLabel labelF;
     private JLabel labelZ;
+    private JCheckBox checkBox70B4;
 
     private final Object[] columnsRwf = new String[]{
             "Тип электрода / марка проволоки", "Rwf [кг/см^2]"
@@ -211,6 +212,16 @@ public class Weld extends JFrame implements RoundUp {
         checkBox0And9.addActionListener(e -> factorF = 0.9);
         checkBox0And8.addActionListener(e -> factorF = 0.8);
         checkBox0And7.addActionListener(e -> factorF = 0.7);
+        checkBox70B4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textFieldHeightBeam.setText("71");
+                textFieldFlangeWidth.setText("26.2");
+                textFieldFlangeThickness.setText("2.5");
+                textFieldWallThickness.setText("1.7");
+                textFieldRadius.setText("2.4");
+            }
+        });
     }
 
     public void createTableRwf() {
