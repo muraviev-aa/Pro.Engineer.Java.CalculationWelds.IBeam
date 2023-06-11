@@ -55,6 +55,15 @@ public class Weld extends JFrame implements RoundUp {
     private JTextField textFieldRibBevel3;
     private JTextField textFieldArea;
     private JTextField textFieldLength;
+    double heightBeam;
+    double flangeWidth;
+    double flangeThickness;
+    double wallThickness;
+    double sideW;
+    double sideF;
+    double radius;
+    double rwf;
+    double rwz;
 
     private final Object[] columnsRwf = new String[]{
             "Тип электрода / марка проволоки", "Rwf [кг/см^2]"
@@ -196,7 +205,8 @@ public class Weld extends JFrame implements RoundUp {
         });
         buttonIW.addActionListener(e -> {
             if (comboBox1.getSelectedItem() == "withoutRibs") {
-                baseWithoutRibs();
+                readingDataFromCheckboxesAndLabels();
+                baseBeamWithoutRibs();
             } else if (comboBox1.getSelectedItem() == "allRibs") {
                 System.out.println("allRibs");
             } else if (comboBox1.getSelectedItem() == "ribsNumberOne") {
@@ -315,19 +325,22 @@ public class Weld extends JFrame implements RoundUp {
         }
     }
 
-    public void baseWithoutRibs() {
+    public void readingDataFromCheckboxesAndLabels() {
+        heightBeam = Double.parseDouble(textFieldHeightBeam.getText());
+        flangeWidth = Double.parseDouble(textFieldFlangeWidth.getText());
+        flangeThickness = Double.parseDouble(textFieldFlangeThickness.getText());
+        wallThickness = Double.parseDouble(textFieldWallThickness.getText());
+        sideW = Double.parseDouble(textFieldWallKf.getText());
+        sideF = Double.parseDouble(textFieldFlangeKf.getText());
+        radius = Double.parseDouble(textFieldRadius.getText());
+        rwf = Double.parseDouble(labelRwf.getText());
+        rwz = Double.parseDouble(labelRwz.getText());
+    }
+
+    public void baseBeamWithoutRibs() {
         MomentInertiaWall momentInertiaWall = new MomentInertiaWall();
         MomentInertiaFlange momentInertiaFlange = new MomentInertiaFlange();
         MaxDistanceIBeam maxDistanceIBeam = new MaxDistanceIBeam();
-        double heightBeam = Double.parseDouble(textFieldHeightBeam.getText());
-        double flangeWidth = Double.parseDouble(textFieldFlangeWidth.getText());
-        double flangeThickness = Double.parseDouble(textFieldFlangeThickness.getText());
-        double wallThickness = Double.parseDouble(textFieldWallThickness.getText());
-        double sideW = Double.parseDouble(textFieldWallKf.getText());
-        double sideF = Double.parseDouble(textFieldFlangeKf.getText());
-        double rwf = Double.parseDouble(labelRwf.getText());
-        double rwz = Double.parseDouble(labelRwz.getText());
-        double radius = Double.parseDouble(textFieldRadius.getText());
         selectSectionCalc(rwf, rwz);
         /**
          * Выводим factor
