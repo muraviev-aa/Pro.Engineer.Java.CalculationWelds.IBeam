@@ -53,6 +53,8 @@ public class Weld extends JFrame implements RoundUp {
     private JTextField textFieldRibBevel2;
     private JTextField textFieldRibLength3;
     private JTextField textFieldRibBevel3;
+    private JTextField textFieldArea;
+    private JTextField textFieldLength;
 
     private final Object[] columnsRwf = new String[]{
             "Тип электрода / марка проволоки", "Rwf [кг/см^2]"
@@ -139,7 +141,7 @@ public class Weld extends JFrame implements RoundUp {
         final ButtonGroup checkBoxGroupIBeam = new ButtonGroup();
         checkBoxGroupIBeam.add(checkBox25B1);
         checkBoxGroupIBeam.add(checkBox70B4);
-        setSize(950, 700);
+        setSize(950, 750);
         label1.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().
                 getImage(getClass().getResource("/withoutRibs.png"))));
         tabbedPane1.setEnabledAt(1, false);
@@ -189,12 +191,8 @@ public class Weld extends JFrame implements RoundUp {
             textFieldIy.setText("");
             textFieldWx.setText("");
             textFieldWy.setText("");
-        });
-        button2.addActionListener(e -> {
-            textFieldIx.setText("");
-            textFieldIy.setText("");
-            textFieldWx.setText("");
-            textFieldWy.setText("");
+            textFieldArea.setText("");
+            textFieldLength.setText("");
         });
         buttonIW.addActionListener(e -> {
             if (comboBox1.getSelectedItem() == "withoutRibs") {
@@ -320,7 +318,7 @@ public class Weld extends JFrame implements RoundUp {
     public void baseWithoutRibs() {
         MomentInertiaWall momentInertiaWall = new MomentInertiaWall();
         MomentInertiaFlange momentInertiaFlange = new MomentInertiaFlange();
-        MomentResistanceIBeam momentResistanceIBeam = new MomentResistanceIBeam();
+        MaxDistanceIBeam maxDistanceIBeam = new MaxDistanceIBeam();
         double heightBeam = Double.parseDouble(textFieldHeightBeam.getText());
         double flangeWidth = Double.parseDouble(textFieldFlangeWidth.getText());
         double flangeThickness = Double.parseDouble(textFieldFlangeThickness.getText());
@@ -350,9 +348,9 @@ public class Weld extends JFrame implements RoundUp {
                 radius, sideF, factor);
         double sumIy = roundTwo(wallIy + flangeOverIy + flangeBelowIy);
         textFieldIy.setText(Double.toString(sumIy));
-        double wx = roundTwo(sumIx / momentResistanceIBeam.distanceMaxX(heightBeam, sideF, factor));
+        double wx = roundTwo(sumIx / maxDistanceIBeam.distanceMaxX(heightBeam, sideF, factor));
         textFieldWx.setText(Double.toString(wx));
-        double wy = roundTwo(sumIy / momentResistanceIBeam.distanceMaxY(flangeWidth));
+        double wy = roundTwo(sumIy / maxDistanceIBeam.distanceMaxY(flangeWidth));
         textFieldWy.setText(Double.toString(wy));
     }
 

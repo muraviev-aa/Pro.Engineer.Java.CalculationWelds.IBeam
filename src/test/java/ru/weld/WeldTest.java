@@ -58,7 +58,7 @@ class WeldTest implements RoundUp {
         double factor = 1;
         MomentInertiaWall momentInertiaWall = new MomentInertiaWall();
         MomentInertiaFlange momentInertiaFlange = new MomentInertiaFlange();
-        MomentResistanceIBeam momentResistanceIBeam = new MomentResistanceIBeam();
+        MaxDistanceIBeam momentResistanceIBeam = new MaxDistanceIBeam();
         double wallIx = momentInertiaWall.momentInertiaWallX(heightBeam,
                 flangeThickness, sideW, factor, radius);
         double flangeOverIx = momentInertiaFlange.momentInertiaOverFlangeX(heightBeam,
@@ -96,7 +96,7 @@ class WeldTest implements RoundUp {
         double factor = 1;
         MomentInertiaWall momentInertiaWall = new MomentInertiaWall();
         MomentInertiaFlange momentInertiaFlange = new MomentInertiaFlange();
-        MomentResistanceIBeam momentResistanceIBeam = new MomentResistanceIBeam();
+        MaxDistanceIBeam momentResistanceIBeam = new MaxDistanceIBeam();
         double wallIx = momentInertiaWall.momentInertiaWallX(heightBeam,
                 flangeThickness, sideW, factor, radius);
         double flangeOverIx = momentInertiaFlange.momentInertiaOverFlangeX(heightBeam,
@@ -134,7 +134,7 @@ class WeldTest implements RoundUp {
         double factor = 1;
         MomentInertiaWall momentInertiaWall = new MomentInertiaWall();
         MomentInertiaFlange momentInertiaFlange = new MomentInertiaFlange();
-        MomentResistanceIBeam momentResistanceIBeam = new MomentResistanceIBeam();
+        MaxDistanceIBeam momentResistanceIBeam = new MaxDistanceIBeam();
         double wallIx = momentInertiaWall.momentInertiaWallX(heightBeam,
                 flangeThickness, sideW, factor, radius);
         double flangeOverIx = momentInertiaFlange.momentInertiaOverFlangeX(heightBeam,

@@ -1,6 +1,6 @@
 package ru.weld;
 
-public class MomentResistanceIBeam {
+public class MaxDistanceIBeam {
     public double distanceMaxX(double heightBeam, double sideF, double factor) {
         return 0.5 * heightBeam + sideF * factor;
     }
