@@ -54,4 +54,10 @@ public class MomentInertiaWall implements RoundUp {
         double iy = ((x * Math.pow(y, 3)) / 12) + (Math.pow(d, 2) * a);
         return 2 * iy;
     }
+
+    public double sumAreaWall(double heightBeam, double flangeThickness, double radius, double sideW, double factor) {
+        double l = length(heightBeam, flangeThickness, radius);
+        double h = width(sideW, factor);
+        return 2 * l * h;
+    }
 }

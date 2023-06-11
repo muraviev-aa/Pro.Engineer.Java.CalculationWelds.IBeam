@@ -780,6 +780,7 @@
                           <enabled value="true"/>
                           <font size="16" style="1"/>
                           <foreground color="-14471751"/>
+                          <horizontalAlignment value="4"/>
                         </properties>
                       </component>
                       <component id="70a66" class="javax.swing.JLabel">
@@ -789,7 +790,7 @@
                         <properties>
                           <font size="16" style="1"/>
                           <foreground color="-14471751"/>
-                          <text value="S"/>
+                          <text value="S "/>
                         </properties>
                       </component>
                       <component id="ec3a3" class="javax.swing.JLabel">
@@ -833,6 +834,7 @@
                           <enabled value="true"/>
                           <font size="16" style="1"/>
                           <foreground color="-14471751"/>
+                          <horizontalAlignment value="4"/>
                         </properties>
                       </component>
                       <component id="204" class="javax.swing.JLabel">
@@ -842,7 +844,7 @@
                         <properties>
                           <font size="16" style="1"/>
                           <foreground color="-14471751"/>
-                          <text value="L"/>
+                          <text value="L "/>
                         </properties>
                       </component>
                       <component id="84e0a" class="javax.swing.JLabel">

@@ -112,4 +112,17 @@ class MomentInertiaFlangeTest {
         double out = momentInertiaFlange.momentInertiaBelowFlangeY(flangeWidth, wallThickness, radius, side, factor);
         Assertions.assertEquals(expected, out, 0.01);
     }
+
+    @Test
+    void when70B4Then36Point03() {
+        double flangeWidth = 26.2;
+        double wallThickness = 1.7;
+        double radius = 2.4;
+        double sideF = 0.6;
+        double factor = 0.7;
+        double expected = 36.03;
+        MomentInertiaFlange momentInertiaFlange = new MomentInertiaFlange();
+        double out = momentInertiaFlange.sumAreaFlange(flangeWidth, wallThickness, radius, sideF, factor);
+        Assertions.assertEquals(expected, out, 0.01);
+    }
 }

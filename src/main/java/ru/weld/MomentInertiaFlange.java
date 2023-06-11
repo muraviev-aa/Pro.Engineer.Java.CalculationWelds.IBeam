@@ -56,4 +56,12 @@ public class MomentInertiaFlange implements RoundUp {
         double iy = (h * Math.pow(l, 3)) / 12;
         return 4 * (iy + Math.pow(d, 2) * s);
     }
+
+    public double sumAreaFlange(double flangeWidth, double wallThickness, double radius,
+                                double sideF, double factor) {
+        double lo = lengthOverFlange(flangeWidth);
+        double lb = lengthBelowFlange(flangeWidth, wallThickness, radius);
+        double h = sideF * factor;
+        return 2 * lo * h + 4 * lb * h;
+    }
 }

@@ -352,6 +352,15 @@ public class Weld extends JFrame implements RoundUp {
         textFieldWx.setText(Double.toString(wx));
         double wy = roundTwo(sumIy / maxDistanceIBeam.distanceMaxY(flangeWidth));
         textFieldWy.setText(Double.toString(wy));
+        double lw = momentInertiaWall.sumAreaWall(heightBeam, flangeThickness, radius, sideW, factor);
+        double lf = momentInertiaFlange.sumAreaFlange(flangeWidth, wallThickness, radius, sideF, factor);
+        double sumArea = roundTwo(lw + lf);
+        textFieldArea.setText(Double.toString(sumArea));
+        double l = momentInertiaWall.length(heightBeam, flangeThickness, radius);
+        double lo = momentInertiaFlange.lengthOverFlange(flangeWidth);
+        double lb = momentInertiaFlange.lengthBelowFlange(flangeWidth, wallThickness, radius);
+        double sumLength = roundTwo(2 * (l + lo) + 4 * lb);
+        textFieldLength.setText(String.valueOf(sumLength));
     }
 
     public static void main(String[] args) {
