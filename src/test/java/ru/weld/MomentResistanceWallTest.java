@@ -8,7 +8,7 @@ class MomentResistanceWallTest {
     void when25B1WxWallThen130Point68() {
         double momentInertiaWallX = 1293.73;
         double heightWeldX = 19.8;
-        MomentResistanceWall momentResistanceWall = new MomentResistanceWall();
+        MomentResistanceWeldWall momentResistanceWall = new MomentResistanceWeldWall();
         double expected = momentResistanceWall.momentResistanceWallX(momentInertiaWallX, heightWeldX);
         double out = 130.68;
         Assertions.assertEquals(expected, out, 0.01);
@@ -19,7 +19,7 @@ class MomentResistanceWallTest {
         double momentInertiaWallY = 25.57;
         double heightWeldY = 1.0;
         double wallThickness = 0.5;
-        MomentResistanceWall momentResistanceWall = new MomentResistanceWall();
+        MomentResistanceWeldWall momentResistanceWall = new MomentResistanceWeldWall();
         double expected = momentResistanceWall.momentResistanceWallY(momentInertiaWallY, heightWeldY, wallThickness);
         double out = 20.46;
         Assertions.assertEquals(expected, out, 0.01);

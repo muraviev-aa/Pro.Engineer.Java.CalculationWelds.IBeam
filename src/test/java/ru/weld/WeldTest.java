@@ -20,10 +20,10 @@ class WeldTest implements RoundUp {
         weld.setFactorZ(1);
         weld.selectSectionCalc(rwf, rwz);
         double factor = weld.getFactor();
-        MomentInertiaWall miw = new MomentInertiaWall();
-        double outX = miw.momentInertiaWallX(heightBeam, flangeThickness, sideW,
+        MomentInertiaWeldWall miw = new MomentInertiaWeldWall();
+        double outX = miw.momentInertiaWeldWallX(heightBeam, flangeThickness, sideW,
                 factor, radius);
-        double outY = miw.momentInertiaWallY(heightBeam, flangeThickness, sideW, factor,
+        double outY = miw.momentInertiaWeldWallY(heightBeam, flangeThickness, sideW, factor,
                 radius, wallThickness);
         Assertions.assertEquals(expectedX, outX, 0.01);
         Assertions.assertEquals(expectedY, outY, 0.01);
@@ -56,21 +56,21 @@ class WeldTest implements RoundUp {
         double expectedWx = 517.85;
         double expectedWy = 89.4;
         double factor = 1;
-        MomentInertiaWall momentInertiaWall = new MomentInertiaWall();
-        MomentInertiaFlange momentInertiaFlange = new MomentInertiaFlange();
+        MomentInertiaWeldWall momentInertiaWall = new MomentInertiaWeldWall();
+        MomentInertiaWeldFlange momentInertiaFlange = new MomentInertiaWeldFlange();
         MaxDistanceIBeam momentResistanceIBeam = new MaxDistanceIBeam();
-        double wallIx = momentInertiaWall.momentInertiaWallX(heightBeam,
+        double wallIx = momentInertiaWall.momentInertiaWeldWallX(heightBeam,
                 flangeThickness, sideW, factor, radius);
-        double flangeOverIx = momentInertiaFlange.momentInertiaOverFlangeX(heightBeam,
+        double flangeOverIx = momentInertiaFlange.momentInertiaWeldOverFlangeX(heightBeam,
                 flangeWidth, sideF, factor);
-        double flangeBelowIx = momentInertiaFlange.momentInertiaBelowFlangeX(heightBeam, flangeWidth,
+        double flangeBelowIx = momentInertiaFlange.momentInertiaWeldBelowFlangeX(heightBeam, flangeWidth,
                 flangeThickness, wallThickness, radius, sideF, factor);
         double outSumIx = roundTwo(wallIx + flangeOverIx + flangeBelowIx);
         Assertions.assertEquals(expectedIx, outSumIx, 0.01);
-        double wallIy = momentInertiaWall.momentInertiaWallY(heightBeam,
+        double wallIy = momentInertiaWall.momentInertiaWeldWallY(heightBeam,
                 flangeThickness, sideW, factor, radius, wallThickness);
-        double flangeOverIy = momentInertiaFlange.momentInertiaOverFlangeY(flangeWidth, sideF, factor);
-        double flangeBelowIy = momentInertiaFlange.momentInertiaBelowFlangeY(flangeWidth, wallThickness,
+        double flangeOverIy = momentInertiaFlange.momentInertiaWeldOverFlangeY(flangeWidth, sideF, factor);
+        double flangeBelowIy = momentInertiaFlange.momentInertiaWeldBelowFlangeY(flangeWidth, wallThickness,
                 radius, sideF, factor);
         double outSumIy = roundTwo(wallIy + flangeOverIy + flangeBelowIy);
         Assertions.assertEquals(expectedIy, outSumIy, 0.01);
@@ -94,21 +94,21 @@ class WeldTest implements RoundUp {
         double expectedWx = 297.98;
         double expectedWy = 51.54;
         double factor = 1;
-        MomentInertiaWall momentInertiaWall = new MomentInertiaWall();
-        MomentInertiaFlange momentInertiaFlange = new MomentInertiaFlange();
+        MomentInertiaWeldWall momentInertiaWall = new MomentInertiaWeldWall();
+        MomentInertiaWeldFlange momentInertiaFlange = new MomentInertiaWeldFlange();
         MaxDistanceIBeam momentResistanceIBeam = new MaxDistanceIBeam();
-        double wallIx = momentInertiaWall.momentInertiaWallX(heightBeam,
+        double wallIx = momentInertiaWall.momentInertiaWeldWallX(heightBeam,
                 flangeThickness, sideW, factor, radius);
-        double flangeOverIx = momentInertiaFlange.momentInertiaOverFlangeX(heightBeam,
+        double flangeOverIx = momentInertiaFlange.momentInertiaWeldOverFlangeX(heightBeam,
                 flangeWidth, sideF, factor);
-        double flangeBelowIx = momentInertiaFlange.momentInertiaBelowFlangeX(heightBeam, flangeWidth,
+        double flangeBelowIx = momentInertiaFlange.momentInertiaWeldBelowFlangeX(heightBeam, flangeWidth,
                 flangeThickness, wallThickness, radius, sideF, factor);
         double outSumIx = roundTwo(wallIx + flangeOverIx + flangeBelowIx);
         Assertions.assertEquals(expectedIx, outSumIx, 0.01);
-        double wallIy = momentInertiaWall.momentInertiaWallY(heightBeam,
+        double wallIy = momentInertiaWall.momentInertiaWeldWallY(heightBeam,
                 flangeThickness, sideW, factor, radius, wallThickness);
-        double flangeOverIy = momentInertiaFlange.momentInertiaOverFlangeY(flangeWidth, sideF, factor);
-        double flangeBelowIy = momentInertiaFlange.momentInertiaBelowFlangeY(flangeWidth, wallThickness,
+        double flangeOverIy = momentInertiaFlange.momentInertiaWeldOverFlangeY(flangeWidth, sideF, factor);
+        double flangeBelowIy = momentInertiaFlange.momentInertiaWeldBelowFlangeY(flangeWidth, wallThickness,
                 radius, sideF, factor);
         double outSumIy = roundTwo(wallIy + flangeOverIy + flangeBelowIy);
         Assertions.assertEquals(expectedIy, outSumIy, 0.01);
@@ -132,21 +132,21 @@ class WeldTest implements RoundUp {
         double expectedWx = 5623.94;
         double expectedWy = 693.94;
         double factor = 1;
-        MomentInertiaWall momentInertiaWall = new MomentInertiaWall();
-        MomentInertiaFlange momentInertiaFlange = new MomentInertiaFlange();
+        MomentInertiaWeldWall momentInertiaWall = new MomentInertiaWeldWall();
+        MomentInertiaWeldFlange momentInertiaFlange = new MomentInertiaWeldFlange();
         MaxDistanceIBeam momentResistanceIBeam = new MaxDistanceIBeam();
-        double wallIx = momentInertiaWall.momentInertiaWallX(heightBeam,
+        double wallIx = momentInertiaWall.momentInertiaWeldWallX(heightBeam,
                 flangeThickness, sideW, factor, radius);
-        double flangeOverIx = momentInertiaFlange.momentInertiaOverFlangeX(heightBeam,
+        double flangeOverIx = momentInertiaFlange.momentInertiaWeldOverFlangeX(heightBeam,
                 flangeWidth, sideF, factor);
-        double flangeBelowIx = momentInertiaFlange.momentInertiaBelowFlangeX(heightBeam, flangeWidth,
+        double flangeBelowIx = momentInertiaFlange.momentInertiaWeldBelowFlangeX(heightBeam, flangeWidth,
                 flangeThickness, wallThickness, radius, sideF, factor);
         double outSumIx = roundTwo(wallIx + flangeOverIx + flangeBelowIx);
         Assertions.assertEquals(expectedIx, outSumIx, 0.01);
-        double wallIy = momentInertiaWall.momentInertiaWallY(heightBeam,
+        double wallIy = momentInertiaWall.momentInertiaWeldWallY(heightBeam,
                 flangeThickness, sideW, factor, radius, wallThickness);
-        double flangeOverIy = momentInertiaFlange.momentInertiaOverFlangeY(flangeWidth, sideF, factor);
-        double flangeBelowIy = momentInertiaFlange.momentInertiaBelowFlangeY(flangeWidth, wallThickness,
+        double flangeOverIy = momentInertiaFlange.momentInertiaWeldOverFlangeY(flangeWidth, sideF, factor);
+        double flangeBelowIy = momentInertiaFlange.momentInertiaWeldBelowFlangeY(flangeWidth, wallThickness,
                 radius, sideF, factor);
         double outSumIy = roundTwo(wallIy + flangeOverIy + flangeBelowIy);
         Assertions.assertEquals(expectedIy, outSumIy, 0.01);

@@ -1,6 +1,6 @@
 package ru.weld;
 
-public class MomentResistanceWall implements RoundUp {
+public class MomentResistanceWeldWall implements RoundUp {
     public double momentResistanceWallX(double momentInertiaWallX, double heightWeldX) {
         double wx = momentInertiaWallX / (0.5 * heightWeldX);
         return roundTwo(wx);

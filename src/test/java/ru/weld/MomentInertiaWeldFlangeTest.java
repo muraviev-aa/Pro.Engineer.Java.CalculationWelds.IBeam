@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class MomentInertiaFlangeTest {
+class MomentInertiaWeldFlangeTest {
 
     @Test
     void when25B1Then3Point75() {
@@ -13,8 +13,8 @@ class MomentInertiaFlangeTest {
         double wallThickness = 0.5;
         double radius = 1.2;
         double expected = 3.75;
-        MomentInertiaFlange momentInertiaFlange = new MomentInertiaFlange();
-        double out = momentInertiaFlange.lengthBelowFlange(flangeWidth, wallThickness, radius);
+        MomentInertiaWeldFlange momentInertiaFlange = new MomentInertiaWeldFlange();
+        double out = momentInertiaFlange.lengthWeldBelowFlange(flangeWidth, wallThickness, radius);
         Assertions.assertEquals(expected, out, 0.01);
     }
 
@@ -22,8 +22,8 @@ class MomentInertiaFlangeTest {
     void when25B1Then11Point4() {
         double flangeWidth = 12.4;
         double expected = 11.4;
-        MomentInertiaFlange momentInertiaFlange = new MomentInertiaFlange();
-        double out = momentInertiaFlange.lengthOverFlange(flangeWidth);
+        MomentInertiaWeldFlange momentInertiaFlange = new MomentInertiaWeldFlange();
+        double out = momentInertiaFlange.lengthWeldOverFlange(flangeWidth);
         Assertions.assertEquals(expected, out, 0.1);
     }
 
@@ -33,8 +33,8 @@ class MomentInertiaFlangeTest {
         double side = 1;
         double factor = 1;
         double expected = 12.9;
-        MomentInertiaFlange momentInertiaFlange = new MomentInertiaFlange();
-        double out = momentInertiaFlange.distanceCenterGravityOverX(heightBeam, side, factor);
+        MomentInertiaWeldFlange momentInertiaFlange = new MomentInertiaWeldFlange();
+        double out = momentInertiaFlange.distanceCenterGravityWeldOverX(heightBeam, side, factor);
         Assertions.assertEquals(expected, out, 0.1);
     }
 
@@ -45,8 +45,8 @@ class MomentInertiaFlangeTest {
         double side = 1;
         double factor = 1;
         double expected = 11.1;
-        MomentInertiaFlange momentInertiaFlange = new MomentInertiaFlange();
-        double out = momentInertiaFlange.distanceCenterGravityBelowX(heightBeam, flangeThickness, side, factor);
+        MomentInertiaWeldFlange momentInertiaFlange = new MomentInertiaWeldFlange();
+        double out = momentInertiaFlange.distanceCenterGravityWeldBelowX(heightBeam, flangeThickness, side, factor);
         Assertions.assertEquals(expected, out, 0.1);
     }
 
@@ -57,8 +57,8 @@ class MomentInertiaFlangeTest {
         double side = 1;
         double factor = 1;
         double expected = 3796.05;
-        MomentInertiaFlange momentInertiaFlange = new MomentInertiaFlange();
-        double out = momentInertiaFlange.momentInertiaOverFlangeX(heightBeam, flangeWidth, side, factor);
+        MomentInertiaWeldFlange momentInertiaFlange = new MomentInertiaWeldFlange();
+        double out = momentInertiaFlange.momentInertiaWeldOverFlangeX(heightBeam, flangeWidth, side, factor);
         Assertions.assertEquals(expected, out, 0.01);
     }
 
@@ -72,8 +72,8 @@ class MomentInertiaFlangeTest {
         double side = 1;
         double factor = 1;
         double expected = 1849.4;
-        MomentInertiaFlange momentInertiaFlange = new MomentInertiaFlange();
-        double out = momentInertiaFlange.momentInertiaBelowFlangeX(heightBeam, flangeWidth, flangeThickness,
+        MomentInertiaWeldFlange momentInertiaFlange = new MomentInertiaWeldFlange();
+        double out = momentInertiaFlange.momentInertiaWeldBelowFlangeX(heightBeam, flangeWidth, flangeThickness,
         wallThickness, radius, side, factor);
         Assertions.assertEquals(expected, out, 0.1);
     }
@@ -84,8 +84,8 @@ class MomentInertiaFlangeTest {
         double side = 1;
         double factor = 1;
         double expected = 246.93;
-        MomentInertiaFlange momentInertiaFlange = new MomentInertiaFlange();
-        double out = momentInertiaFlange.momentInertiaOverFlangeY(flangeWidth, side, factor);
+        MomentInertiaWeldFlange momentInertiaFlange = new MomentInertiaWeldFlange();
+        double out = momentInertiaFlange.momentInertiaWeldOverFlangeY(flangeWidth, side, factor);
         Assertions.assertEquals(expected, out, 0.01);
     }
 
@@ -95,8 +95,8 @@ class MomentInertiaFlangeTest {
         double wallThickness = 0.5;
         double radius = 1.2;
         double expected = 3.83;
-        MomentInertiaFlange momentInertiaFlange = new MomentInertiaFlange();
-        double out = momentInertiaFlange.distanceCenterGravityBelowY(flangeWidth, wallThickness, radius);
+        MomentInertiaWeldFlange momentInertiaFlange = new MomentInertiaWeldFlange();
+        double out = momentInertiaFlange.distanceCenterGravityWeldBelowY(flangeWidth, wallThickness, radius);
         Assertions.assertEquals(expected, out, 0.01);
     }
 
@@ -108,8 +108,8 @@ class MomentInertiaFlangeTest {
         double side = 1;
         double factor = 1;
         double expected = 237.04;
-        MomentInertiaFlange momentInertiaFlange = new MomentInertiaFlange();
-        double out = momentInertiaFlange.momentInertiaBelowFlangeY(flangeWidth, wallThickness, radius, side, factor);
+        MomentInertiaWeldFlange momentInertiaFlange = new MomentInertiaWeldFlange();
+        double out = momentInertiaFlange.momentInertiaWeldBelowFlangeY(flangeWidth, wallThickness, radius, side, factor);
         Assertions.assertEquals(expected, out, 0.01);
     }
 
@@ -121,8 +121,8 @@ class MomentInertiaFlangeTest {
         double sideF = 0.6;
         double factor = 0.7;
         double expected = 36.03;
-        MomentInertiaFlange momentInertiaFlange = new MomentInertiaFlange();
-        double out = momentInertiaFlange.sumAreaFlange(flangeWidth, wallThickness, radius, sideF, factor);
+        MomentInertiaWeldFlange momentInertiaFlange = new MomentInertiaWeldFlange();
+        double out = momentInertiaFlange.sumAreaWeldFlange(flangeWidth, wallThickness, radius, sideF, factor);
         Assertions.assertEquals(expected, out, 0.01);
     }
 }

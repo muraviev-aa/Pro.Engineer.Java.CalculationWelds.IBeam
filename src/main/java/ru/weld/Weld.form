@@ -919,7 +919,7 @@
                       </grid>
                     </constraints>
                     <properties>
-                      <font size="14" style="1"/>
+                      <font size="16" style="1"/>
                       <horizontalAlignment value="4"/>
                     </properties>
                   </component>
@@ -930,7 +930,7 @@
                       </grid>
                     </constraints>
                     <properties>
-                      <font size="14" style="1"/>
+                      <font size="16" style="1"/>
                       <horizontalAlignment value="4"/>
                     </properties>
                   </component>
@@ -959,7 +959,7 @@
                       </grid>
                     </constraints>
                     <properties>
-                      <font size="14" style="1"/>
+                      <font size="16" style="1"/>
                       <horizontalAlignment value="4"/>
                     </properties>
                   </component>
@@ -970,7 +970,7 @@
                       </grid>
                     </constraints>
                     <properties>
-                      <font size="14" style="1"/>
+                      <font size="16" style="1"/>
                       <horizontalAlignment value="4"/>
                     </properties>
                   </component>
@@ -1047,7 +1047,7 @@
                       </grid>
                     </constraints>
                     <properties>
-                      <font size="14" style="1"/>
+                      <font size="16" style="1"/>
                       <horizontalAlignment value="4"/>
                     </properties>
                   </component>
@@ -1058,7 +1058,7 @@
                       </grid>
                     </constraints>
                     <properties>
-                      <font size="14" style="1"/>
+                      <font size="16" style="1"/>
                       <horizontalAlignment value="4"/>
                     </properties>
                   </component>
@@ -1087,7 +1087,7 @@
                       </grid>
                     </constraints>
                     <properties>
-                      <font size="14" style="1"/>
+                      <font size="16" style="1"/>
                       <horizontalAlignment value="4"/>
                     </properties>
                   </component>
@@ -1098,7 +1098,7 @@
                       </grid>
                     </constraints>
                     <properties>
-                      <font size="14" style="1"/>
+                      <font size="16" style="1"/>
                       <horizontalAlignment value="4"/>
                     </properties>
                   </component>
@@ -1175,7 +1175,7 @@
                       </grid>
                     </constraints>
                     <properties>
-                      <font size="14" style="1"/>
+                      <font size="16" style="1"/>
                       <horizontalAlignment value="4"/>
                     </properties>
                   </component>
@@ -1186,7 +1186,7 @@
                       </grid>
                     </constraints>
                     <properties>
-                      <font size="14" style="1"/>
+                      <font size="16" style="1"/>
                       <horizontalAlignment value="4"/>
                     </properties>
                   </component>
@@ -1215,7 +1215,7 @@
                       </grid>
                     </constraints>
                     <properties>
-                      <font size="14" style="1"/>
+                      <font size="16" style="1"/>
                       <horizontalAlignment value="4"/>
                     </properties>
                   </component>
@@ -1226,7 +1226,7 @@
                       </grid>
                     </constraints>
                     <properties>
-                      <font size="14" style="1"/>
+                      <font size="16" style="1"/>
                       <horizontalAlignment value="4"/>
                     </properties>
                   </component>

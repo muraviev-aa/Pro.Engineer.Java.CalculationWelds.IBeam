@@ -70,6 +70,10 @@ public class Weld extends JFrame implements RoundUp {
     double radius;
     double rwf;
     double rwz;
+    double lengthRibOne;
+    double bevelRibOne;
+    double sideRibOne;
+    double thicknessRibOne;
 
     private final Object[] columnsRwf = new String[]{
             "Тип электрода / марка проволоки", "Rwf [кг/см^2]"
@@ -210,27 +214,25 @@ public class Weld extends JFrame implements RoundUp {
             textFieldLength.setText("");
         });
         buttonIW.addActionListener(e -> {
-            readingDataFromCheckboxesAndLabels();
-            baseBeamWithoutRibs();
-//            if (comboBox1.getSelectedItem() == "withoutRibs") {
-//                readingDataFromCheckboxesAndLabels();
-//                baseBeamWithoutRibs();
-//            } else if (comboBox1.getSelectedItem() == "allRibs") {
-//                System.out.println("allRibs");
-//            } else if (comboBox1.getSelectedItem() == "ribsNumberOne") {
-//                tabbedPane1.setEnabledAt(1, true);
-//                System.out.println("ribsNumberOne");
-//            } else if (comboBox1.getSelectedItem() == "ribsNumberTwo") {
-//                System.out.println("ribsNumberTwo");
-//            } else if (comboBox1.getSelectedItem() == "ribsNumberThree") {
-//                System.out.println("ribsNumberThree");
-//            } else if (comboBox1.getSelectedItem() == "ribsNumbersOneTwo") {
-//                System.out.println("ribsNumbersOneTwo");
-//            } else if (comboBox1.getSelectedItem() == "ribsNumbersOneThree") {
-//                System.out.println("ribsNumbersOneThree");
-//            } else if (comboBox1.getSelectedItem() == "ribsNumbersTwoThree") {
-//                System.out.println("ribsNumbersTwoThree");
-//            }
+            if (comboBox1.getSelectedItem() == "withoutRibs") {
+                readingDataFromCheckboxesAndLabelsBeam();
+                calculateResult();
+            } else if (comboBox1.getSelectedItem() == "allRibs") {
+                System.out.println("allRibs");
+            } else if (comboBox1.getSelectedItem() == "ribsNumberOne") {
+                readingDataFromCheckboxesAndLabelsRibsOne();
+                calculateResult();
+            } else if (comboBox1.getSelectedItem() == "ribsNumberTwo") {
+                System.out.println("ribsNumberTwo");
+            } else if (comboBox1.getSelectedItem() == "ribsNumberThree") {
+                System.out.println("ribsNumberThree");
+            } else if (comboBox1.getSelectedItem() == "ribsNumbersOneTwo") {
+                System.out.println("ribsNumbersOneTwo");
+            } else if (comboBox1.getSelectedItem() == "ribsNumbersOneThree") {
+                System.out.println("ribsNumbersOneThree");
+            } else if (comboBox1.getSelectedItem() == "ribsNumbersTwoThree") {
+                System.out.println("ribsNumbersTwoThree");
+            }
         });
         checkBox1And15.addActionListener(e -> factorZ = 1.15);
         checkBox1And05.addActionListener(e -> factorZ = 1.05);
@@ -333,7 +335,7 @@ public class Weld extends JFrame implements RoundUp {
         }
     }
 
-    public void readingDataFromCheckboxesAndLabels() {
+    public void readingDataFromCheckboxesAndLabelsBeam() {
         heightBeam = Double.parseDouble(textFieldHeightBeam.getText());
         flangeWidth = Double.parseDouble(textFieldFlangeWidth.getText());
         flangeThickness = Double.parseDouble(textFieldFlangeThickness.getText());
@@ -345,55 +347,87 @@ public class Weld extends JFrame implements RoundUp {
         rwz = Double.parseDouble(labelRwz.getText());
     }
 
-    public void baseBeamWithoutRibs() {
-        MomentInertiaWall momentInertiaWall = new MomentInertiaWall();
-        MomentInertiaFlange momentInertiaFlange = new MomentInertiaFlange();
+    public void readingDataFromCheckboxesAndLabelsRibsOne() {
+        heightBeam = Double.parseDouble(textFieldHeightBeam.getText());
+        flangeWidth = Double.parseDouble(textFieldFlangeWidth.getText());
+        flangeThickness = Double.parseDouble(textFieldFlangeThickness.getText());
+        wallThickness = Double.parseDouble(textFieldWallThickness.getText());
+        sideW = Double.parseDouble(textFieldWallKf.getText());
+        sideF = Double.parseDouble(textFieldFlangeKf.getText());
+        radius = Double.parseDouble(textFieldRadius.getText());
+        rwf = Double.parseDouble(labelRwf.getText());
+        rwz = Double.parseDouble(labelRwz.getText());
+        lengthRibOne = Double.parseDouble(textFieldRibLength1.getText());
+        bevelRibOne = Double.parseDouble(textFieldRibBevel1.getText());
+        sideRibOne = Double.parseDouble(textFieldRibSide1.getText());
+        thicknessRibOne = Double.parseDouble(textFieldRibThickness1.getText());
+    }
+
+    public void recordingResultBeam(double sumBeamIx, double sumBeamIy, double sumBeamWx, double sumBeamWy,
+                                    double sumBeamArea, double sumBeamLength) {
+        textFieldIx.setText(Double.toString(sumBeamIx));
+        textFieldIy.setText(Double.toString(sumBeamIy));
+        textFieldWx.setText(Double.toString(sumBeamWx));
+        textFieldWy.setText(Double.toString(sumBeamWy));
+        textFieldArea.setText(Double.toString(sumBeamArea));
+        textFieldLength.setText(String.valueOf(sumBeamLength));
+    }
+
+    public void recordingResultBeamRibsOne(double sumBeamRibsOneIx, double sumBeamRibsOneIy) {
+        textFieldIx.setText(Double.toString(sumBeamRibsOneIx));
+        textFieldIy.setText(Double.toString(sumBeamRibsOneIy));
+    }
+
+    public void calculateResult() {
+        MomentInertiaWeldWall momentInertiaWall = new MomentInertiaWeldWall();
+        MomentInertiaWeldFlange momentInertiaFlange = new MomentInertiaWeldFlange();
+        MomentInertiaWeldRibsOne momentInertiaWeldRibsOne = new MomentInertiaWeldRibsOne();
         MaxDistanceIBeam maxDistanceIBeam = new MaxDistanceIBeam();
         selectSectionCalc(rwf, rwz);
         /**
          * Выводим factor
          */
         System.out.println(factor);
-        double wallIx = momentInertiaWall.momentInertiaWallX(heightBeam,
+        double wallIx = momentInertiaWall.momentInertiaWeldWallX(heightBeam,
                 flangeThickness, sideW, factor, radius);
-        double flangeOverIx = momentInertiaFlange.momentInertiaOverFlangeX(heightBeam,
+        double flangeOverIx = momentInertiaFlange.momentInertiaWeldOverFlangeX(heightBeam,
                 flangeWidth, sideF, factor);
-        double flangeBelowIx = momentInertiaFlange.momentInertiaBelowFlangeX(heightBeam, flangeWidth,
+        double flangeBelowIx = momentInertiaFlange.momentInertiaWeldBelowFlangeX(heightBeam, flangeWidth,
                 flangeThickness, wallThickness, radius, sideF, factor);
+        double ribsOneIx = momentInertiaWeldRibsOne.momentInertiaWeldRibsOneX(heightBeam, lengthRibOne,
+                factor, bevelRibOne, sideRibOne);
         double sumBeamIx = roundTwo(wallIx + flangeOverIx + flangeBelowIx);
+        double sumBeamRibsOneIx = roundTwo(wallIx + flangeOverIx + flangeBelowIx + ribsOneIx);
 
-        double wallIy = momentInertiaWall.momentInertiaWallY(heightBeam,
+        double wallIy = momentInertiaWall.momentInertiaWeldWallY(heightBeam,
                 flangeThickness, sideW, factor, radius, wallThickness);
-        double flangeOverIy = momentInertiaFlange.momentInertiaOverFlangeY(flangeWidth, sideF, factor);
-        double flangeBelowIy = momentInertiaFlange.momentInertiaBelowFlangeY(flangeWidth, wallThickness,
+        double flangeOverIy = momentInertiaFlange.momentInertiaWeldOverFlangeY(flangeWidth, sideF, factor);
+        double flangeBelowIy = momentInertiaFlange.momentInertiaWeldBelowFlangeY(flangeWidth, wallThickness,
                 radius, sideF, factor);
+        double ribsOneIy = momentInertiaWeldRibsOne.momentInertiaWeldRibsOneY(thicknessRibOne, lengthRibOne,
+                bevelRibOne, sideRibOne, factor);
         double sumBeamIy = roundTwo(wallIy + flangeOverIy + flangeBelowIy);
+        double sumBeamRibsOneIy = roundTwo(wallIy + flangeOverIy + flangeBelowIy + ribsOneIy);
 
         double sumBeamWx = roundTwo(sumBeamIx / maxDistanceIBeam.distanceMaxX(heightBeam, sideF, factor));
 
         double sumBeamWy = roundTwo(sumBeamIy / maxDistanceIBeam.distanceMaxY(flangeWidth));
 
-        double lw = momentInertiaWall.sumAreaWall(heightBeam, flangeThickness, radius, sideW, factor);
-        double lf = momentInertiaFlange.sumAreaFlange(flangeWidth, wallThickness, radius, sideF, factor);
+        double lw = momentInertiaWall.sumAreaWeldWall(heightBeam, flangeThickness, radius, sideW, factor);
+        double lf = momentInertiaFlange.sumAreaWeldFlange(flangeWidth, wallThickness, radius, sideF, factor);
         double sumBeamArea = roundTwo(lw + lf);
 
-        double l = momentInertiaWall.length(heightBeam, flangeThickness, radius);
-        double lo = momentInertiaFlange.lengthOverFlange(flangeWidth);
-        double lb = momentInertiaFlange.lengthBelowFlange(flangeWidth, wallThickness, radius);
+        double l = momentInertiaWall.lengthWeld(heightBeam, flangeThickness, radius);
+        double lo = momentInertiaFlange.lengthWeldOverFlange(flangeWidth);
+        double lb = momentInertiaFlange.lengthWeldBelowFlange(flangeWidth, wallThickness, radius);
         double sumBeamLength = roundTwo(2 * (l + lo) + 4 * lb);
 
         if (comboBox1.getSelectedItem() == "withoutRibs") {
-            textFieldIx.setText(Double.toString(sumBeamIx));
-            textFieldIy.setText(Double.toString(sumBeamIy));
-            textFieldWx.setText(Double.toString(sumBeamWx));
-            textFieldWy.setText(Double.toString(sumBeamWy));
-            textFieldArea.setText(Double.toString(sumBeamArea));
-            textFieldLength.setText(String.valueOf(sumBeamLength));
+            recordingResultBeam(sumBeamIx, sumBeamIy, sumBeamWx, sumBeamWy, sumBeamArea, sumBeamLength);
         } else if (comboBox1.getSelectedItem() == "allRibs") {
             System.out.println("allRibs");
         } else if (comboBox1.getSelectedItem() == "ribsNumberOne") {
-//            tabbedPane1.setEnabledAt(1, true);
-            System.out.println("ribsNumberOne");
+            recordingResultBeamRibsOne(sumBeamRibsOneIx, sumBeamRibsOneIy);
         } else if (comboBox1.getSelectedItem() == "ribsNumberTwo") {
             System.out.println("ribsNumberTwo");
         } else if (comboBox1.getSelectedItem() == "ribsNumberThree") {

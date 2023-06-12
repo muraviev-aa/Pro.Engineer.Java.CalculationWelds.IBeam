@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class MomentResistanceIBeamTest {
+class MomentResistanceWeldIBeamTest {
     @Test
     void when25B1Then13Point4() {
         double heightBeam = 24.8;
