@@ -55,6 +55,12 @@ public class Weld extends JFrame implements RoundUp {
     private JTextField textFieldRibBevel3;
     private JTextField textFieldArea;
     private JTextField textFieldLength;
+    private JTextField textFieldRibSide1;
+    private JTextField textFieldRibThickness1;
+    private JTextField textFieldRibSide2;
+    private JTextField textFieldRibThickness2;
+    private JTextField textFieldRibSide3;
+    private JTextField textFieldRibThickness3;
     double heightBeam;
     double flangeWidth;
     double flangeThickness;
@@ -204,25 +210,27 @@ public class Weld extends JFrame implements RoundUp {
             textFieldLength.setText("");
         });
         buttonIW.addActionListener(e -> {
-            if (comboBox1.getSelectedItem() == "withoutRibs") {
-                readingDataFromCheckboxesAndLabels();
-                baseBeamWithoutRibs();
-            } else if (comboBox1.getSelectedItem() == "allRibs") {
-                System.out.println("allRibs");
-            } else if (comboBox1.getSelectedItem() == "ribsNumberOne") {
-                tabbedPane1.setEnabledAt(1, true);
-                System.out.println("ribsNumberOne");
-            } else if (comboBox1.getSelectedItem() == "ribsNumberTwo") {
-                System.out.println("ribsNumberTwo");
-            } else if (comboBox1.getSelectedItem() == "ribsNumberThree") {
-                System.out.println("ribsNumberThree");
-            } else if (comboBox1.getSelectedItem() == "ribsNumbersOneTwo") {
-                System.out.println("ribsNumbersOneTwo");
-            } else if (comboBox1.getSelectedItem() == "ribsNumbersOneThree") {
-                System.out.println("ribsNumbersOneThree");
-            } else if (comboBox1.getSelectedItem() == "ribsNumbersTwoThree") {
-                System.out.println("ribsNumbersTwoThree");
-            }
+            readingDataFromCheckboxesAndLabels();
+            baseBeamWithoutRibs();
+//            if (comboBox1.getSelectedItem() == "withoutRibs") {
+//                readingDataFromCheckboxesAndLabels();
+//                baseBeamWithoutRibs();
+//            } else if (comboBox1.getSelectedItem() == "allRibs") {
+//                System.out.println("allRibs");
+//            } else if (comboBox1.getSelectedItem() == "ribsNumberOne") {
+//                tabbedPane1.setEnabledAt(1, true);
+//                System.out.println("ribsNumberOne");
+//            } else if (comboBox1.getSelectedItem() == "ribsNumberTwo") {
+//                System.out.println("ribsNumberTwo");
+//            } else if (comboBox1.getSelectedItem() == "ribsNumberThree") {
+//                System.out.println("ribsNumberThree");
+//            } else if (comboBox1.getSelectedItem() == "ribsNumbersOneTwo") {
+//                System.out.println("ribsNumbersOneTwo");
+//            } else if (comboBox1.getSelectedItem() == "ribsNumbersOneThree") {
+//                System.out.println("ribsNumbersOneThree");
+//            } else if (comboBox1.getSelectedItem() == "ribsNumbersTwoThree") {
+//                System.out.println("ribsNumbersTwoThree");
+//            }
         });
         checkBox1And15.addActionListener(e -> factorZ = 1.15);
         checkBox1And05.addActionListener(e -> factorZ = 1.05);
@@ -352,28 +360,51 @@ public class Weld extends JFrame implements RoundUp {
                 flangeWidth, sideF, factor);
         double flangeBelowIx = momentInertiaFlange.momentInertiaBelowFlangeX(heightBeam, flangeWidth,
                 flangeThickness, wallThickness, radius, sideF, factor);
-        double sumIx = roundTwo(wallIx + flangeOverIx + flangeBelowIx);
-        textFieldIx.setText(Double.toString(sumIx));
+        double sumBeamIx = roundTwo(wallIx + flangeOverIx + flangeBelowIx);
+
         double wallIy = momentInertiaWall.momentInertiaWallY(heightBeam,
                 flangeThickness, sideW, factor, radius, wallThickness);
         double flangeOverIy = momentInertiaFlange.momentInertiaOverFlangeY(flangeWidth, sideF, factor);
         double flangeBelowIy = momentInertiaFlange.momentInertiaBelowFlangeY(flangeWidth, wallThickness,
                 radius, sideF, factor);
-        double sumIy = roundTwo(wallIy + flangeOverIy + flangeBelowIy);
-        textFieldIy.setText(Double.toString(sumIy));
-        double wx = roundTwo(sumIx / maxDistanceIBeam.distanceMaxX(heightBeam, sideF, factor));
-        textFieldWx.setText(Double.toString(wx));
-        double wy = roundTwo(sumIy / maxDistanceIBeam.distanceMaxY(flangeWidth));
-        textFieldWy.setText(Double.toString(wy));
+        double sumBeamIy = roundTwo(wallIy + flangeOverIy + flangeBelowIy);
+
+        double sumBeamWx = roundTwo(sumBeamIx / maxDistanceIBeam.distanceMaxX(heightBeam, sideF, factor));
+
+        double sumBeamWy = roundTwo(sumBeamIy / maxDistanceIBeam.distanceMaxY(flangeWidth));
+
         double lw = momentInertiaWall.sumAreaWall(heightBeam, flangeThickness, radius, sideW, factor);
         double lf = momentInertiaFlange.sumAreaFlange(flangeWidth, wallThickness, radius, sideF, factor);
-        double sumArea = roundTwo(lw + lf);
-        textFieldArea.setText(Double.toString(sumArea));
+        double sumBeamArea = roundTwo(lw + lf);
+
         double l = momentInertiaWall.length(heightBeam, flangeThickness, radius);
         double lo = momentInertiaFlange.lengthOverFlange(flangeWidth);
         double lb = momentInertiaFlange.lengthBelowFlange(flangeWidth, wallThickness, radius);
-        double sumLength = roundTwo(2 * (l + lo) + 4 * lb);
-        textFieldLength.setText(String.valueOf(sumLength));
+        double sumBeamLength = roundTwo(2 * (l + lo) + 4 * lb);
+
+        if (comboBox1.getSelectedItem() == "withoutRibs") {
+            textFieldIx.setText(Double.toString(sumBeamIx));
+            textFieldIy.setText(Double.toString(sumBeamIy));
+            textFieldWx.setText(Double.toString(sumBeamWx));
+            textFieldWy.setText(Double.toString(sumBeamWy));
+            textFieldArea.setText(Double.toString(sumBeamArea));
+            textFieldLength.setText(String.valueOf(sumBeamLength));
+        } else if (comboBox1.getSelectedItem() == "allRibs") {
+            System.out.println("allRibs");
+        } else if (comboBox1.getSelectedItem() == "ribsNumberOne") {
+//            tabbedPane1.setEnabledAt(1, true);
+            System.out.println("ribsNumberOne");
+        } else if (comboBox1.getSelectedItem() == "ribsNumberTwo") {
+            System.out.println("ribsNumberTwo");
+        } else if (comboBox1.getSelectedItem() == "ribsNumberThree") {
+            System.out.println("ribsNumberThree");
+        } else if (comboBox1.getSelectedItem() == "ribsNumbersOneTwo") {
+            System.out.println("ribsNumbersOneTwo");
+        } else if (comboBox1.getSelectedItem() == "ribsNumbersOneThree") {
+            System.out.println("ribsNumbersOneThree");
+        } else if (comboBox1.getSelectedItem() == "ribsNumbersTwoThree") {
+            System.out.println("ribsNumbersTwoThree");
+        }
     }
 
     public static void main(String[] args) {
