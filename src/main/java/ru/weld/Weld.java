@@ -373,53 +373,60 @@ public class Weld extends JFrame implements RoundUp {
         textFieldLength.setText(String.valueOf(sumBeamLength));
     }
 
-    public void recordingResultBeamRibsOne(double sumBeamRibsOneIx, double sumBeamRibsOneIy) {
+    public void recordingResultBeamRibsOne(double sumBeamRibsOneIx, double sumBeamRibsOneIy, double sumBeamRibsOneWx, double sumBeamRibsOneWy) {
         textFieldIx.setText(Double.toString(sumBeamRibsOneIx));
         textFieldIy.setText(Double.toString(sumBeamRibsOneIy));
+        textFieldWx.setText(Double.toString(sumBeamRibsOneWx));
+        textFieldWy.setText(Double.toString(sumBeamRibsOneWy));
     }
 
     public void calculateResult() {
-        MomentInertiaWeldWall momentInertiaWall = new MomentInertiaWeldWall();
-        MomentInertiaWeldFlange momentInertiaFlange = new MomentInertiaWeldFlange();
+        MomentInertiaWeldWall momentInertiaWeldWall = new MomentInertiaWeldWall();
+        MomentInertiaWeldFlange momentInertiaWeldFlange = new MomentInertiaWeldFlange();
         MomentInertiaWeldRibsOne momentInertiaWeldRibsOne = new MomentInertiaWeldRibsOne();
-        MaxDistanceIBeam maxDistanceIBeam = new MaxDistanceIBeam();
+        MaxDistanceWeldIBeam maxDistanceWeldIBeam = new MaxDistanceWeldIBeam();
+        MaxDistanceWeldRibsOne maxDistanceWeldRibsOne = new MaxDistanceWeldRibsOne();
         selectSectionCalc(rwf, rwz);
         /**
          * Выводим factor
          */
         System.out.println(factor);
-        double wallIx = momentInertiaWall.momentInertiaWeldWallX(heightBeam,
+        double wallIx = momentInertiaWeldWall.momentInertiaWeldWallX(heightBeam,
                 flangeThickness, sideW, factor, radius);
-        double flangeOverIx = momentInertiaFlange.momentInertiaWeldOverFlangeX(heightBeam,
+        double flangeOverIx = momentInertiaWeldFlange.momentInertiaWeldOverFlangeX(heightBeam,
                 flangeWidth, sideF, factor);
-        double flangeBelowIx = momentInertiaFlange.momentInertiaWeldBelowFlangeX(heightBeam, flangeWidth,
+        double flangeBelowIx = momentInertiaWeldFlange.momentInertiaWeldBelowFlangeX(heightBeam, flangeWidth,
                 flangeThickness, wallThickness, radius, sideF, factor);
         double ribsOneIx = momentInertiaWeldRibsOne.momentInertiaWeldRibsOneX(heightBeam, lengthRibOne,
                 factor, bevelRibOne, sideRibOne);
         double sumBeamIx = roundTwo(wallIx + flangeOverIx + flangeBelowIx);
         double sumBeamRibsOneIx = roundTwo(wallIx + flangeOverIx + flangeBelowIx + ribsOneIx);
 
-        double wallIy = momentInertiaWall.momentInertiaWeldWallY(heightBeam,
+        double wallIy = momentInertiaWeldWall.momentInertiaWeldWallY(heightBeam,
                 flangeThickness, sideW, factor, radius, wallThickness);
-        double flangeOverIy = momentInertiaFlange.momentInertiaWeldOverFlangeY(flangeWidth, sideF, factor);
-        double flangeBelowIy = momentInertiaFlange.momentInertiaWeldBelowFlangeY(flangeWidth, wallThickness,
+        double flangeOverIy = momentInertiaWeldFlange.momentInertiaWeldOverFlangeY(flangeWidth, sideF, factor);
+        double flangeBelowIy = momentInertiaWeldFlange.momentInertiaWeldBelowFlangeY(flangeWidth, wallThickness,
                 radius, sideF, factor);
         double ribsOneIy = momentInertiaWeldRibsOne.momentInertiaWeldRibsOneY(thicknessRibOne, lengthRibOne,
                 bevelRibOne, sideRibOne, factor);
         double sumBeamIy = roundTwo(wallIy + flangeOverIy + flangeBelowIy);
         double sumBeamRibsOneIy = roundTwo(wallIy + flangeOverIy + flangeBelowIy + ribsOneIy);
 
-        double sumBeamWx = roundTwo(sumBeamIx / maxDistanceIBeam.distanceMaxX(heightBeam, sideF, factor));
+        double sumBeamWx = roundTwo(sumBeamIx / maxDistanceWeldIBeam.distanceBeamMaxX(heightBeam, sideF, factor));
+        double sumBeamRibsOneWx = roundTwo(sumBeamRibsOneIx
+                / maxDistanceWeldRibsOne.distanceWeldRibsOneMaxX(heightBeam, lengthRibOne));
 
-        double sumBeamWy = roundTwo(sumBeamIy / maxDistanceIBeam.distanceMaxY(flangeWidth));
+        double sumBeamWy = roundTwo(sumBeamIy / maxDistanceWeldIBeam.distanceBeamMaxY(flangeWidth));
+        double sumBeamRibsOneWy = roundTwo(sumBeamRibsOneIy
+                / maxDistanceWeldIBeam.distanceBeamMaxY(flangeWidth));
 
-        double lw = momentInertiaWall.sumAreaWeldWall(heightBeam, flangeThickness, radius, sideW, factor);
-        double lf = momentInertiaFlange.sumAreaWeldFlange(flangeWidth, wallThickness, radius, sideF, factor);
+        double lw = momentInertiaWeldWall.sumAreaWeldWall(heightBeam, flangeThickness, radius, sideW, factor);
+        double lf = momentInertiaWeldFlange.sumAreaWeldFlange(flangeWidth, wallThickness, radius, sideF, factor);
         double sumBeamArea = roundTwo(lw + lf);
 
-        double l = momentInertiaWall.lengthWeld(heightBeam, flangeThickness, radius);
-        double lo = momentInertiaFlange.lengthWeldOverFlange(flangeWidth);
-        double lb = momentInertiaFlange.lengthWeldBelowFlange(flangeWidth, wallThickness, radius);
+        double l = momentInertiaWeldWall.lengthWeld(heightBeam, flangeThickness, radius);
+        double lo = momentInertiaWeldFlange.lengthWeldOverFlange(flangeWidth);
+        double lb = momentInertiaWeldFlange.lengthWeldBelowFlange(flangeWidth, wallThickness, radius);
         double sumBeamLength = roundTwo(2 * (l + lo) + 4 * lb);
 
         if (comboBox1.getSelectedItem() == "withoutRibs") {
@@ -427,7 +434,7 @@ public class Weld extends JFrame implements RoundUp {
         } else if (comboBox1.getSelectedItem() == "allRibs") {
             System.out.println("allRibs");
         } else if (comboBox1.getSelectedItem() == "ribsNumberOne") {
-            recordingResultBeamRibsOne(sumBeamRibsOneIx, sumBeamRibsOneIy);
+            recordingResultBeamRibsOne(sumBeamRibsOneIx, sumBeamRibsOneIy, sumBeamRibsOneWx, sumBeamRibsOneWy);
         } else if (comboBox1.getSelectedItem() == "ribsNumberTwo") {
             System.out.println("ribsNumberTwo");
         } else if (comboBox1.getSelectedItem() == "ribsNumberThree") {

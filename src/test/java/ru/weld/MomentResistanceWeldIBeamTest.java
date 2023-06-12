@@ -12,8 +12,8 @@ class MomentResistanceWeldIBeamTest {
         double sideF = 1;
         double factor = 1;
         double expected = 13.4;
-        MaxDistanceIBeam maxDistanceIBeam = new MaxDistanceIBeam();
-        double out = maxDistanceIBeam.distanceMaxX(heightBeam, sideF, factor);
+        MaxDistanceWeldIBeam maxDistanceIBeam = new MaxDistanceWeldIBeam();
+        double out = maxDistanceIBeam.distanceBeamMaxX(heightBeam, sideF, factor);
         Assertions.assertEquals(expected, out, 0.1);
     }
 
@@ -21,8 +21,8 @@ class MomentResistanceWeldIBeamTest {
     void when25B1Then5Point7() {
         double flangeWidth = 12.4;
         double expected = 5.7;
-        MaxDistanceIBeam maxDistanceIBeam = new MaxDistanceIBeam();
-        double out = maxDistanceIBeam.distanceMaxY(flangeWidth);
+        MaxDistanceWeldIBeam maxDistanceIBeam = new MaxDistanceWeldIBeam();
+        double out = maxDistanceIBeam.distanceBeamMaxY(flangeWidth);
         Assertions.assertEquals(expected, out, 0.1);
     }
 }
