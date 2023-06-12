@@ -844,7 +844,7 @@
                         <properties>
                           <font size="16" style="1"/>
                           <foreground color="-14471751"/>
-                          <text value="L "/>
+                          <text value=" L*"/>
                         </properties>
                       </component>
                       <component id="84e0a" class="javax.swing.JLabel">
@@ -854,7 +854,7 @@
                         <properties>
                           <font size="16" style="1"/>
                           <foreground color="-14471751"/>
-                          <text value="см"/>
+                          <text value="  см  "/>
                         </properties>
                       </component>
                       <hspacer id="2b091">

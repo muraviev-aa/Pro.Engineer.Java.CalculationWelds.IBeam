@@ -1,12 +1,12 @@
 package ru.weld;
 
 public class MomentInertiaWeldRibsOne {
-    private double lengthRibOne;
-    private double bevelRibOne;
-    private double thicknessRibOne;
-    private double sideRibOne;
-    private double factor;
-    private double heightBeam;
+//    private double lengthRibOne;
+//    private double bevelRibOne;
+//    private double thicknessRibOne;
+//    private double sideRibOne;
+//    private double factor;
+//    private double heightBeam;
 
     public double lengthWeld(double lengthRibOne, double bevelRibOne) {
         return lengthRibOne - bevelRibOne - 1;
@@ -42,5 +42,9 @@ public class MomentInertiaWeldRibsOne {
         double d = distanceCenterGravityWeldY(thicknessRibOne, sideRibOne, factor);
         double s = l * w;
         return 4 * (iy + Math.pow(d, 2) * s);
+    }
+
+    public double sumAreaWeldRibsOne(double lengthRibOne, double bevelRibOne, double sideRibOne, double factor) {
+        return 4 * lengthWeld(lengthRibOne, bevelRibOne) * widthWeld(sideRibOne, factor);
     }
 }
