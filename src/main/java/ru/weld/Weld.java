@@ -283,6 +283,162 @@ public class Weld extends JFrame implements RoundUp {
                 tabbedPane1.setEnabledAt(3, false);
             }
         });
+        buttonIW.addActionListener(e -> controlFilling());
+        textFieldHeightBeam.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                textFieldHeightBeam.setBackground(Color.WHITE);
+            }
+        });
+        textFieldFlangeWidth.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                textFieldFlangeWidth.setBackground(Color.WHITE);
+            }
+        });
+        textFieldFlangeThickness.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                textFieldFlangeThickness.setBackground(Color.WHITE);
+            }
+        });
+        textFieldWallThickness.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                textFieldWallThickness.setBackground(Color.WHITE);
+            }
+        });
+        textFieldRadius.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                textFieldRadius.setBackground(Color.WHITE);
+            }
+        });
+        textFieldFlangeKf.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                textFieldFlangeKf.setBackground(Color.WHITE);
+            }
+        });
+        textFieldWallKf.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                textFieldWallKf.setBackground(Color.WHITE);
+            }
+        });
+        textFieldRibLength1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                textFieldRibLength1.setBackground(Color.WHITE);
+            }
+        });
+        textFieldRibSide1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                textFieldRibSide1.setBackground(Color.WHITE);
+            }
+        });
+        textFieldRibThickness1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                textFieldRibThickness1.setBackground(Color.WHITE);
+            }
+        });
+        textFieldRibBevel1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                textFieldRibBevel1.setBackground(Color.WHITE);
+            }
+        });
+    }
+
+    public void controlFilling() {
+        if (comboBox1.getSelectedItem() == "withoutRibs") {
+            withoutRibs();
+        } else if (comboBox1.getSelectedItem() == "allRibs") {
+            System.out.println("allRibs");
+        } else if (comboBox1.getSelectedItem() == "ribsNumberOne") {
+            ribsNumberOne();
+        } else if (comboBox1.getSelectedItem() == "ribsNumberTwo") {
+            System.out.println("ribsNumberTwo");
+        } else if (comboBox1.getSelectedItem() == "ribsNumberThree") {
+            System.out.println("ribsNumberThree");
+        } else if (comboBox1.getSelectedItem() == "ribsNumbersOneTwo") {
+            System.out.println("ribsNumbersOneTwo");
+        } else if (comboBox1.getSelectedItem() == "ribsNumbersOneThree") {
+            System.out.println("ribsNumbersOneThree");
+        } else if (comboBox1.getSelectedItem() == "ribsNumbersTwoThree") {
+            System.out.println("ribsNumbersTwoThree");
+        }
+    }
+
+    public void withoutRibs() {
+        if (textFieldHeightBeam.getText().isEmpty()
+                || textFieldFlangeWidth.getText().isEmpty()
+                || textFieldFlangeThickness.getText().isEmpty()
+                || textFieldWallThickness.getText().isEmpty()
+                || textFieldRadius.getText().isEmpty()
+                || textFieldFlangeKf.getText().isEmpty()
+                || textFieldWallKf.getText().isEmpty()
+                || labelRwf.getText().equals("Rwf")
+                || labelRwz.getText().equals("Rwz")
+                || labelClassSteel.getText().equals("C...")) {
+            textFieldHeightBeam.setBackground(Color.RED);
+            textFieldFlangeWidth.setBackground(Color.RED);
+            textFieldFlangeThickness.setBackground(Color.RED);
+            textFieldWallThickness.setBackground(Color.RED);
+            textFieldRadius.setBackground(Color.RED);
+            textFieldFlangeKf.setBackground(Color.RED);
+            textFieldWallKf.setBackground(Color.RED);
+            labelRwf.setText("!!!!!");
+            labelRwz.setText("!!!!!");
+            labelClassSteel.setText("!!!!!");
+            JOptionPane.showMessageDialog(null, "Заполните красные текстовые поля");
+        }
+    }
+
+    public void ribsNumberOne() {
+        if (textFieldHeightBeam.getText().isEmpty()
+                || textFieldFlangeWidth.getText().isEmpty()
+                || textFieldFlangeThickness.getText().isEmpty()
+                || textFieldWallThickness.getText().isEmpty()
+                || textFieldRadius.getText().isEmpty()
+                || textFieldFlangeKf.getText().isEmpty()
+                || textFieldWallKf.getText().isEmpty()
+                || textFieldRibLength1.getText().isEmpty()
+                || textFieldRibSide1.getText().isEmpty()
+                || textFieldRibThickness1.getText().isEmpty()
+                || textFieldRibBevel1.getText().isEmpty()
+                || labelRwf.getText().equals("Rwf")
+                || labelRwz.getText().equals("Rwz")
+                || labelClassSteel.getText().equals("C...")) {
+            textFieldHeightBeam.setBackground(Color.RED);
+            textFieldFlangeWidth.setBackground(Color.RED);
+            textFieldFlangeThickness.setBackground(Color.RED);
+            textFieldWallThickness.setBackground(Color.RED);
+            textFieldRadius.setBackground(Color.RED);
+            textFieldFlangeKf.setBackground(Color.RED);
+            textFieldWallKf.setBackground(Color.RED);
+            textFieldRibLength1.setBackground(Color.RED);
+            textFieldRibSide1.setBackground(Color.RED);
+            textFieldRibThickness1.setBackground(Color.RED);
+            textFieldRibBevel1.setBackground(Color.RED);
+            labelRwf.setText("!!!!!");
+            labelRwz.setText("!!!!!");
+            labelClassSteel.setText("!!!!!");
+            JOptionPane.showMessageDialog(null, "Заполните красные текстовые поля");
+        }
     }
 
     public void createTableRwf() {
