@@ -160,7 +160,7 @@ public class Weld extends JFrame implements RoundUp {
         final ButtonGroup checkBoxGroupIBeam = new ButtonGroup();
         checkBoxGroupIBeam.add(checkBox25B1);
         checkBoxGroupIBeam.add(checkBox70B4);
-        setSize(950, 750);
+        setSize(1000, 750);
         label1.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().
                 getImage(getClass().getResource("/withoutRibs.png"))));
         tabbedPane1.setEnabledAt(1, false);
@@ -198,7 +198,7 @@ public class Weld extends JFrame implements RoundUp {
             textFieldWallKf.setText("");
             labelRwf.setText("Rwf");
             labelRwz.setText("Rwz");
-            labelClassSteel.setText("C...");
+            labelClassSteel.setText("C....");
             checkBoxGroupBf.clearSelection();
             checkBoxGroupBz.clearSelection();
             factorF = 0;
@@ -235,12 +235,19 @@ public class Weld extends JFrame implements RoundUp {
             }
         });
         checkBox1And15.addActionListener(e -> factorZ = 1.15);
+        checkBox1And15.addActionListener(e -> labelZ.setText(""));
         checkBox1And05.addActionListener(e -> factorZ = 1.05);
+        checkBox1And05.addActionListener(e -> labelZ.setText(""));
         checkBox1.addActionListener(e -> factorZ = 1);
+        checkBox1.addActionListener(e -> labelZ.setText(""));
         checkBox1And1.addActionListener(e -> factorF = 1.1);
+        checkBox1And1.addActionListener(e -> labelF.setText(""));
         checkBox0And9.addActionListener(e -> factorF = 0.9);
+        checkBox0And9.addActionListener(e -> labelF.setText(""));
         checkBox0And8.addActionListener(e -> factorF = 0.8);
+        checkBox0And8.addActionListener(e -> labelF.setText(""));
         checkBox0And7.addActionListener(e -> factorF = 0.7);
+        checkBox0And7.addActionListener(e -> labelF.setText(""));
         checkBox70B4.addActionListener(e -> {
             textFieldHeightBeam.setText("71");
             textFieldFlangeWidth.setText("26.2");
@@ -401,14 +408,14 @@ public class Weld extends JFrame implements RoundUp {
                     "Заполните пустые текстовые поля в панели <<Сварной шов>>");
         }
 
-        if (checkBox1And1.isEnabled() || checkBox0And9.isEnabled()
-                || checkBox0And8.isEnabled() || checkBox0And7.isEnabled()) {
+        if (!checkBox1And1.isSelected() && !checkBox0And9.isSelected()
+                && !checkBox0And8.isSelected() && !checkBox0And7.isSelected()) {
             labelF.setText("Заполни здесь!!!");
             JOptionPane.showMessageDialog(null,
                     "Заполните пустые текстовые поля в панели <<βf>>");
         }
 
-        if (checkBox1And15.isEnabled() || checkBox1And05.isEnabled() || checkBox1.isEnabled()) {
+        if (!checkBox1And15.isSelected() && !checkBox1And05.isSelected() && !checkBox1.isSelected()) {
             labelZ.setText("Заполни здесь!!!");
             JOptionPane.showMessageDialog(null,
                     "Заполните пустые текстовые поля в панели <<βz>>");
@@ -473,9 +480,18 @@ public class Weld extends JFrame implements RoundUp {
         double res = f / z;
         if (res <= 1) {
             factor = factorF;
-            labelF.setText("По металлу шва");
+            if (!checkBox1And1.isSelected() || !checkBox0And9.isSelected()
+                    || !checkBox0And8.isSelected() || !checkBox0And7.isSelected()) {
+                labelF.setText("");
+            } else {
+                labelF.setText("По металлу шва");
+            }
         } else {
             factor = factorZ;
+            if (!checkBox1And15.isSelected() || !checkBox1And05.isSelected()
+                    || !checkBox1.isSelected()) {
+                labelF.setText("");
+            }
             labelZ.setText("По границе сплавления");
         }
     }
