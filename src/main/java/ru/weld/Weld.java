@@ -141,6 +141,8 @@ public class Weld extends JFrame implements RoundUp {
         super("Расчет сварного шва приварки двутавра");
         setContentPane(this.panel);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setIconImage(Toolkit.getDefaultToolkit().
+                getImage(getClass().getResource("/ant.gif")));
         Dimension dimension = new Dimension(205, 30);
         buttonIW.setPreferredSize(dimension);
         button2.setPreferredSize(dimension);
@@ -441,6 +443,8 @@ public class Weld extends JFrame implements RoundUp {
         JTable table = new JTable((Object[][]) dataRwf, columnsRwf);
         JFrame frame = new JFrame("Расчетные сопротивления по металлу сварного шва");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setIconImage(Toolkit.getDefaultToolkit().
+                getImage(getClass().getResource("/ant.gif")));
         frame.setSize(500, 200);
         frame.add(new JScrollPane(table));
         frame.setVisible(true);
@@ -459,6 +463,8 @@ public class Weld extends JFrame implements RoundUp {
         JTable table = new JTable((Object[][]) dataRwz, (Object[]) columnsRwz);
         JFrame frame = new JFrame("Расчетные сопротивления по границе сплавления");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setIconImage(Toolkit.getDefaultToolkit().
+                getImage(getClass().getResource("/ant.gif")));
         frame.setSize(600, 300);
         frame.add(new JScrollPane(table));
         frame.setVisible(true);
