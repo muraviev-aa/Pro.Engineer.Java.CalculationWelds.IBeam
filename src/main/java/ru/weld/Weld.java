@@ -383,61 +383,50 @@ public class Weld extends JFrame implements RoundUp {
         }
     }
 
-    public void withoutRibs() {
+    public void basicCheck() {
         if (textFieldHeightBeam.getText().isEmpty()
                 || textFieldFlangeWidth.getText().isEmpty()
                 || textFieldFlangeThickness.getText().isEmpty()
                 || textFieldWallThickness.getText().isEmpty()
-                || textFieldRadius.getText().isEmpty()
-                || textFieldFlangeKf.getText().isEmpty()
+                || textFieldRadius.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null,
+                    "Заполните пустые текстовые поля в панели <<Двутавр>>");
+        }
+        if (textFieldFlangeKf.getText().isEmpty()
                 || textFieldWallKf.getText().isEmpty()
                 || labelRwf.getText().equals("Rwf")
                 || labelRwz.getText().equals("Rwz")
                 || labelClassSteel.getText().equals("C...")) {
-            textFieldHeightBeam.setBackground(Color.RED);
-            textFieldFlangeWidth.setBackground(Color.RED);
-            textFieldFlangeThickness.setBackground(Color.RED);
-            textFieldWallThickness.setBackground(Color.RED);
-            textFieldRadius.setBackground(Color.RED);
-            textFieldFlangeKf.setBackground(Color.RED);
-            textFieldWallKf.setBackground(Color.RED);
-            labelRwf.setText("!!!!!");
-            labelRwz.setText("!!!!!");
-            labelClassSteel.setText("!!!!!");
-            JOptionPane.showMessageDialog(null, "Заполните красные текстовые поля");
+            JOptionPane.showMessageDialog(null,
+                    "Заполните пустые текстовые поля в панели <<Сварной шов>>");
+        }
+
+        if (checkBox1And1.isEnabled() || checkBox0And9.isEnabled()
+                || checkBox0And8.isEnabled() || checkBox0And7.isEnabled()) {
+            labelF.setText("Заполни здесь!!!");
+            JOptionPane.showMessageDialog(null,
+                    "Заполните пустые текстовые поля в панели <<βf>>");
+        }
+
+        if (checkBox1And15.isEnabled() || checkBox1And05.isEnabled() || checkBox1.isEnabled()) {
+            labelZ.setText("Заполни здесь!!!");
+            JOptionPane.showMessageDialog(null,
+                    "Заполните пустые текстовые поля в панели <<βz>>");
         }
     }
 
+    public void withoutRibs() {
+        basicCheck();
+    }
+
     public void ribsNumberOne() {
-        if (textFieldHeightBeam.getText().isEmpty()
-                || textFieldFlangeWidth.getText().isEmpty()
-                || textFieldFlangeThickness.getText().isEmpty()
-                || textFieldWallThickness.getText().isEmpty()
-                || textFieldRadius.getText().isEmpty()
-                || textFieldFlangeKf.getText().isEmpty()
-                || textFieldWallKf.getText().isEmpty()
-                || textFieldRibLength1.getText().isEmpty()
+        basicCheck();
+        if (textFieldRibLength1.getText().isEmpty()
                 || textFieldRibSide1.getText().isEmpty()
                 || textFieldRibThickness1.getText().isEmpty()
-                || textFieldRibBevel1.getText().isEmpty()
-                || labelRwf.getText().equals("Rwf")
-                || labelRwz.getText().equals("Rwz")
-                || labelClassSteel.getText().equals("C...")) {
-            textFieldHeightBeam.setBackground(Color.RED);
-            textFieldFlangeWidth.setBackground(Color.RED);
-            textFieldFlangeThickness.setBackground(Color.RED);
-            textFieldWallThickness.setBackground(Color.RED);
-            textFieldRadius.setBackground(Color.RED);
-            textFieldFlangeKf.setBackground(Color.RED);
-            textFieldWallKf.setBackground(Color.RED);
-            textFieldRibLength1.setBackground(Color.RED);
-            textFieldRibSide1.setBackground(Color.RED);
-            textFieldRibThickness1.setBackground(Color.RED);
-            textFieldRibBevel1.setBackground(Color.RED);
-            labelRwf.setText("!!!!!");
-            labelRwz.setText("!!!!!");
-            labelClassSteel.setText("!!!!!");
-            JOptionPane.showMessageDialog(null, "Заполните красные текстовые поля");
+                || textFieldRibBevel1.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null,
+                    "Заполните пустые текстовые поля в панели <<Размеры ребра 1>>");
         }
     }
 
