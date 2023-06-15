@@ -35,9 +35,23 @@ public class MomentInertiaWeldRibsTwo {
         double w = widthWeld(sideRibTwo, factor);
         double dOver = distanceCenterGravityWeldOverY(heightBeam, sideRibTwo, factor);
         double dBelow = distanceCenterGravityWeldBelowY(heightBeam, thicknessRibTwo, sideRibTwo, factor);
-        double s = sideRibTwo * factor;
+        double s = l * sideRibTwo * factor;
         double iOverX = ((l * Math.pow(w, 3)) / 12) + Math.pow(dOver, 2) * s;
         double iBelowX = ((l * Math.pow(w, 3)) / 12) + Math.pow(dBelow, 2) * s;
         return 4 * (iOverX + iBelowX);
+    }
+
+    public double momentInertiaWeldRibsTwoY(double flangeWidth, double lengthRibTwo, double sideRibTwo,
+                                            double factor) {
+        double l = lengthWeld(lengthRibTwo);
+        double w = widthWeld(sideRibTwo, factor);
+        double d = distanceCenterGravityWeldOverBelowX(flangeWidth, lengthRibTwo);
+        double s = l * sideRibTwo * factor;
+        double iy = ((w * Math.pow(l, 3)) / 12) + Math.pow(d, 2) * s;
+        return 8 * iy;
+    }
+
+    public double sumAreaWeldRibsOne(double lengthRibTwo, double sideRibTwo, double factor) {
+        return 8 * lengthWeld(lengthRibTwo) * widthWeld(sideRibTwo, factor);
     }
 }
