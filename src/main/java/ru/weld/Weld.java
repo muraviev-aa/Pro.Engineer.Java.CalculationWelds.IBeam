@@ -610,6 +610,12 @@ public class Weld extends JFrame implements RoundUp {
         textFieldLength.setText(String.valueOf(sumBeamRibsOneLength));
     }
 
+    public void recordingResultBeamRibsTwo(double sumBeamRibsTwoIx, double sumBeamRibsTwoIy, double sumBeamRibsTwoArea) {
+        textFieldIx.setText(Double.toString(sumBeamRibsTwoIx));
+        textFieldIy.setText(Double.toString(sumBeamRibsTwoIy));
+        textFieldArea.setText(Double.toString(sumBeamRibsTwoArea));
+    }
+
     public void recordingResultBeamRibsThree(double sumBeamRibsThreeIx, double sumBeamRibsThreeIy,
                                              double sumBeamRibsThreeWx, double sumBeamRibsThreeWy,
                                              double sumBeamRibsThreeArea, double sumBeamRibsThreeLength) {
@@ -660,6 +666,7 @@ public class Weld extends JFrame implements RoundUp {
                 lengthRibThree, bevelRibThree, sideRibThree, factor);
         double sumBeamIx = roundTwo(wallIx + flangeOverIx + flangeBelowIx);
         double sumBeamRibsOneIx = roundTwo(wallIx + flangeOverIx + flangeBelowIx + ribsOneIx);
+        double sumBeamRibsTwoIx = roundTwo(wallIx + flangeOverIx + flangeBelowIx + ribsTwoIx);
         double sumBeamRibsThreeIx = roundTwo(wallIx + flangeOverIx + flangeBelowIx + ribsThreeIx);
         double sumBeamRibsOneThreeIx = roundTwo(wallIx + flangeOverIx + flangeBelowIx + ribsOneIx + ribsThreeIx);
 
@@ -670,10 +677,13 @@ public class Weld extends JFrame implements RoundUp {
                 radius, sideF, factor);
         double ribsOneIy = momentInertiaWeldRibsOne.momentInertiaWeldRibsOneY(thicknessRibOne, lengthRibOne,
                 bevelRibOne, sideRibOne, factor);
+        double ribsTwoIy = momentInertiaWeldRibsTwo.momentInertiaWeldRibsTwoY(flangeWidth, lengthRibTwo, sideRibTwo,
+                factor);
         double ribsThreeIy = momentInertiaWeldRibsThree.momentInertiaWeldRibsThreeY(wallThickness, lengthRibThree,
                 bevelRibThree, sideRibThree, factor);
         double sumBeamIy = roundTwo(wallIy + flangeOverIy + flangeBelowIy);
         double sumBeamRibsOneIy = roundTwo(wallIy + flangeOverIy + flangeBelowIy + ribsOneIy);
+        double sumBeamRibsTwoIy = roundTwo(wallIy + flangeOverIy + flangeBelowIy + ribsTwoIy);
         double sumBeamRibsThreeIy = roundTwo(wallIy + flangeOverIy + flangeBelowIy + ribsThreeIy);
         double sumBeamRibsOneThreeIy = roundTwo(wallIy + flangeOverIy + flangeBelowIy + ribsOneIy + ribsThreeIy);
 
@@ -696,10 +706,12 @@ public class Weld extends JFrame implements RoundUp {
         double sw = momentInertiaWeldWall.sumAreaWeldWall(heightBeam, flangeThickness, radius, sideW, factor);
         double sf = momentInertiaWeldFlange.sumAreaWeldFlange(flangeWidth, wallThickness, radius, sideF, factor);
         double sr1 = momentInertiaWeldRibsOne.sumAreaWeldRibsOne(lengthRibOne, bevelRibOne, sideRibOne, factor);
+        double sr2 = momentInertiaWeldRibsTwo.sumAreaWeldRibsTwo(lengthRibTwo, sideRibTwo, factor);
         double sr3 = momentInertiaWeldRibsThree.sumAreaWeldRibsThree(lengthRibThree, bevelRibThree,
                 sideRibThree, factor);
         double sumBeamArea = roundTwo(sw + sf);
         double sumBeamRibsOneArea = roundTwo(sw + sf + sr1);
+        double sumBeamRibsTwoArea = roundTwo(sw + sf + sr2);
         double sumBeamRibsThreeArea = roundTwo(sw + sf + sr3);
         double sumBeamRibsOneThreeArea = roundTwo(sw + sf + sr1 + sr3);
 
@@ -721,7 +733,7 @@ public class Weld extends JFrame implements RoundUp {
             recordingResultBeamRibsOne(sumBeamRibsOneIx, sumBeamRibsOneIy, sumBeamRibsOneWx,
                     sumBeamRibsOneWy, sumBeamRibsOneArea, sumBeamRibsOneLength);
         } else if (comboBox1.getSelectedItem() == "ribsNumberTwo") {
-            System.out.println("ribsNumberTwo");
+            recordingResultBeamRibsTwo(sumBeamRibsTwoIx, sumBeamRibsTwoIy, sumBeamRibsTwoArea);
         } else if (comboBox1.getSelectedItem() == "ribsNumberThree") {
             recordingResultBeamRibsThree(sumBeamRibsThreeIx, sumBeamRibsThreeIy, sumBeamRibsThreeWx,
                     sumBeamRibsThreeWy, sumBeamRibsThreeArea, sumBeamRibsThreeLength);

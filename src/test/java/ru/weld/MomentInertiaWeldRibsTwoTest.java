@@ -93,7 +93,7 @@ class MomentInertiaWeldRibsTwoTest {
         double factor = 1;
         double expected = 32.4;
         MomentInertiaWeldRibsTwo momentInertiaWeldRibsTwo = new MomentInertiaWeldRibsTwo();
-        double out = momentInertiaWeldRibsTwo.sumAreaWeldRibsOne(lengthRibTwo, sideRibTwo, factor);
+        double out = momentInertiaWeldRibsTwo.sumAreaWeldRibsTwo(lengthRibTwo, sideRibTwo, factor);
         Assertions.assertEquals(expected, out, 0.1);
     }
 }

@@ -51,7 +51,7 @@ public class MomentInertiaWeldRibsTwo {
         return 8 * iy;
     }
 
-    public double sumAreaWeldRibsOne(double lengthRibTwo, double sideRibTwo, double factor) {
+    public double sumAreaWeldRibsTwo(double lengthRibTwo, double sideRibTwo, double factor) {
         return 8 * lengthWeld(lengthRibTwo) * widthWeld(sideRibTwo, factor);
     }
 }
