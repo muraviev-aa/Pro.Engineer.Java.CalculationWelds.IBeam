@@ -50,7 +50,6 @@ public class Weld extends JFrame implements RoundUp {
     private JTextField textFieldRibLength1;
     private JTextField textFieldRibBevel1;
     private JTextField textFieldRibLength2;
-    private JTextField textFieldRibBevel2;
     private JTextField textFieldRibLength3;
     private JTextField textFieldRibBevel3;
     private JTextField textFieldArea;
@@ -78,6 +77,9 @@ public class Weld extends JFrame implements RoundUp {
     double lengthRibThree;
     double bevelRibThree;
     double sideRibThree;
+    double lengthRibTwo;
+    double thicknessRibTwo;
+    double sideRibTwo;
 
     private final Object[] columnsRwf = new String[]{
             "Тип электрода / марка проволоки", "Rwf [кг/см^2]"
@@ -446,6 +448,16 @@ public class Weld extends JFrame implements RoundUp {
         }
     }
 
+    public void ribsNumberTwo() {
+        basicCheck();
+        if (textFieldRibLength2.getText().isEmpty()
+                || textFieldRibSide2.getText().isEmpty()
+                || textFieldRibThickness2.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null,
+                    "Заполните пустые текстовые поля в панели <<Размеры ребра 2>>");
+        }
+    }
+
     public void ribsNumberThree() {
         basicCheck();
         if (textFieldRibLength3.getText().isEmpty()
@@ -544,6 +556,13 @@ public class Weld extends JFrame implements RoundUp {
         thicknessRibOne = Double.parseDouble(textFieldRibThickness1.getText());
     }
 
+    public void readingDataFromCheckboxesAndLabelsRibsTwo() {
+        readingDataBase();
+        lengthRibTwo = Double.parseDouble(textFieldRibLength2.getText());
+        sideRibTwo = Double.parseDouble(textFieldRibSide2.getText());
+        thicknessRibTwo = Double.parseDouble(textFieldRibThickness2.getText());
+    }
+
     public void readingDataFromCheckboxesAndLabelsRibsThree() {
         readingDataBase();
         thicknessRibThree = Double.parseDouble(textFieldRibThickness3.getText());
@@ -620,6 +639,7 @@ public class Weld extends JFrame implements RoundUp {
         MomentInertiaWeldRibsThree momentInertiaWeldRibsThree = new MomentInertiaWeldRibsThree();
         MaxDistanceWeldIBeam maxDistanceWeldIBeam = new MaxDistanceWeldIBeam();
         MaxDistanceWeldRibsOne maxDistanceWeldRibsOne = new MaxDistanceWeldRibsOne();
+        MomentInertiaWeldRibsTwo momentInertiaWeldRibsTwo = new MomentInertiaWeldRibsTwo();
         MaxDistanceWeldRibsThree maxDistanceWeldRibsThree = new MaxDistanceWeldRibsThree();
         selectSectionCalc(rwf, rwz);
         /**
@@ -634,6 +654,8 @@ public class Weld extends JFrame implements RoundUp {
                 flangeThickness, wallThickness, radius, sideF, factor);
         double ribsOneIx = momentInertiaWeldRibsOne.momentInertiaWeldRibsOneX(heightBeam, lengthRibOne,
                 factor, bevelRibOne, sideRibOne);
+        double ribsTwoIx = momentInertiaWeldRibsTwo.momentInertiaWeldRibsTwoX(heightBeam, lengthRibTwo,
+                thicknessRibTwo, sideRibTwo, factor);
         double ribsThreeIx = momentInertiaWeldRibsThree.momentInertiaWeldRibsThreeX(thicknessRibThree,
                 lengthRibThree, bevelRibThree, sideRibThree, factor);
         double sumBeamIx = roundTwo(wallIx + flangeOverIx + flangeBelowIx);
