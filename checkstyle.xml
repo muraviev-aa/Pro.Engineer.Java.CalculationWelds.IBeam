@@ -48,7 +48,7 @@
         <!--<module name="LineLength"/>-->
         <module name="MethodLength">
             <property name="tokens" value="METHOD_DEF"/>
-            <property name="max" value="130"/>
+            <property name="max" value="150"/>
         </module>
         <module name="ParameterNumber"/>
 

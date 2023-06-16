@@ -228,7 +228,8 @@ public class Weld extends JFrame implements RoundUp {
                 readingDataFromCheckboxesAndLabelsBeam();
                 calculateResult();
             } else if (comboBox1.getSelectedItem() == "allRibs") {
-                System.out.println("allRibs");
+                readingDataFromCheckboxesAndLabelsRibsOneTwoThree();
+                calculateResult();
             } else if (comboBox1.getSelectedItem() == "ribsNumberOne") {
                 readingDataFromCheckboxesAndLabelsRibsOne();
                 calculateResult();
@@ -401,7 +402,9 @@ public class Weld extends JFrame implements RoundUp {
         if (comboBox1.getSelectedItem() == "withoutRibs") {
             withoutRibs();
         } else if (comboBox1.getSelectedItem() == "allRibs") {
-            System.out.println("allRibs");
+            ribsNumberOne();
+            ribsNumberTwo();
+            ribsNumberThree();
         } else if (comboBox1.getSelectedItem() == "ribsNumberOne") {
             ribsNumberOne();
         } else if (comboBox1.getSelectedItem() == "ribsNumberTwo") {
@@ -409,12 +412,14 @@ public class Weld extends JFrame implements RoundUp {
         } else if (comboBox1.getSelectedItem() == "ribsNumberThree") {
             ribsNumberThree();
         } else if (comboBox1.getSelectedItem() == "ribsNumbersOneTwo") {
-            System.out.println("ribsNumbersOneTwo");
+            ribsNumberOne();
+            ribsNumberTwo();
         } else if (comboBox1.getSelectedItem() == "ribsNumbersOneThree") {
             ribsNumberOne();
             ribsNumberThree();
         } else if (comboBox1.getSelectedItem() == "ribsNumbersTwoThree") {
-            System.out.println("ribsNumbersTwoThree");
+            ribsNumberTwo();
+            ribsNumberThree();
         }
     }
 
@@ -623,6 +628,30 @@ public class Weld extends JFrame implements RoundUp {
         sideRibThree = Double.parseDouble(textFieldRibSide3.getText());
     }
 
+    public void readingDataFromCheckboxesAndLabelsRibsOneTwoThree() {
+        readingDataBase();
+        /**
+         * RibsOne
+         */
+        lengthRibOne = Double.parseDouble(textFieldRibLength1.getText());
+        bevelRibOne = Double.parseDouble(textFieldRibBevel1.getText());
+        sideRibOne = Double.parseDouble(textFieldRibSide1.getText());
+        thicknessRibOne = Double.parseDouble(textFieldRibThickness1.getText());
+        /**
+         * RibsTwo
+         */
+        lengthRibTwo = Double.parseDouble(textFieldRibLength2.getText());
+        sideRibTwo = Double.parseDouble(textFieldRibSide2.getText());
+        thicknessRibTwo = Double.parseDouble(textFieldRibThickness2.getText());
+        /**
+         * RibsThree
+         */
+        thicknessRibThree = Double.parseDouble(textFieldRibThickness3.getText());
+        lengthRibThree = Double.parseDouble(textFieldRibLength3.getText());
+        bevelRibThree = Double.parseDouble(textFieldRibBevel3.getText());
+        sideRibThree = Double.parseDouble(textFieldRibSide3.getText());
+    }
+
     public void recordingResultBeam(double sumBeamIx, double sumBeamIy, double sumBeamWx, double sumBeamWy,
                                     double sumBeamArea, double sumBeamLength) {
         textFieldIx.setText(Double.toString(sumBeamIx));
@@ -688,18 +717,60 @@ public class Weld extends JFrame implements RoundUp {
         textFieldLength.setText(Double.toString(sumBeamRibsOneThreeLength));
     }
 
+    public void recordingResultBeamRibsOneTwoThree(double sumBeamRibsOneTwoThreeIx, double sumBeamRibsOneTwoThreeIy,
+                                                   double sumBeamRibsOneTwoThreeWx, double sumBeamRibsOneTwoThreeWy,
+                                                   double sumBeamRibsOneTwoThreeArea, double sumBeamRibsOneTwoThreeLength) {
+        textFieldIx.setText(Double.toString(sumBeamRibsOneTwoThreeIx));
+        textFieldIy.setText(Double.toString(sumBeamRibsOneTwoThreeIy));
+        textFieldWx.setText(Double.toString(sumBeamRibsOneTwoThreeWx));
+        textFieldWy.setText(Double.toString(sumBeamRibsOneTwoThreeWy));
+        textFieldArea.setText(Double.toString(sumBeamRibsOneTwoThreeArea));
+        textFieldLength.setText(Double.toString(sumBeamRibsOneTwoThreeLength));
+    }
+
+    /**
+     * Наибольшее расстояние для вычисления Wx для балки со вторым ребром
+     */
     public double maxDistanceWxBeamRibsTwo(double sumBeamRibsTwoIx) {
         double sumBeamRibsTwoWx;
         MaxDistanceWeldIBeam maxDistanceWeldIBeam = new MaxDistanceWeldIBeam();
         MaxDistanceWeldRibsTwo maxDistanceWeldRibsTwo = new MaxDistanceWeldRibsTwo();
         double maxBeamWeldX = maxDistanceWeldIBeam.distanceBeamMaxX(heightBeam, sideF, factor);
         double maxRibsTwoX = maxDistanceWeldRibsTwo.distanceWeldRibsTwoMaxX(heightBeam, sideRibTwo, factor);
-        if (maxBeamWeldX > maxRibsTwoX) {
+        if (maxBeamWeldX >= maxRibsTwoX) {
             sumBeamRibsTwoWx = roundTwo(sumBeamRibsTwoIx / maxBeamWeldX);
         } else {
             sumBeamRibsTwoWx = roundTwo(sumBeamRibsTwoIx / maxRibsTwoX);
         }
         return sumBeamRibsTwoWx;
+    }
+
+    public double maxDistanceWyBeamRibsThree(double sumBeamRibsThreeIy) {
+        double sumBeamRibsThreeWy;
+        MaxDistanceWeldIBeam maxDistanceWeldIBeam = new MaxDistanceWeldIBeam();
+        MaxDistanceWeldRibsThree maxDistanceWeldRibsThree = new MaxDistanceWeldRibsThree();
+        double maxBeamWeldY = maxDistanceWeldIBeam.distanceBeamMaxY(flangeWidth);
+        double maxRibsThreeY = maxDistanceWeldRibsThree.distanceWeldRibsThreeMaxY(wallThickness, lengthRibThree);
+        if (maxBeamWeldY >= maxRibsThreeY) {
+            sumBeamRibsThreeWy = roundTwo(sumBeamRibsThreeIy / maxBeamWeldY);
+        } else {
+            sumBeamRibsThreeWy = roundTwo(sumBeamRibsThreeIy / maxRibsThreeY);
+        }
+        return sumBeamRibsThreeWy;
+    }
+
+    public double maxDistanceWyRibsTwoThree(double sumBeamRibsOneTwoThreeIy) {
+        double sumBeamRibsOneTwoThreeWy;
+        MaxDistanceWeldRibsTwo maxDistanceWeldRibsTwo = new MaxDistanceWeldRibsTwo();
+        MaxDistanceWeldRibsThree maxDistanceWeldRibsThree = new MaxDistanceWeldRibsThree();
+        double maxRibsTwoY = maxDistanceWeldRibsTwo.distanceWeldRibsTwoMaxY(flangeWidth, lengthRibTwo);
+        double maxRibsThreeY = maxDistanceWeldRibsThree.distanceWeldRibsThreeMaxY(wallThickness, lengthRibThree);
+        if (maxRibsTwoY >= maxRibsThreeY) {
+            sumBeamRibsOneTwoThreeWy = roundTwo(sumBeamRibsOneTwoThreeIy / maxRibsTwoY);
+        } else {
+            sumBeamRibsOneTwoThreeWy = roundTwo(sumBeamRibsOneTwoThreeIy / maxRibsThreeY);
+        }
+        return sumBeamRibsOneTwoThreeWy;
     }
 
     public void calculateResult() {
@@ -735,6 +806,8 @@ public class Weld extends JFrame implements RoundUp {
         double sumBeamRibsThreeIx = roundTwo(wallIx + flangeOverIx + flangeBelowIx + ribsThreeIx);
         double sumBeamRibsOneTwoIx = roundTwo(wallIx + flangeOverIx + flangeBelowIx + ribsOneIx + ribsTwoIx);
         double sumBeamRibsOneThreeIx = roundTwo(wallIx + flangeOverIx + flangeBelowIx + ribsOneIx + ribsThreeIx);
+        double sumBeamRibsOneTwoThreeIx = roundTwo(wallIx + flangeOverIx + flangeBelowIx + ribsOneIx
+                + ribsTwoIx + ribsThreeIx);
 
         double wallIy = momentInertiaWeldWall.momentInertiaWeldWallY(heightBeam,
                 flangeThickness, sideW, factor, radius, wallThickness);
@@ -753,10 +826,15 @@ public class Weld extends JFrame implements RoundUp {
         double sumBeamRibsThreeIy = roundTwo(wallIy + flangeOverIy + flangeBelowIy + ribsThreeIy);
         double sumBeamRibsOneTwoIy = roundTwo(wallIy + flangeOverIy + flangeBelowIy + ribsOneIy + ribsTwoIy);
         double sumBeamRibsOneThreeIy = roundTwo(wallIy + flangeOverIy + flangeBelowIy + ribsOneIy + ribsThreeIy);
+        double sumBeamRibsOneTwoThreeIy = roundTwo(wallIy + flangeOverIy + flangeBelowIy + ribsOneIy
+                + ribsTwoIy + ribsThreeIy);
 
         double sumBeamWx = roundTwo(sumBeamIx / maxDistanceWeldIBeam.distanceBeamMaxX(heightBeam, sideF, factor));
         double sumBeamRibsOneWx = roundTwo(sumBeamRibsOneIx
                 / maxDistanceWeldRibsOne.distanceWeldRibsOneMaxX(heightBeam, lengthRibOne));
+        /**
+         * С учетом Xmax для двутавра и ребра 2
+         */
         double sumBeamRibsTwoWx = maxDistanceWxBeamRibsTwo(sumBeamRibsTwoIx);
         double sumBeamRibsThreeWx = roundTwo(sumBeamRibsThreeIx
                 / maxDistanceWeldIBeam.distanceBeamMaxX(heightBeam, sideF, factor));
@@ -764,18 +842,26 @@ public class Weld extends JFrame implements RoundUp {
                 / maxDistanceWeldRibsOne.distanceWeldRibsOneMaxX(heightBeam, lengthRibOne));
         double sumBeamRibsOneThreeWx = roundTwo(sumBeamRibsOneThreeIx
                 / maxDistanceWeldRibsOne.distanceWeldRibsOneMaxX(heightBeam, lengthRibOne));
+        double sumBeamRibsOneTwoThreeWx = roundTwo(sumBeamRibsOneTwoThreeIx
+                / maxDistanceWeldRibsOne.distanceWeldRibsOneMaxX(heightBeam, lengthRibOne));
 
         double sumBeamWy = roundTwo(sumBeamIy / maxDistanceWeldIBeam.distanceBeamMaxY(flangeWidth));
         double sumBeamRibsOneWy = roundTwo(sumBeamRibsOneIy
                 / maxDistanceWeldIBeam.distanceBeamMaxY(flangeWidth));
         double sumBeamRibsTwoWy = roundTwo(sumBeamRibsTwoIy
                 / maxDistanceWeldRibsTwo.distanceWeldRibsTwoMaxY(flangeWidth, lengthRibTwo));
-        double sumBeamRibsThreeWy = roundTwo(sumBeamRibsThreeIy
-                / maxDistanceWeldRibsThree.distanceWeldRibsThreeMaxY(wallThickness, lengthRibThree));
+        /**
+         * С учетом Ymax двутавра и ребра 3
+         */
+        double sumBeamRibsThreeWy = maxDistanceWyBeamRibsThree(sumBeamRibsThreeIy);
         double sumBeamRibsOneTwoWy = roundTwo(sumBeamRibsOneTwoIy
                 / maxDistanceWeldRibsTwo.distanceWeldRibsTwoMaxY(flangeWidth, lengthRibTwo));
         double sumBeamRibsOneThreeWy = roundTwo(sumBeamRibsOneThreeIy
                 / maxDistanceWeldRibsThree.distanceWeldRibsThreeMaxY(wallThickness, lengthRibThree));
+        /**
+         * С учетом Ymax для ребра 2 и 3
+         */
+        double sumBeamRibsOneTwoThreeWy = maxDistanceWyRibsTwoThree(sumBeamRibsOneTwoThreeIy);
 
         double sw = momentInertiaWeldWall.sumAreaWeldWall(heightBeam, flangeThickness, radius, sideW, factor);
         double sf = momentInertiaWeldFlange.sumAreaWeldFlange(flangeWidth, wallThickness, radius, sideF, factor);
@@ -789,6 +875,7 @@ public class Weld extends JFrame implements RoundUp {
         double sumBeamRibsThreeArea = roundTwo(sw + sf + sr3);
         double sumBeamRibsOneTwoArea = roundTwo(sw + sf + sr1 + sr2);
         double sumBeamRibsOneThreeArea = roundTwo(sw + sf + sr1 + sr3);
+        double sumBeamRibsOneTwoThreeArea = roundTwo(sw + sf + sr1 + sr2 + sr3);
 
         double l = momentInertiaWeldWall.lengthWeld(heightBeam, flangeThickness, radius);
         double lo = momentInertiaWeldFlange.lengthWeldOverFlange(flangeWidth);
@@ -802,11 +889,14 @@ public class Weld extends JFrame implements RoundUp {
         double sumBeamRibsThreeLength = roundTwo((2 * (l + lo) + 4 * lb) + 4 * lr3);
         double sumBeamRibsOneTwoLength = roundTwo((2 * (l + lo) + 4 * lb) + 4 * lr1 + 8 * lr2);
         double sumBeamRibsOneThreeLength = roundTwo((2 * (l + lo) + 4 * lb) + 4 * (lr1 + lr3));
+        double sumBeamRibsOneTwoThreeLength = roundTwo((2 * (l + lo) + 4 * lb) +  8 * lr2 + 4 * (lr1 + lr3));
 
         if (comboBox1.getSelectedItem() == "withoutRibs") {
             recordingResultBeam(sumBeamIx, sumBeamIy, sumBeamWx, sumBeamWy, sumBeamArea, sumBeamLength);
         } else if (comboBox1.getSelectedItem() == "allRibs") {
-            System.out.println("allRibs");
+            recordingResultBeamRibsOneTwoThree(sumBeamRibsOneTwoThreeIx, sumBeamRibsOneTwoThreeIy,
+                    sumBeamRibsOneTwoThreeWx, sumBeamRibsOneTwoThreeWy, sumBeamRibsOneTwoThreeArea,
+                    sumBeamRibsOneTwoThreeLength);
         } else if (comboBox1.getSelectedItem() == "ribsNumberOne") {
             recordingResultBeamRibsOne(sumBeamRibsOneIx, sumBeamRibsOneIy, sumBeamRibsOneWx,
                     sumBeamRibsOneWy, sumBeamRibsOneArea, sumBeamRibsOneLength);
