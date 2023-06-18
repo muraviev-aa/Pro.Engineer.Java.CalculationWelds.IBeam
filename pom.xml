@@ -59,6 +59,7 @@
                 </resource>
             </resources>
         <plugins>
+
             <plugin>
                 <!-- Build an executable JAR -->
                 <groupId>org.apache.maven.plugins</groupId>
@@ -67,7 +68,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>ru.weld.Calculator</mainClass>
+                            <mainClass>ru.weld.Weld</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
