@@ -61,6 +61,11 @@ public class Weld extends JFrame implements RoundUp {
     private JTextField textFieldRibSide3;
     private JTextField textFieldRibThickness3;
     private JButton buttonResetSizeRibs;
+    private JTextField textField1;
+    private JTextField textField2;
+    private JTextField textField3;
+    private JTextField textField4;
+    private JTextField textField5;
     double heightBeam;
     double flangeWidth;
     double flangeThickness;
