@@ -458,6 +458,31 @@ public class Weld extends JFrame implements RoundUp {
             textFieldRibBevel1.setText("");
             textFieldRibBevel3.setText("");
         });
+        buttonCalcTangStr.addActionListener(e -> {
+            checkCalcBendingChar();
+            checkFillingEfforts();
+            calcTangStrN();
+        });
+        buttonResetTangStr.addActionListener(e -> {
+            textFieldForceN.setText("");
+            textFieldShearForceQx.setText("");
+            textFieldShearForceQy.setText("");
+            textFieldBendMomMx.setText("");
+            textFieldBendMomMy.setText("");
+            textFieldTangStrN.setText("");
+            textFieldTangStrQx.setText("");
+            textFieldTangStrQy.setText("");
+            textFieldTangStrMx.setText("");
+            textFieldTangStrMy.setText("");
+        });
+    }
+
+    public void calcTangStrN() {
+        double forceN = Double.parseDouble(textFieldForceN.getText());
+        double sumArea = Double.parseDouble(textFieldArea.getText());
+        ForceN force = new ForceN();
+        double tangStrN = roundOne(force.tangentialStressesN(forceN, sumArea));
+        textFieldTangStrN.setText(String.valueOf(tangStrN));
     }
 
     public void controlFilling() {
@@ -514,6 +539,25 @@ public class Weld extends JFrame implements RoundUp {
             labelZ.setText("Заполни здесь!!!");
             JOptionPane.showMessageDialog(null,
                     "Заполните пустые текстовые поля в панели <<βz>>");
+        }
+    }
+
+    public void checkCalcBendingChar() {
+        if (textFieldIx.getText().isEmpty()
+                || textFieldIy.getText().isEmpty()
+                || textFieldWx.getText().isEmpty()
+                || textFieldWy.getText().isEmpty()
+                || textFieldArea.getText().isEmpty()
+                || textFieldLength.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null,
+                    "Изгибные характеристики сварного шва не определены");
+        }
+    }
+
+    public void checkFillingEfforts() {
+        if (textFieldForceN.getText().equals("0")) {
+            JOptionPane.showMessageDialog(null,
+                    "Усилия не заданы. Заполните поля");
         }
     }
 
@@ -1033,7 +1077,7 @@ public class Weld extends JFrame implements RoundUp {
         sumBeamRibsThreeLength = roundTwo((2 * (l + lo) + 4 * lb) + 4 * lr3);
         sumBeamRibsOneTwoLength = roundTwo((2 * (l + lo) + 4 * lb) + 4 * lr1 + 8 * lr2);
         sumBeamRibsOneThreeLength = roundTwo((2 * (l + lo) + 4 * lb) + 4 * (lr1 + lr3));
-        sumBeamRibsTwoThreeLength = roundTwo(2 * (l + lo) + 4 * lb  + 8 * lr2 + 4 * lr3);
+        sumBeamRibsTwoThreeLength = roundTwo(2 * (l + lo) + 4 * lb + 8 * lr2 + 4 * lr3);
         sumBeamRibsOneTwoThreeLength = roundTwo((2 * (l + lo) + 4 * lb) + 8 * lr2 + 4 * (lr1 + lr3));
     }
 
