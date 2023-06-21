@@ -142,9 +142,14 @@ public class Weld extends JFrame implements RoundUp {
     double sumBeamRibsTwoThreeArea;
     double sumBeamRibsTwoThreeLength;
     double sumArea;
+    double sumWx;
+    double sumWy;
     double forceN;
     double forceQx;
     double forceQy;
+    double bendingMomentMx;
+    double bendingMomentMy;
+
     private final Object[] columnsRwf = new String[]{
             "Тип электрода / марка проволоки", "Rwf [кг/см^2]"
     };
@@ -468,18 +473,20 @@ public class Weld extends JFrame implements RoundUp {
             calcTangStrN();
             calcTangStrQx();
             calcTangStrQy();
+            calcTangStrMx();
+            calcTangStrMy();
         });
         buttonResetTangStr.addActionListener(e -> {
-            textFieldForceN.setText("");
-            textFieldShearForceQx.setText("");
-            textFieldShearForceQy.setText("");
-            textFieldBendMomMx.setText("");
-            textFieldBendMomMy.setText("");
-            textFieldTangStrN.setText("");
-            textFieldTangStrQx.setText("");
-            textFieldTangStrQy.setText("");
-            textFieldTangStrMx.setText("");
-            textFieldTangStrMy.setText("");
+            textFieldForceN.setText("0");
+            textFieldShearForceQx.setText("0");
+            textFieldShearForceQy.setText("0");
+            textFieldBendMomMx.setText("0");
+            textFieldBendMomMy.setText("0");
+            textFieldTangStrN.setText("0");
+            textFieldTangStrQx.setText("0");
+            textFieldTangStrQy.setText("0");
+            textFieldTangStrMx.setText("0");
+            textFieldTangStrMy.setText("0");
         });
     }
 
@@ -507,8 +514,32 @@ public class Weld extends JFrame implements RoundUp {
         textFieldTangStrQy.setText(String.valueOf(tangStrQy));
     }
 
+    public void calcTangStrMx() {
+        getBendingMomentMx();
+        getSumWx();
+        InfluenceBendingMomentMx momentMx = new InfluenceBendingMomentMx();
+        double tangStrMx = roundOne(momentMx.tangentialStressesMx(bendingMomentMx, sumWx));
+        textFieldTangStrMx.setText(String.valueOf(tangStrMx));
+    }
+
+    public void calcTangStrMy() {
+        getBendingMomentMy();
+        getSumWy();
+        InfluenceBendingMomentMy momentMy = new InfluenceBendingMomentMy();
+        double tangStrMy = roundOne(momentMy.tangentialStressesMy(bendingMomentMy, sumWy));
+        textFieldTangStrMy.setText(String.valueOf(tangStrMy));
+    }
+
     public void getSumArea() {
         sumArea = Double.parseDouble(textFieldArea.getText());
+    }
+
+    public void getSumWx() {
+        sumWx = Double.parseDouble(textFieldWx.getText());
+    }
+
+    public void getSumWy() {
+        sumWy = Double.parseDouble(textFieldWy.getText());
     }
 
     public void getForceN() {
@@ -521,6 +552,14 @@ public class Weld extends JFrame implements RoundUp {
 
     public void getForceQy() {
         forceQy = Double.parseDouble(textFieldShearForceQy.getText());
+    }
+
+    public void getBendingMomentMx() {
+        bendingMomentMx = Double.parseDouble(textFieldBendMomMx.getText());
+    }
+
+    public void getBendingMomentMy() {
+        bendingMomentMy = Double.parseDouble(textFieldBendMomMy.getText());
     }
 
     public void controlFilling() {
