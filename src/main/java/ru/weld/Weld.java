@@ -141,6 +141,10 @@ public class Weld extends JFrame implements RoundUp {
     double sumBeamRibsTwoThreeWy;
     double sumBeamRibsTwoThreeArea;
     double sumBeamRibsTwoThreeLength;
+    double sumArea;
+    double forceN;
+    double forceQx;
+    double forceQy;
     private final Object[] columnsRwf = new String[]{
             "Тип электрода / марка проволоки", "Rwf [кг/см^2]"
     };
@@ -462,6 +466,8 @@ public class Weld extends JFrame implements RoundUp {
             checkCalcBendingChar();
             checkFillingEfforts();
             calcTangStrN();
+            calcTangStrQx();
+            calcTangStrQy();
         });
         buttonResetTangStr.addActionListener(e -> {
             textFieldForceN.setText("");
@@ -478,11 +484,43 @@ public class Weld extends JFrame implements RoundUp {
     }
 
     public void calcTangStrN() {
-        double forceN = Double.parseDouble(textFieldForceN.getText());
-        double sumArea = Double.parseDouble(textFieldArea.getText());
-        ForceN force = new ForceN();
-        double tangStrN = roundOne(force.tangentialStressesN(forceN, sumArea));
+        getForceN();
+        getSumArea();
+        InfluenceForceN forceN1 = new InfluenceForceN();
+        double tangStrN = roundOne(forceN1.tangentialStressesN(forceN, sumArea));
         textFieldTangStrN.setText(String.valueOf(tangStrN));
+    }
+
+    public void calcTangStrQx() {
+        getForceQx();
+        getSumArea();
+        InfluenceForceQx forceQx1 = new InfluenceForceQx();
+        double tangStrQx = roundOne(forceQx1.tangentialStressesQx(forceQx, sumArea));
+        textFieldTangStrQx.setText(String.valueOf(tangStrQx));
+    }
+
+    public void calcTangStrQy() {
+        getForceQy();
+        getSumArea();
+        InfluenceForceQy forceQy1 = new InfluenceForceQy();
+        double tangStrQy = roundOne(forceQy1.tangentialStressesQy(forceQy, sumArea));
+        textFieldTangStrQy.setText(String.valueOf(tangStrQy));
+    }
+
+    public void getSumArea() {
+        sumArea = Double.parseDouble(textFieldArea.getText());
+    }
+
+    public void getForceN() {
+        forceN = Double.parseDouble(textFieldForceN.getText());
+    }
+
+    public void getForceQx() {
+        forceQx = Double.parseDouble(textFieldShearForceQx.getText());
+    }
+
+    public void getForceQy() {
+        forceQy = Double.parseDouble(textFieldShearForceQy.getText());
     }
 
     public void controlFilling() {
