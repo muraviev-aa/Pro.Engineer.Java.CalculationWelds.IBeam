@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="panel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="844" height="751"/>
+      <xy x="20" y="20" width="844" height="845"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -1266,7 +1266,7 @@
               <font/>
             </border>
             <children>
-              <grid id="5cada" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="5cada" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="5" left="5" bottom="5" right="5"/>
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -1301,6 +1301,7 @@
                         </constraints>
                         <properties>
                           <font size="16" style="1"/>
+                          <foreground color="-14471751"/>
                           <horizontalAlignment value="4"/>
                           <text value="0"/>
                         </properties>
@@ -1313,6 +1314,7 @@
                         </constraints>
                         <properties>
                           <font size="16" style="1"/>
+                          <foreground color="-14471751"/>
                           <horizontalAlignment value="4"/>
                           <text value="0"/>
                         </properties>
@@ -1325,6 +1327,7 @@
                         </constraints>
                         <properties>
                           <font size="16" style="1"/>
+                          <foreground color="-14471751"/>
                           <horizontalAlignment value="4"/>
                           <text value="0"/>
                         </properties>
@@ -1337,6 +1340,7 @@
                         </constraints>
                         <properties>
                           <font size="16" style="1"/>
+                          <foreground color="-14471751"/>
                           <horizontalAlignment value="4"/>
                           <text value="0"/>
                         </properties>
@@ -1349,6 +1353,7 @@
                         </constraints>
                         <properties>
                           <font size="16" style="1"/>
+                          <foreground color="-14471751"/>
                           <horizontalAlignment value="4"/>
                           <text value="0"/>
                         </properties>
@@ -1359,6 +1364,7 @@
                         </constraints>
                         <properties>
                           <font size="16" style="1"/>
+                          <foreground color="-14471751"/>
                           <text value="τN"/>
                         </properties>
                       </component>
@@ -1368,6 +1374,7 @@
                         </constraints>
                         <properties>
                           <font size="16" style="1"/>
+                          <foreground color="-14471751"/>
                           <text value="τQx"/>
                         </properties>
                       </component>
@@ -1377,6 +1384,7 @@
                         </constraints>
                         <properties>
                           <font size="16" style="1"/>
+                          <foreground color="-14471751"/>
                           <text value="τQy"/>
                         </properties>
                       </component>
@@ -1386,6 +1394,7 @@
                         </constraints>
                         <properties>
                           <font size="16" style="1"/>
+                          <foreground color="-14471751"/>
                           <text value="τMx"/>
                         </properties>
                       </component>
@@ -1395,6 +1404,7 @@
                         </constraints>
                         <properties>
                           <font size="16" style="1"/>
+                          <foreground color="-14471751"/>
                           <text value="τMy"/>
                         </properties>
                       </component>
@@ -1404,6 +1414,7 @@
                         </constraints>
                         <properties>
                           <font size="16" style="1"/>
+                          <foreground color="-14471751"/>
                           <text value="кг/см^2"/>
                         </properties>
                       </component>
@@ -1413,6 +1424,7 @@
                         </constraints>
                         <properties>
                           <font size="16" style="1"/>
+                          <foreground color="-14471751"/>
                           <text value="кг/см^2"/>
                         </properties>
                       </component>
@@ -1422,6 +1434,7 @@
                         </constraints>
                         <properties>
                           <font size="16" style="1"/>
+                          <foreground color="-14471751"/>
                           <text value="кг/см^2"/>
                         </properties>
                       </component>
@@ -1431,6 +1444,7 @@
                         </constraints>
                         <properties>
                           <font size="16" style="1"/>
+                          <foreground color="-14471751"/>
                           <text value="кг/см^2"/>
                         </properties>
                       </component>
@@ -1440,6 +1454,7 @@
                         </constraints>
                         <properties>
                           <font size="16" style="1"/>
+                          <foreground color="-14471751"/>
                           <text value="кг/см^2"/>
                         </properties>
                       </component>
@@ -1451,6 +1466,182 @@
                       <hspacer id="8d1fd">
                         <constraints>
                           <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                      </hspacer>
+                    </children>
+                  </grid>
+                  <grid id="1dc23" layout-manager="GridLayoutManager" row-count="3" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="5" left="5" bottom="5" right="5"/>
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties/>
+                    <border type="bevel-lowered" title="Суммарные касательные напряжения" title-justification="2">
+                      <font size="14" style="1"/>
+                    </border>
+                    <children>
+                      <component id="a3e10" class="javax.swing.JTextField" binding="textFieldTangY">
+                        <constraints>
+                          <grid row="1" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                            <preferred-size width="150" height="-1"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <font size="16" style="1"/>
+                          <foreground color="-14471751"/>
+                          <horizontalAlignment value="4"/>
+                          <text value="0"/>
+                        </properties>
+                      </component>
+                      <component id="78542" class="javax.swing.JTextField" binding="textFieldTangZ">
+                        <constraints>
+                          <grid row="2" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                            <preferred-size width="150" height="-1"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <font size="16" style="1"/>
+                          <foreground color="-14471751"/>
+                          <horizontalAlignment value="4"/>
+                          <text value="0"/>
+                        </properties>
+                      </component>
+                      <component id="c2c60" class="javax.swing.JLabel">
+                        <constraints>
+                          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <font size="16" style="1"/>
+                          <foreground color="-14471751"/>
+                          <text value="τy"/>
+                        </properties>
+                      </component>
+                      <component id="cd391" class="javax.swing.JLabel">
+                        <constraints>
+                          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <font size="16" style="1"/>
+                          <foreground color="-14471751"/>
+                          <text value="τx"/>
+                        </properties>
+                      </component>
+                      <component id="ec538" class="javax.swing.JLabel">
+                        <constraints>
+                          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <font size="16" style="1"/>
+                          <foreground color="-14471751"/>
+                          <text value="τz"/>
+                        </properties>
+                      </component>
+                      <component id="87b72" class="javax.swing.JTextField" binding="textFieldTangX">
+                        <constraints>
+                          <grid row="0" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                            <preferred-size width="150" height="-1"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <font size="16" style="1"/>
+                          <foreground color="-14471751"/>
+                          <horizontalAlignment value="4"/>
+                          <text value="0"/>
+                        </properties>
+                      </component>
+                      <component id="6ee17" class="javax.swing.JLabel">
+                        <constraints>
+                          <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <font size="16" style="1"/>
+                          <foreground color="-14471751"/>
+                          <text value="кг/см^2"/>
+                        </properties>
+                      </component>
+                      <component id="9e214" class="javax.swing.JLabel">
+                        <constraints>
+                          <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <font size="16" style="1"/>
+                          <foreground color="-14471751"/>
+                          <text value="кг/см^2"/>
+                        </properties>
+                      </component>
+                      <component id="3d087" class="javax.swing.JLabel">
+                        <constraints>
+                          <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <font size="16" style="1"/>
+                          <foreground color="-14471751"/>
+                          <text value="кг/см^2"/>
+                        </properties>
+                      </component>
+                      <hspacer id="3906">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                      </hspacer>
+                      <hspacer id="d6409">
+                        <constraints>
+                          <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                      </hspacer>
+                    </children>
+                  </grid>
+                  <grid id="85213" layout-manager="GridLayoutManager" row-count="1" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="0" left="0" bottom="0" right="0"/>
+                    <constraints>
+                      <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties/>
+                    <border type="bevel-lowered" title="Приведенные касательные напряжения" title-justification="2">
+                      <font size="14" style="1"/>
+                    </border>
+                    <children>
+                      <component id="73e13" class="javax.swing.JTextField" binding="textFieldTangPriv">
+                        <constraints>
+                          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                            <preferred-size width="150" height="-1"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <font size="16" style="1"/>
+                          <foreground color="-14471751"/>
+                          <horizontalAlignment value="4"/>
+                          <text value="0"/>
+                        </properties>
+                      </component>
+                      <component id="f9cd3" class="javax.swing.JLabel">
+                        <constraints>
+                          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <font size="16" style="1"/>
+                          <foreground color="-14471751"/>
+                          <text value="τпр"/>
+                        </properties>
+                      </component>
+                      <component id="e2e62" class="javax.swing.JLabel">
+                        <constraints>
+                          <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <font size="16" style="1"/>
+                          <foreground color="-14471751"/>
+                          <text value="кг/см^2"/>
+                        </properties>
+                      </component>
+                      <hspacer id="b57d4">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                      </hspacer>
+                      <hspacer id="2e963">
+                        <constraints>
+                          <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                       </hspacer>
                     </children>

@@ -73,6 +73,10 @@ public class Weld extends JFrame implements RoundUp {
     private JTextField textFieldTangStrMy;
     private JButton buttonCalcTangStr;
     private JButton buttonResetTangStr;
+    private JTextField textFieldTangX;
+    private JTextField textFieldTangY;
+    private JTextField textFieldTangZ;
+    private JTextField textFieldTangPriv;
     double heightBeam;
     double flangeWidth;
     double flangeThickness;
@@ -240,7 +244,7 @@ public class Weld extends JFrame implements RoundUp {
         final ButtonGroup checkBoxGroupIBeam = new ButtonGroup();
         checkBoxGroupIBeam.add(checkBox25B1);
         checkBoxGroupIBeam.add(checkBox70B4);
-        setSize(1000, 750);
+        setSize(1000, 770);
         label1.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().
                 getImage(getClass().getResource("/withoutRibs.png"))));
         tabbedPane1.setEnabledAt(1, false);
@@ -487,6 +491,10 @@ public class Weld extends JFrame implements RoundUp {
             textFieldTangStrQy.setText("0");
             textFieldTangStrMx.setText("0");
             textFieldTangStrMy.setText("0");
+            textFieldTangX.setText("0");
+            textFieldTangY.setText("0");
+            textFieldTangZ.setText("0");
+            textFieldTangPriv.setText("0");
         });
     }
 
