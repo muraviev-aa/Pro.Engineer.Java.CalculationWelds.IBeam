@@ -77,6 +77,7 @@ public class Weld extends JFrame implements RoundUp {
     private JTextField textFieldSumTangY;
     private JTextField textFieldSumTangZ;
     private JTextField textFieldTangStrEquivalent;
+    private JButton buttonPrint;
     double heightBeam;
     double flangeWidth;
     double flangeThickness;
@@ -241,6 +242,7 @@ public class Weld extends JFrame implements RoundUp {
         buttonResetSizeRibs.setPreferredSize(dimension);
         buttonCalcTangStr.setPreferredSize(dimension);
         buttonResetTangStr.setPreferredSize(dimension);
+        buttonPrint.setPreferredSize(dimension);
         final ButtonGroup checkBoxGroupBf = new ButtonGroup();
         checkBoxGroupBf.add(checkBox1And1);
         checkBoxGroupBf.add(checkBox0And9);
