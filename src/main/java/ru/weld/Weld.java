@@ -73,10 +73,10 @@ public class Weld extends JFrame implements RoundUp {
     private JTextField textFieldTangStrMy;
     private JButton buttonCalcTangStr;
     private JButton buttonResetTangStr;
-    private JTextField textFieldTangX;
-    private JTextField textFieldTangY;
-    private JTextField textFieldTangZ;
-    private JTextField textFieldTangPriv;
+    private JTextField textFieldSumTangX;
+    private JTextField textFieldSumTangY;
+    private JTextField textFieldSumTangZ;
+    private JTextField textFieldTangStrEquivalent;
     double heightBeam;
     double flangeWidth;
     double flangeThickness;
@@ -153,6 +153,15 @@ public class Weld extends JFrame implements RoundUp {
     double forceQy;
     double bendingMomentMx;
     double bendingMomentMy;
+    double tangStrN;
+    double tangStrQx;
+    double tangStrQy;
+    double tangStrMy;
+    double tangStrMx;
+    double tangStrSumTx;
+    double tangStrSumTy;
+    double tangStrSumTz;
+    double tangStrEquivalent;
 
     private final Object[] columnsRwf = new String[]{
             "Тип электрода / марка проволоки", "Rwf [кг/см^2]"
@@ -479,6 +488,10 @@ public class Weld extends JFrame implements RoundUp {
             calcTangStrQy();
             calcTangStrMx();
             calcTangStrMy();
+            calcTangStrSumTx();
+            calcTangStrSumTy();
+            calcTangStrSumTz();
+            calcTangStrEquivalent();
         });
         buttonResetTangStr.addActionListener(e -> {
             textFieldForceN.setText("0");
@@ -491,10 +504,10 @@ public class Weld extends JFrame implements RoundUp {
             textFieldTangStrQy.setText("0");
             textFieldTangStrMx.setText("0");
             textFieldTangStrMy.setText("0");
-            textFieldTangX.setText("0");
-            textFieldTangY.setText("0");
-            textFieldTangZ.setText("0");
-            textFieldTangPriv.setText("0");
+            textFieldSumTangX.setText("0");
+            textFieldSumTangY.setText("0");
+            textFieldSumTangZ.setText("0");
+            textFieldTangStrEquivalent.setText("0");
         });
     }
 
@@ -536,6 +549,32 @@ public class Weld extends JFrame implements RoundUp {
         InfluenceBendingMomentMy momentMy = new InfluenceBendingMomentMy();
         double tangStrMy = roundOne(momentMy.tangentialStressesMy(bendingMomentMy, sumWy));
         textFieldTangStrMy.setText(String.valueOf(tangStrMy));
+    }
+
+    public void calcTangStrSumTx() {
+        tangStrQx = Double.parseDouble(textFieldTangStrQx.getText());
+        tangStrMy = Double.parseDouble(textFieldTangStrMy.getText());
+        tangStrSumTx = roundOne(tangStrQx + tangStrMy);
+        textFieldSumTangX.setText(String.valueOf(tangStrSumTx));
+    }
+
+    public void calcTangStrSumTy() {
+        tangStrQy = Double.parseDouble(textFieldTangStrQy.getText());
+        tangStrSumTy = tangStrQy;
+        textFieldSumTangY.setText(String.valueOf(tangStrSumTy));
+    }
+
+    public void calcTangStrSumTz() {
+        tangStrN = Double.parseDouble(textFieldTangStrN.getText());
+        tangStrMx = Double.parseDouble(textFieldTangStrMx.getText());
+        tangStrSumTz = roundOne(tangStrN + tangStrMx);
+        textFieldSumTangZ.setText(String.valueOf(tangStrSumTz));
+    }
+
+    public void calcTangStrEquivalent() {
+        tangStrEquivalent = roundOne(Math.sqrt(Math.pow(tangStrSumTx, 2)
+                + Math.pow(tangStrSumTy, 2) + Math.pow(tangStrSumTz, 2)));
+        textFieldTangStrEquivalent.setText(String.valueOf(tangStrEquivalent));
     }
 
     public void getSumArea() {
