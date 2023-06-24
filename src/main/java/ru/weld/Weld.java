@@ -7,6 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Weld extends JFrame implements RoundUp {
     private double factorF;
@@ -511,6 +515,7 @@ public class Weld extends JFrame implements RoundUp {
             textFieldSumTangZ.setText("0");
             textFieldTangStrEquivalent.setText("0");
         });
+        buttonPrint.addActionListener(e -> printString());
     }
 
     public void calcTangStrN() {
@@ -1259,6 +1264,37 @@ public class Weld extends JFrame implements RoundUp {
         calculateL(momentInertiaWeldWall, momentInertiaWeldFlange, momentInertiaWeldRibsOne,
                 momentInertiaWeldRibsTwo, momentInertiaWeldRibsThree);
         choosingLocationRibs();
+    }
+
+    public void printString() {
+        File file = new File("d:\\Text\\calculate.txt");
+        String heightBeam = textFieldHeightBeam.getText();
+        String flangeWidth = textFieldFlangeWidth.getText();
+        String flangeThickness = textFieldFlangeThickness.getText();
+        String wallThickness = textFieldWallThickness.getText();
+        String radius = textFieldRadius.getText();
+        String flangeKf = textFieldFlangeKf.getText();
+        String wallKf = textFieldWallKf.getText();
+        String text = "Панель <<Размеры двутаврового сечения>>\n"
+                + "Высота балки: " + heightBeam + "\n"
+                + "Ширина полки: " + flangeWidth + "\n"
+                + "Толщина полки: " + flangeThickness + "\n"
+                + "Толщина стенки: " + wallThickness + "\n"
+                + "Радиус: " + radius + "\n"
+                + "\n"
+                + "Панель <<Катеты швов приварки двутавра>>\n"
+                + "Катет шва полки: " + flangeKf + "\n"
+                + "Катет шва стенки: " + wallKf + "\n"
+                + "\n";
+        stringWriter(text, file);
+    }
+
+    public static void stringWriter(String text, File file) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            writer.write(text);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     public static void main(String[] args) {

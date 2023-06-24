@@ -1857,7 +1857,7 @@
                         </constraints>
                         <properties>
                           <font size="14"/>
-                          <text value="Печать PDF"/>
+                          <text value="Печать"/>
                         </properties>
                       </component>
                     </children>
