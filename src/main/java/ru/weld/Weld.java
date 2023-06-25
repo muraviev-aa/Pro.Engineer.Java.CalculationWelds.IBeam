@@ -11,6 +11,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Weld extends JFrame implements RoundUp {
     private double factorF;
@@ -1271,8 +1273,17 @@ public class Weld extends JFrame implements RoundUp {
 
     public void printString() {
         File file = new File("d:\\Text\\calculate.txt");
-        String text = textSizeBeam() + textWeldK() + textBf() + textBz() + textSectionCalc(rwf, rwz);
+        String text = textDate() + textSizeBeam() + textWeldK() + textBf() + textBz()
+                + textSectionCalc(rwf, rwz) + textCharacterSections();
         stringWriter(text, file);
+    }
+
+    public String textDate() {
+        Date dNow = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("Отчет создан: dd.MM.yyyy, hh:mm a zzz");
+        String date = formatter.format(dNow);
+        return date + "\n"
+                + "\n";
     }
 
     public String textSizeBeam() {
@@ -1281,19 +1292,15 @@ public class Weld extends JFrame implements RoundUp {
         String flangeThicknessRes = textFieldFlangeThickness.getText();
         String wallThicknessRes = textFieldWallThickness.getText();
         String radiusRes = textFieldRadius.getText();
-        String text = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + " Размеры двутаврового сечения, см\n"
-                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + " Высота балки: " + heightBeamRes + "\n"
-                + "----------------------------------\n"
-                + " Ширина полки: " + flangeWidthRes + "\n"
-                + "----------------------------------\n"
-                + " Толщина полки: " + flangeThicknessRes + "\n"
-                + "----------------------------------\n"
-                + " Толщина стенки: " + wallThicknessRes + "\n"
-                + "----------------------------------\n"
+        String text = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + "    Размеры двутаврового сечения, см\n"
+                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + " Высота балки: " + heightBeamRes + "; " + "Ширина полки: " + flangeWidthRes + "\n"
+                + "-----------------------------------------\n"
+                + " Толщина полки: " + flangeThicknessRes + "; " + "Толщина стенки: " + wallThicknessRes + "\n"
+                + "-----------------------------------------\n"
                 + " Радиус: " + radiusRes + "\n"
-                + "----------------------------------\n"
+                + "-----------------------------------------\n"
                 + "\n";
         return text;
     }
@@ -1323,12 +1330,11 @@ public class Weld extends JFrame implements RoundUp {
         } else if (checkBox0And7.isSelected()) {
             textBResF = String.valueOf(0.7);
         }
-        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + " Коэфф. для расчета угловых швов\n"
-                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + " Bf = " + textBResF + "\n"
-                + " по металлу шва\n"
-                + "-----------------------------------\n";
+        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + "    Коэфф. для расчета угловых швов\n"
+                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + " Bf = " + textBResF + " по металлу шва\n"
+                + "-----------------------------------------\n";
     }
 
     public String textBz() {
@@ -1340,10 +1346,8 @@ public class Weld extends JFrame implements RoundUp {
         } else if (checkBox1.isSelected()) {
             textBResZ = String.valueOf(1);
         }
-        return " Bz = " + textBResZ + "\n"
-                + " по металлу границы сплавления\n"
-                + "-----------------------------------\n"
-                + "\n";
+        return " Bz = " + textBResZ + " по металлу границы сплавления\n"
+                + "-----------------------------------------\n";
     }
 
     public String textSectionCalc(double rwf, double rwz) {
@@ -1356,9 +1360,28 @@ public class Weld extends JFrame implements RoundUp {
         } else if (res > 1) {
             textSectionCalc = "по границе сплавления";
         }
-        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+        return "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n"
                 + " Расчет производится " + textSectionCalc + "\n"
-                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n"
+                + "\n";
+    }
+
+    public String textCharacterSections() {
+        String ix = String.valueOf(textFieldIx.getText());
+        String iy = String.valueOf(textFieldIy.getText());
+        String wx = String.valueOf(textFieldWx.getText());
+        String wy = String.valueOf(textFieldWy.getText());
+        String s = String.valueOf(textFieldArea.getText());
+        String l = String.valueOf(textFieldLength.getText());
+        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + "      Характеристики угловых швов\n"
+                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + " Ix = " + ix + " см^4; " + "Iy = " + iy + " см^4" + "\n"
+                + "-----------------------------------------\n"
+                + " Wx = " + wx + " см^3; " + "Wy = " + wy + " см^3" + "\n"
+                + "-----------------------------------------\n"
+                + " S = " + s + " см^2; " + "L = " + l + " см" + "\n"
+                + "-----------------------------------------\n"
                 + "\n";
     }
 
