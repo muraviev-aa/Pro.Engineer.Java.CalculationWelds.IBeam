@@ -774,19 +774,22 @@ public class Weld extends JFrame implements RoundUp {
         double res = f / z;
         if (res <= 1) {
             factor = factorF;
+            labelF.setText("По металлу шва");
             if (!checkBox1And1.isSelected() || !checkBox0And9.isSelected()
                     || !checkBox0And8.isSelected() || !checkBox0And7.isSelected()) {
-                labelF.setText("");
+                labelZ.setText("");
             } else {
                 labelF.setText("По металлу шва");
             }
-        } else {
+        } else if (res > 1) {
             factor = factorZ;
+            labelZ.setText("По границе сплавления");
             if (!checkBox1And15.isSelected() || !checkBox1And05.isSelected()
                     || !checkBox1.isSelected()) {
                 labelF.setText("");
+            } else {
+                labelZ.setText("По границе сплавления");
             }
-            labelZ.setText("По границе сплавления");
         }
     }
 
@@ -1252,6 +1255,7 @@ public class Weld extends JFrame implements RoundUp {
         MaxDistanceWeldRibsThree maxDistanceWeldRibsThree = new MaxDistanceWeldRibsThree();
 
         selectSectionCalc(rwf, rwz);
+        System.out.println(factor);
         calculateIAxisX(momentInertiaWeldWall, momentInertiaWeldFlange, momentInertiaWeldRibsOne,
                 momentInertiaWeldRibsTwo, momentInertiaWeldRibsThree);
         calculateIAxisY(momentInertiaWeldWall, momentInertiaWeldFlange, momentInertiaWeldRibsOne,
@@ -1267,7 +1271,7 @@ public class Weld extends JFrame implements RoundUp {
 
     public void printString() {
         File file = new File("d:\\Text\\calculate.txt");
-        String text = textSizeBeam() + textWeldK() + textBf() + textBz();
+        String text = textSizeBeam() + textWeldK() + textBf() + textBz() + textSectionCalc(rwf, rwz);
         stringWriter(text, file);
     }
 
@@ -1323,6 +1327,7 @@ public class Weld extends JFrame implements RoundUp {
                 + " Коэфф. для расчета угловых швов\n"
                 + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
                 + " Bf = " + textBResF + "\n"
+                + " по металлу шва\n"
                 + "-----------------------------------\n";
     }
 
@@ -1336,7 +1341,25 @@ public class Weld extends JFrame implements RoundUp {
             textBResZ = String.valueOf(1);
         }
         return " Bz = " + textBResZ + "\n"
-                + "-----------------------------------\n";
+                + " по металлу границы сплавления\n"
+                + "-----------------------------------\n"
+                + "\n";
+    }
+
+    public String textSectionCalc(double rwf, double rwz) {
+        double f = factorF * rwf;
+        double z = factorZ * rwz;
+        double res = f / z;
+        String textSectionCalc = null;
+        if (res <= 1) {
+            textSectionCalc = "по металлу шва";
+        } else if (res > 1) {
+            textSectionCalc = "по границе сплавления";
+        }
+        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + " Расчет производится " + textSectionCalc + "\n"
+                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + "\n";
     }
 
     public static void stringWriter(String text, File file) {
