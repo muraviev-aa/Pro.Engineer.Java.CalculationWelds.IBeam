@@ -54,6 +54,8 @@
 <img src="images/forces.png" alt="drawing" width="300"/>
 </p>
 
+* Предусмотрена возможность создания txt файла с результатами расчета.
+
 #### N.B. Приложение в стадии разработки. Планируются изменения.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
