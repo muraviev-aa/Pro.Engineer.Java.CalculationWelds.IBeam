@@ -84,6 +84,7 @@ public class Weld extends JFrame implements RoundUp {
     private JTextField textFieldSumTangZ;
     private JTextField textFieldTangStrEquivalent;
     private JButton buttonPrint;
+    private JTextField textFieldName;
     double heightBeam;
     double flangeWidth;
     double flangeThickness;
@@ -1273,8 +1274,9 @@ public class Weld extends JFrame implements RoundUp {
 
     public void printString() {
         File file = new File("d:\\Text\\calculate.txt");
-        String text = textDate() + textSizeBeam() + textWeldK() + textBf() + textBz()
-                + textSectionCalc(rwf, rwz) + textCharacterSections();
+        String text = textDate() + textName() + textSizeBeam() + textWeldK() + textBf()
+                + textBz() + textSolutionResistance() + textSectionCalc(rwf, rwz)
+                + textCharacterSections();
         stringWriter(text, file);
     }
 
@@ -1283,6 +1285,12 @@ public class Weld extends JFrame implements RoundUp {
         SimpleDateFormat formatter = new SimpleDateFormat("Отчет создан: dd.MM.yyyy, hh:mm a zzz");
         String date = formatter.format(dNow);
         return date + "\n"
+                + "\n";
+    }
+
+    public String textName() {
+        String name = String.valueOf(textFieldName.getText());
+        return "Наименование: " + name + "\n"
                 + "\n";
     }
 
@@ -1360,9 +1368,25 @@ public class Weld extends JFrame implements RoundUp {
         } else if (res > 1) {
             textSectionCalc = "по границе сплавления";
         }
-        return "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n"
+        return "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n"
                 + " Расчет производится " + textSectionCalc + "\n"
-                + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n"
+                + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n"
+                + "\n";
+    }
+
+    public String textSolutionResistance() {
+        String metalWeld = String.valueOf(labelRwf.getText());
+        String borderWeld = String.valueOf(labelRwz.getText());
+        String steelCategory = String.valueOf(labelClassSteel.getText());
+        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + "        Расчетные сопротивления" + "\n"
+                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + " По металлу шва: " + metalWeld + " кг/см^2" + "\n"
+                + "-----------------------------------------\n"
+                + " По границе сплавления: " + borderWeld + " кг/см^2" + "\n"
+                + "-----------------------------------------\n"
+                + " Категория стали: " + steelCategory + "\n"
+                + "-----------------------------------------\n"
                 + "\n";
     }
 
