@@ -167,7 +167,6 @@ public class Weld extends JFrame implements RoundUp {
     double tangStrSumTy;
     double tangStrSumTz;
     double tangStrEquivalent;
-
     private final Object[] columnsRwf = new String[]{
             "Тип электрода / марка проволоки", "Rwf [кг/см^2]"
     };
@@ -1268,25 +1267,76 @@ public class Weld extends JFrame implements RoundUp {
 
     public void printString() {
         File file = new File("d:\\Text\\calculate.txt");
-        String heightBeam = textFieldHeightBeam.getText();
-        String flangeWidth = textFieldFlangeWidth.getText();
-        String flangeThickness = textFieldFlangeThickness.getText();
-        String wallThickness = textFieldWallThickness.getText();
-        String radius = textFieldRadius.getText();
-        String flangeKf = textFieldFlangeKf.getText();
-        String wallKf = textFieldWallKf.getText();
-        String text = "Панель <<Размеры двутаврового сечения>>\n"
-                + "Высота балки: " + heightBeam + "\n"
-                + "Ширина полки: " + flangeWidth + "\n"
-                + "Толщина полки: " + flangeThickness + "\n"
-                + "Толщина стенки: " + wallThickness + "\n"
-                + "Радиус: " + radius + "\n"
-                + "\n"
-                + "Панель <<Катеты швов приварки двутавра>>\n"
-                + "Катет шва полки: " + flangeKf + "\n"
-                + "Катет шва стенки: " + wallKf + "\n"
-                + "\n";
+        String text = textSizeBeam() + textWeldK() + textBf() + textBz();
         stringWriter(text, file);
+    }
+
+    public String textSizeBeam() {
+        String heightBeamRes = textFieldHeightBeam.getText();
+        String flangeWidthRes = textFieldFlangeWidth.getText();
+        String flangeThicknessRes = textFieldFlangeThickness.getText();
+        String wallThicknessRes = textFieldWallThickness.getText();
+        String radiusRes = textFieldRadius.getText();
+        String text = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + " Размеры двутаврового сечения, см\n"
+                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + " Высота балки: " + heightBeamRes + "\n"
+                + "----------------------------------\n"
+                + " Ширина полки: " + flangeWidthRes + "\n"
+                + "----------------------------------\n"
+                + " Толщина полки: " + flangeThicknessRes + "\n"
+                + "----------------------------------\n"
+                + " Толщина стенки: " + wallThicknessRes + "\n"
+                + "----------------------------------\n"
+                + " Радиус: " + radiusRes + "\n"
+                + "----------------------------------\n"
+                + "\n";
+        return text;
+    }
+
+    public String textWeldK() {
+        String flangeKfRes = textFieldFlangeKf.getText();
+        String wallKfRes = textFieldWallKf.getText();
+        String text = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + " Катеты швов приварки двутавра, см\n"
+                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + " Катет шва полки: " + flangeKfRes + "\n"
+                + "-----------------------------------\n"
+                + " Катет шва стенки: " + wallKfRes + "\n"
+                + "-----------------------------------\n"
+                + "\n";
+        return text;
+    }
+
+    public String textBf() {
+        String textBResF = null;
+        if (checkBox1And1.isSelected()) {
+            textBResF = String.valueOf(1.1);
+        } else if (checkBox0And9.isSelected()) {
+            textBResF = String.valueOf(0.9);
+        } else if (checkBox0And8.isSelected()) {
+            textBResF = String.valueOf(0.8);
+        } else if (checkBox0And7.isSelected()) {
+            textBResF = String.valueOf(0.7);
+        }
+        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + " Коэфф. для расчета угловых швов\n"
+                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + " Bf = " + textBResF + "\n"
+                + "-----------------------------------\n";
+    }
+
+    public String textBz() {
+        String textBResZ = null;
+        if (checkBox1And15.isSelected()) {
+            textBResZ = String.valueOf(1.15);
+        } else if (checkBox1And05.isSelected()) {
+            textBResZ = String.valueOf(1.05);
+        } else if (checkBox1.isSelected()) {
+            textBResZ = String.valueOf(1);
+        }
+        return " Bz = " + textBResZ + "\n"
+                + "-----------------------------------\n";
     }
 
     public static void stringWriter(String text, File file) {
