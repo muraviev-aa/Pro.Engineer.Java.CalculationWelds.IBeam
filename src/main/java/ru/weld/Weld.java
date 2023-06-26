@@ -85,6 +85,7 @@ public class Weld extends JFrame implements RoundUp {
     private JTextField textFieldTangStrEquivalent;
     private JButton buttonPrint;
     private JTextField textFieldName;
+    private JTextField textFieldPath;
     double heightBeam;
     double flangeWidth;
     double flangeThickness;
@@ -1273,10 +1274,11 @@ public class Weld extends JFrame implements RoundUp {
     }
 
     public void printString() {
-        File file = new File("d:\\Text\\calculate.txt");
+        String path = textFieldPath.getText();
+        File file = new File(path);
         String text = textDate() + textName() + textSizeBeam() + textWeldK() + textBf()
                 + textBz() + textSolutionResistance() + textSectionCalc(rwf, rwz)
-                + textCharacterSections();
+                + textCharacterSections() + textRibsOne() + textRibsTwo() + textRibsThree();
         stringWriter(text, file);
     }
 
@@ -1300,30 +1302,27 @@ public class Weld extends JFrame implements RoundUp {
         String flangeThicknessRes = textFieldFlangeThickness.getText();
         String wallThicknessRes = textFieldWallThickness.getText();
         String radiusRes = textFieldRadius.getText();
-        String text = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + "    Размеры двутаврового сечения, см\n"
-                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + " Высота балки: " + heightBeamRes + "; " + "Ширина полки: " + flangeWidthRes + "\n"
-                + "-----------------------------------------\n"
-                + " Толщина полки: " + flangeThicknessRes + "; " + "Толщина стенки: " + wallThicknessRes + "\n"
-                + "-----------------------------------------\n"
-                + " Радиус: " + radiusRes + "\n"
-                + "-----------------------------------------\n"
-                + "\n";
+        String text = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + "                      Размеры двутаврового сечения, см\n"
+                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + " Высота балки: " + heightBeamRes + "; " + "Ширина полки: " + flangeWidthRes + "; "
+                + " Толщина полки: " + flangeThicknessRes + "\n"
+                + "-------------------------------------------------------------------------------\n"
+                + " Толщина стенки: " + wallThicknessRes + "; "
+                + "Радиус: " + radiusRes + "\n"
+                + "-------------------------------------------------------------------------------\n";
         return text;
     }
 
     public String textWeldK() {
         String flangeKfRes = textFieldFlangeKf.getText();
         String wallKfRes = textFieldWallKf.getText();
-        String text = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + " Катеты швов приварки двутавра, см\n"
-                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + " Катет шва полки: " + flangeKfRes + "\n"
-                + "-----------------------------------\n"
+        String text = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + "                 Катеты швов приварки двутавра, см\n"
+                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + " Катет шва полки: " + flangeKfRes + "; "
                 + " Катет шва стенки: " + wallKfRes + "\n"
-                + "-----------------------------------\n"
-                + "\n";
+                + "-------------------------------------------------------------------\n";
         return text;
     }
 
@@ -1341,7 +1340,7 @@ public class Weld extends JFrame implements RoundUp {
         return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
                 + "    Коэфф. для расчета угловых швов\n"
                 + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + " Bf = " + textBResF + " по металлу шва\n"
+                + " Bf: " + textBResF + " по металлу шва\n"
                 + "-----------------------------------------\n";
     }
 
@@ -1354,7 +1353,7 @@ public class Weld extends JFrame implements RoundUp {
         } else if (checkBox1.isSelected()) {
             textBResZ = String.valueOf(1);
         }
-        return " Bz = " + textBResZ + " по металлу границы сплавления\n"
+        return " Bz: " + textBResZ + " по металлу границы сплавления\n"
                 + "-----------------------------------------\n";
     }
 
@@ -1370,24 +1369,21 @@ public class Weld extends JFrame implements RoundUp {
         }
         return "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n"
                 + " Расчет производится " + textSectionCalc + "\n"
-                + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n"
-                + "\n";
+                + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
     }
 
     public String textSolutionResistance() {
         String metalWeld = String.valueOf(labelRwf.getText());
         String borderWeld = String.valueOf(labelRwz.getText());
         String steelCategory = String.valueOf(labelClassSteel.getText());
-        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + "        Расчетные сопротивления" + "\n"
-                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + " По металлу шва: " + metalWeld + " кг/см^2" + "\n"
-                + "-----------------------------------------\n"
+        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + "                          Расчетные сопротивления" + "\n"
+                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + " По металлу шва: " + metalWeld + " кг/см^2" + "; "
                 + " По границе сплавления: " + borderWeld + " кг/см^2" + "\n"
-                + "-----------------------------------------\n"
+                + "-------------------------------------------------------------------------------\n"
                 + " Категория стали: " + steelCategory + "\n"
-                + "-----------------------------------------\n"
-                + "\n";
+                + "-------------------------------------------------------------------------------\n";
     }
 
     public String textCharacterSections() {
@@ -1397,16 +1393,52 @@ public class Weld extends JFrame implements RoundUp {
         String wy = String.valueOf(textFieldWy.getText());
         String s = String.valueOf(textFieldArea.getText());
         String l = String.valueOf(textFieldLength.getText());
-        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + "      Характеристики угловых швов\n"
-                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + " Ix = " + ix + " см^4; " + "Iy = " + iy + " см^4" + "\n"
-                + "-----------------------------------------\n"
+        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + "                       Характеристики угловых швов\n"
+                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + " Ix = " + ix + " см^4; " + "Iy = " + iy + " см^4; "
                 + " Wx = " + wx + " см^3; " + "Wy = " + wy + " см^3" + "\n"
-                + "-----------------------------------------\n"
+                + "-------------------------------------------------------------------------------\n"
                 + " S = " + s + " см^2; " + "L = " + l + " см" + "\n"
-                + "-----------------------------------------\n"
-                + "\n";
+                + "-------------------------------------------------------------------------------\n";
+    }
+
+    public String textRibsOne() {
+        String ribLengthOne = textFieldRibLength1.getText();
+        String sideWeldOne = textFieldRibSide1.getText();
+        String ribThicknessOne = textFieldRibThickness1.getText();
+        String ribBevelOne = textFieldRibBevel1.getText();
+        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + "                        Размеры первого ребра, см\n"
+                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + " Длина: " + ribLengthOne + "; " + "Катет шва: " + sideWeldOne + "; "
+                + " Толщина: " + ribThicknessOne + "; " + " Скос: " + ribBevelOne + "\n"
+                + "-------------------------------------------------------------------------------\n";
+    }
+
+    public String textRibsTwo() {
+        String ribLengthTwo = textFieldRibLength2.getText();
+        String sideWeldTwo = textFieldRibSide2.getText();
+        String ribThicknessTwo = textFieldRibThickness2.getText();
+        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + "                        Размеры второго ребра, см\n"
+                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + " Длина: " + ribLengthTwo + "; " + "Катет шва: " + sideWeldTwo + "; "
+                + " Толщина: " + ribThicknessTwo + "\n"
+                + "-------------------------------------------------------------------------------\n";
+    }
+
+    public String textRibsThree() {
+        String ribLengthThree = textFieldRibLength3.getText();
+        String sideWeldThree = textFieldRibSide3.getText();
+        String ribThicknessThree = textFieldRibThickness3.getText();
+        String ribBevelThree = textFieldRibBevel3.getText();
+        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + "                        Размеры третьего ребра, см\n"
+                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + " Длина: " + ribLengthThree + "; " + "Катет шва: " + sideWeldThree + "; "
+                + " Толщина: " + ribThicknessThree + "; " + " Скос: " + ribBevelThree + "\n"
+                + "-------------------------------------------------------------------------------\n";
     }
 
     public static void stringWriter(String text, File file) {
