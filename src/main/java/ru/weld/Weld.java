@@ -1278,7 +1278,8 @@ public class Weld extends JFrame implements RoundUp {
         File file = new File(path);
         String text = textDate() + textName() + textSizeBeam() + textWeldK() + textBf()
                 + textBz() + textSolutionResistance() + textSectionCalc(rwf, rwz)
-                + textCharacterSections() + textRibsOne() + textRibsTwo() + textRibsThree();
+                + textRibs() + textCharacterSections() + textForceAndMoment()
+                + textSumTang() + textTangStrEquivalent();
         stringWriter(text, file);
     }
 
@@ -1403,6 +1404,34 @@ public class Weld extends JFrame implements RoundUp {
                 + "-------------------------------------------------------------------------------\n";
     }
 
+    public String textRibs() {
+        String textRibs = null;
+        if (comboBox1.getSelectedItem() == "withoutRibs") {
+            textRibs = textWithoutRibs();
+        } else if (comboBox1.getSelectedItem() == "allRibs") {
+            textRibs = textRibsOne() + textRibsTwo() + textRibsThree();
+        } else if (comboBox1.getSelectedItem() == "ribsNumberOne") {
+            textRibs = textRibsOne();
+        } else if (comboBox1.getSelectedItem() == "ribsNumberTwo") {
+            textRibs = textRibsTwo();
+        } else if (comboBox1.getSelectedItem() == "ribsNumberThree") {
+            textRibs = textRibsThree();
+        } else if (comboBox1.getSelectedItem() == "ribsNumbersOneTwo") {
+            textRibs = textRibsOne() + textRibsTwo();
+        } else if (comboBox1.getSelectedItem() == "ribsNumbersOneThree") {
+            textRibs = textRibsOne() + textRibsThree();
+        } else if (comboBox1.getSelectedItem() == "ribsNumbersTwoThree") {
+            textRibs = textRibsTwo() + textRibsThree();
+        }
+        return textRibs;
+    }
+
+    public String textWithoutRibs() {
+        return "~~~~~~~~~~~\n"
+                + " Ребер нет " + "\n"
+                + "~~~~~~~~~~~\n";
+    }
+
     public String textRibsOne() {
         String ribLengthOne = textFieldRibLength1.getText();
         String sideWeldOne = textFieldRibSide1.getText();
@@ -1438,6 +1467,42 @@ public class Weld extends JFrame implements RoundUp {
                 + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
                 + " Длина: " + ribLengthThree + "; " + "Катет шва: " + sideWeldThree + "; "
                 + " Толщина: " + ribThicknessThree + "; " + " Скос: " + ribBevelThree + "\n"
+                + "-------------------------------------------------------------------------------\n";
+    }
+
+    public String textForceAndMoment() {
+        String textForceN = textFieldForceN.getText();
+        String textForceQx = textFieldShearForceQx.getText();
+        String textForceQy = textFieldShearForceQy.getText();
+        String textMomMx = textFieldBendMomMx.getText();
+        String textMomMy = textFieldBendMomMy.getText();
+        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + "                                 Нагрузки\n"
+                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + " N = " + textForceN + " кг" + "; " + "Qx = " + textForceQx + " кг" + "; "
+                + "Qy = " + textForceQy + " кг" + "; " + " Mx = " + textMomMx + " кг*см" + "\n"
+                + " My = " + textMomMy + " кг*см" + "\n"
+                + "-------------------------------------------------------------------------------\n";
+    }
+
+    public String textSumTang() {
+        String sumTangX = textFieldSumTangX.getText();
+        String sumTangY = textFieldSumTangY.getText();
+        String sumTangZ = textFieldSumTangZ.getText();
+        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + "                    Суммарные касательные напряжения\n"
+                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + " τx = " + sumTangX + " кг/см^2" + "; " + "τy = " + sumTangY + " кг/см^2" + "; "
+                + "τz = " + sumTangZ + " кг/см^2" + "\n"
+                + "-------------------------------------------------------------------------------\n";
+    }
+
+    public String textTangStrEquivalent() {
+        String tangStrEquivalent = textFieldTangStrEquivalent.getText();
+        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + "                    Приведенные касательные напряжения\n"
+                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + " τx = " + tangStrEquivalent + " кг/см^2" + "\n"
                 + "-------------------------------------------------------------------------------\n";
     }
 
