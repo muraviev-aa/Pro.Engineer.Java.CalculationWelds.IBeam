@@ -1503,27 +1503,54 @@ public class Weld extends JFrame implements RoundUp {
     }
 
     public String textSumTang() {
+        String rw = textCalcResistance();
         String sumTangX = textFieldSumTangX.getText();
         String sumTangY = textFieldSumTangY.getText();
         String sumTangZ = textFieldSumTangZ.getText();
+        String sumResTangX = null;
+        String sumResTangY = null;
+        String sumResTangZ = null;
+        if (Double.parseDouble(sumTangX) < Double.parseDouble(rw)) {
+            sumResTangX = sumTangX + " кг/см^2" + " < Rw = " + rw + " кг/см^2;"
+                    + " Условие прочности выполнено";
+        } else {
+            sumResTangX = sumTangX + " кг/см^2" + " > Rw = " + rw + " кг/см^2;"
+                    + " Условие прочности не выполнено!!!";
+        }
+
+        if (Double.parseDouble(sumTangY) < Double.parseDouble(rw)) {
+            sumResTangY = sumTangY + " кг/см^2" + " < Rw = " + rw + " кг/см^2;"
+                    + " Условие прочности выполнено";
+        } else {
+            sumResTangY = sumTangY + " кг/см^2" + " > Rw = " + rw + " кг/см^2;"
+                    + " Условие прочности не выполнено!!!";
+        }
+
+        if (Double.parseDouble(sumTangZ) < Double.parseDouble(rw)) {
+            sumResTangZ = sumTangZ + " кг/см^2" + " < Rw = " + rw + " кг/см^2;"
+                    + " Условие прочности выполнено";
+        } else {
+            sumResTangZ = sumTangZ + " кг/см^2" + " > Rw = " + rw + " кг/см^2;"
+                    + " Условие прочности не выполнено!!!";
+        }
         return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
                 + "                    Суммарные касательные напряжения\n"
                 + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + " τx = " + sumTangX + " кг/см^2" + "; "
-                + "τy = " + sumTangY + " кг/см^2" + "; "
-                + "τz = " + sumTangZ + " кг/см^2" + "\n"
+                + " τx = " + sumResTangX + "\n"
+                + " τy = " + sumResTangY + "\n"
+                + " τz = " + sumResTangZ + "\n"
                 + "-------------------------------------------------------------------------------\n";
     }
 
     public String textTangStrEquivalent() {
         String tangStrEquivalent = textFieldTangStrEquivalent.getText();
-        String tangStrEquivalentResult = null;
+        String tangStrEquivalentResult;
         String rw = textCalcResistance();
         if (Double.parseDouble(tangStrEquivalent) < Double.parseDouble(rw)) {
             tangStrEquivalentResult = tangStrEquivalent + " кг/см^2" + " < Rw = " + rw + " кг/см^2;"
                     + " Условие прочности выполнено";
         } else {
-            tangStrEquivalentResult = tangStrEquivalent + " кг/см^2" +  " > Rw = " + rw + " кг/см^2;"
+            tangStrEquivalentResult = tangStrEquivalent + " кг/см^2" + " > Rw = " + rw + " кг/см^2;"
                     + " Условие прочности не выполнено!!!";
         }
 
