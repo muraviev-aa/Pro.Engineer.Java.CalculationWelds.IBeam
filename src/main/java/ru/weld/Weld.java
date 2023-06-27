@@ -13,6 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 public class Weld extends JFrame implements RoundUp {
     private double factorF;
@@ -86,6 +87,7 @@ public class Weld extends JFrame implements RoundUp {
     private JButton buttonPrint;
     private JTextField textFieldName;
     private JTextField textFieldPath;
+    private JTextField textFieldProfilName;
     double heightBeam;
     double flangeWidth;
     double flangeThickness;
@@ -1298,6 +1300,7 @@ public class Weld extends JFrame implements RoundUp {
     }
 
     public String textSizeBeam() {
+        String profileName = textFieldProfilName.getText();
         String heightBeamRes = textFieldHeightBeam.getText();
         String flangeWidthRes = textFieldFlangeWidth.getText();
         String flangeThicknessRes = textFieldFlangeThickness.getText();
@@ -1306,6 +1309,8 @@ public class Weld extends JFrame implements RoundUp {
         String text = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
                 + "                      Размеры двутаврового сечения, см\n"
                 + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + " Сечение колонны: " + profileName + "\n"
+                + "-------------------------------------------------------------------------------\n"
                 + " Высота балки: " + heightBeamRes + "; " + "Ширина полки: " + flangeWidthRes + "; "
                 + " Толщина полки: " + flangeThicknessRes + "\n"
                 + "-------------------------------------------------------------------------------\n"
@@ -1358,6 +1363,16 @@ public class Weld extends JFrame implements RoundUp {
                 + "-----------------------------------------\n";
     }
 
+    public String textCalcResistance() {
+        String textCalcResistance = null;
+        if (Objects.equals(labelF.getText(), "По металлу шва")) {
+            textCalcResistance = labelRwf.getText();
+        } else if (Objects.equals(labelZ.getText(), "По границе сплавления")) {
+            textCalcResistance = labelRwz.getText();
+        }
+        return textCalcResistance;
+    }
+
     public String textSectionCalc(double rwf, double rwz) {
         double f = factorF * rwf;
         double z = factorZ * rwz;
@@ -1368,9 +1383,11 @@ public class Weld extends JFrame implements RoundUp {
         } else if (res > 1) {
             textSectionCalc = "по границе сплавления";
         }
-        return "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n"
-                + " Расчет производится " + textSectionCalc + "\n"
-                + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
+
+        return "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n"
+                + " Расчет производится " + textSectionCalc + "; " + " Rw = "
+                + textCalcResistance() + " кг/см^2" + "\n"
+                + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
     }
 
     public String textSolutionResistance() {
@@ -1492,17 +1509,28 @@ public class Weld extends JFrame implements RoundUp {
         return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
                 + "                    Суммарные касательные напряжения\n"
                 + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + " τx = " + sumTangX + " кг/см^2" + "; " + "τy = " + sumTangY + " кг/см^2" + "; "
+                + " τx = " + sumTangX + " кг/см^2" + "; "
+                + "τy = " + sumTangY + " кг/см^2" + "; "
                 + "τz = " + sumTangZ + " кг/см^2" + "\n"
                 + "-------------------------------------------------------------------------------\n";
     }
 
     public String textTangStrEquivalent() {
         String tangStrEquivalent = textFieldTangStrEquivalent.getText();
+        String tangStrEquivalentResult = null;
+        String rw = textCalcResistance();
+        if (Double.parseDouble(tangStrEquivalent) < Double.parseDouble(rw)) {
+            tangStrEquivalentResult = tangStrEquivalent + " кг/см^2" + " < Rw = " + rw + " кг/см^2;"
+                    + " Условие прочности выполнено";
+        } else {
+            tangStrEquivalentResult = tangStrEquivalent + " кг/см^2" +  " > Rw = " + rw + " кг/см^2;"
+                    + " Условие прочности не выполнено!!!";
+        }
+
         return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
                 + "                    Приведенные касательные напряжения\n"
                 + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + " τx = " + tangStrEquivalent + " кг/см^2" + "\n"
+                + " τпр = " + tangStrEquivalentResult + "\n"
                 + "-------------------------------------------------------------------------------\n";
     }
 
