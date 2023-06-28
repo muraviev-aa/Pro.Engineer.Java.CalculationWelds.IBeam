@@ -88,6 +88,7 @@ public class Weld extends JFrame implements RoundUp {
     private JTextField textFieldName;
     private JTextField textFieldPath;
     private JTextField textFieldProfilName;
+    private JLabel checkResult;
     double heightBeam;
     double flangeWidth;
     double flangeThickness;
@@ -492,6 +493,7 @@ public class Weld extends JFrame implements RoundUp {
             textFieldRibBevel3.setText("");
         });
         buttonCalcTangStr.addActionListener(e -> {
+            checkResult.setText("");
             checkCalcBendingChar();
             checkFillingEfforts();
             calcTangStrN();
@@ -503,6 +505,7 @@ public class Weld extends JFrame implements RoundUp {
             calcTangStrSumTy();
             calcTangStrSumTz();
             calcTangStrEquivalent();
+            checkResultSolution();
         });
         buttonResetTangStr.addActionListener(e -> {
             textFieldForceN.setText("0");
@@ -519,6 +522,7 @@ public class Weld extends JFrame implements RoundUp {
             textFieldSumTangY.setText("0");
             textFieldSumTangZ.setText("0");
             textFieldTangStrEquivalent.setText("0");
+            checkResult.setVisible(false);
         });
         buttonPrint.addActionListener(e -> printString());
     }
@@ -1455,7 +1459,7 @@ public class Weld extends JFrame implements RoundUp {
         String ribThicknessOne = textFieldRibThickness1.getText();
         String ribBevelOne = textFieldRibBevel1.getText();
         return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + "                        Размеры первого ребра, см\n"
+                + "                   Размеры первого ребра (у полки), см\n"
                 + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
                 + " Длина: " + ribLengthOne + "; " + "Катет шва: " + sideWeldOne + "; "
                 + " Толщина: " + ribThicknessOne + "; " + " Скос: " + ribBevelOne + "\n"
@@ -1467,7 +1471,7 @@ public class Weld extends JFrame implements RoundUp {
         String sideWeldTwo = textFieldRibSide2.getText();
         String ribThicknessTwo = textFieldRibThickness2.getText();
         return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + "                        Размеры второго ребра, см\n"
+                + "              Размеры второго ребра (продолжение полки), см\n"
                 + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
                 + " Длина: " + ribLengthTwo + "; " + "Катет шва: " + sideWeldTwo + "; "
                 + " Толщина: " + ribThicknessTwo + "\n"
@@ -1480,7 +1484,7 @@ public class Weld extends JFrame implements RoundUp {
         String ribThicknessThree = textFieldRibThickness3.getText();
         String ribBevelThree = textFieldRibBevel3.getText();
         return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + "                        Размеры третьего ребра, см\n"
+                + "                   Размеры третьего ребра (у стенки), см\n"
                 + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
                 + " Длина: " + ribLengthThree + "; " + "Катет шва: " + sideWeldThree + "; "
                 + " Толщина: " + ribThicknessThree + "; " + " Скос: " + ribBevelThree + "\n"
@@ -1559,6 +1563,23 @@ public class Weld extends JFrame implements RoundUp {
                 + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
                 + " τпр = " + tangStrEquivalentResult + "\n"
                 + "-------------------------------------------------------------------------------\n";
+    }
+
+    public void checkResultSolution() {
+        String rw = textCalcResistance();
+        String sumTangX = textFieldSumTangX.getText();
+        String sumTangY = textFieldSumTangY.getText();
+        String sumTangZ = textFieldSumTangZ.getText();
+        String tangStrEquivalent = textFieldTangStrEquivalent.getText();
+        if (Double.parseDouble(sumTangX) > Double.parseDouble(rw)) {
+            checkResult.setText("Условие прочности не выполнено!!!");
+        } else if (Double.parseDouble(sumTangY) > Double.parseDouble(rw)) {
+            checkResult.setText("Условие прочности не выполнено!!!");
+        } else if (Double.parseDouble(sumTangZ) > Double.parseDouble(rw)) {
+            checkResult.setText("Условие прочности не выполнено!!!");
+        } else if (Double.parseDouble(tangStrEquivalent) > Double.parseDouble(rw)) {
+            checkResult.setText("Условие прочности не выполнено!!!");
+        }
     }
 
     public static void stringWriter(String text, File file) {
