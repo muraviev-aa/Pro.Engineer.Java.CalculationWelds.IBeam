@@ -1282,58 +1282,44 @@ public class Weld extends JFrame implements RoundUp {
     public void printString() {
         String path = textFieldPath.getText();
         File file = new File(path);
-        String text = textDate() + textName() + textSizeBeam() + textWeldK() + textBf()
-                + textBz() + textSolutionResistance() + textSectionCalc(rwf, rwz)
-                + textRibs() + textCharacterSections() + textForceAndMoment()
-                + textSumTang() + textTangStrEquivalent();
-        stringWriter(text, file);
-    }
-
-    public String textDate() {
-        Date dNow = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("Отчет создан: dd.MM.yyyy, hh:mm a zzz");
-        String date = formatter.format(dNow);
-        return date + "\n"
-                + "\n";
-    }
-
-    public String textName() {
+        PrintText printText = new PrintText();
         String name = String.valueOf(textFieldName.getText());
-        return "Наименование: " + name + "\n"
-                + "\n";
-    }
-
-    public String textSizeBeam() {
         String profileName = textFieldProfilName.getText();
         String heightBeamRes = textFieldHeightBeam.getText();
         String flangeWidthRes = textFieldFlangeWidth.getText();
         String flangeThicknessRes = textFieldFlangeThickness.getText();
         String wallThicknessRes = textFieldWallThickness.getText();
         String radiusRes = textFieldRadius.getText();
-        String text = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + "                      Размеры двутаврового сечения, см\n"
-                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + " Сечение колонны: " + profileName + "\n"
-                + "-------------------------------------------------------------------------------\n"
-                + " Высота балки: " + heightBeamRes + "; " + "Ширина полки: " + flangeWidthRes + "; "
-                + " Толщина полки: " + flangeThicknessRes + "\n"
-                + "-------------------------------------------------------------------------------\n"
-                + " Толщина стенки: " + wallThicknessRes + "; "
-                + "Радиус: " + radiusRes + "\n"
-                + "-------------------------------------------------------------------------------\n";
-        return text;
-    }
-
-    public String textWeldK() {
         String flangeKfRes = textFieldFlangeKf.getText();
         String wallKfRes = textFieldWallKf.getText();
-        String text = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + "                 Катеты швов приварки двутавра, см\n"
-                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + " Катет шва полки: " + flangeKfRes + "; "
-                + " Катет шва стенки: " + wallKfRes + "\n"
-                + "-------------------------------------------------------------------\n";
-        return text;
+        String metalWeld = String.valueOf(labelRwf.getText());
+        String borderWeld = String.valueOf(labelRwz.getText());
+        String steelCategory = String.valueOf(labelClassSteel.getText());
+        String ix = String.valueOf(textFieldIx.getText());
+        String iy = String.valueOf(textFieldIy.getText());
+        String wx = String.valueOf(textFieldWx.getText());
+        String wy = String.valueOf(textFieldWy.getText());
+        String s = String.valueOf(textFieldArea.getText());
+        String l = String.valueOf(textFieldLength.getText());
+        String textForceN = textFieldForceN.getText();
+        String textForceQx = textFieldShearForceQx.getText();
+        String textForceQy = textFieldShearForceQy.getText();
+        String textMomMx = textFieldBendMomMx.getText();
+        String textMomMy = textFieldBendMomMy.getText();
+        String rw = textCalcResistance();
+        String sumTangX = textFieldSumTangX.getText();
+        String sumTangY = textFieldSumTangY.getText();
+        String sumTangZ = textFieldSumTangZ.getText();
+        String tangStrEquivalent = textFieldTangStrEquivalent.getText();
+        String text = printText.textDate()
+                + printText.textName(name) + printText.textSizeBeam(profileName, heightBeamRes, flangeWidthRes,
+                flangeThicknessRes, wallThicknessRes, radiusRes) + printText.textWeldK(flangeKfRes, wallKfRes)
+                + textBf() + textBz() + printText.textSolutionResistance(metalWeld, borderWeld, steelCategory)
+                + textSectionCalc(rwf, rwz) + textRibs() + printText.textCharacterSections(ix, iy, wx, wy, s, l)
+                + printText.textForceAndMoment(textForceN, textForceQx, textForceQy, textMomMx, textMomMy)
+                + printText.textSumTang(rw, sumTangX, sumTangY, sumTangZ)
+                + printText.textTangStrEquivalent(tangStrEquivalent, rw);
+        stringWriter(text, file);
     }
 
     public String textBf() {
@@ -1392,37 +1378,6 @@ public class Weld extends JFrame implements RoundUp {
                 + " Расчет производится " + textSectionCalc + "; " + " Rw = "
                 + textCalcResistance() + " кг/см^2" + "\n"
                 + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
-    }
-
-    public String textSolutionResistance() {
-        String metalWeld = String.valueOf(labelRwf.getText());
-        String borderWeld = String.valueOf(labelRwz.getText());
-        String steelCategory = String.valueOf(labelClassSteel.getText());
-        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + "                          Расчетные сопротивления" + "\n"
-                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + " По металлу шва: " + metalWeld + " кг/см^2" + "; "
-                + " По границе сплавления: " + borderWeld + " кг/см^2" + "\n"
-                + "-------------------------------------------------------------------------------\n"
-                + " Категория стали: " + steelCategory + "\n"
-                + "-------------------------------------------------------------------------------\n";
-    }
-
-    public String textCharacterSections() {
-        String ix = String.valueOf(textFieldIx.getText());
-        String iy = String.valueOf(textFieldIy.getText());
-        String wx = String.valueOf(textFieldWx.getText());
-        String wy = String.valueOf(textFieldWy.getText());
-        String s = String.valueOf(textFieldArea.getText());
-        String l = String.valueOf(textFieldLength.getText());
-        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + "                       Характеристики угловых швов\n"
-                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + " Ix = " + ix + " см^4; " + "Iy = " + iy + " см^4; "
-                + " Wx = " + wx + " см^3; " + "Wy = " + wy + " см^3" + "\n"
-                + "-------------------------------------------------------------------------------\n"
-                + " S = " + s + " см^2; " + "L = " + l + " см" + "\n"
-                + "-------------------------------------------------------------------------------\n";
     }
 
     public String textRibs() {
@@ -1488,80 +1443,6 @@ public class Weld extends JFrame implements RoundUp {
                 + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
                 + " Длина: " + ribLengthThree + "; " + "Катет шва: " + sideWeldThree + "; "
                 + " Толщина: " + ribThicknessThree + "; " + " Скос: " + ribBevelThree + "\n"
-                + "-------------------------------------------------------------------------------\n";
-    }
-
-    public String textForceAndMoment() {
-        String textForceN = textFieldForceN.getText();
-        String textForceQx = textFieldShearForceQx.getText();
-        String textForceQy = textFieldShearForceQy.getText();
-        String textMomMx = textFieldBendMomMx.getText();
-        String textMomMy = textFieldBendMomMy.getText();
-        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + "                                 Нагрузки\n"
-                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + " N = " + textForceN + " кг" + "; " + "Qx = " + textForceQx + " кг" + "; "
-                + "Qy = " + textForceQy + " кг" + "; " + " Mx = " + textMomMx + " кг*см" + "\n"
-                + " My = " + textMomMy + " кг*см" + "\n"
-                + "-------------------------------------------------------------------------------\n";
-    }
-
-    public String textSumTang() {
-        String rw = textCalcResistance();
-        String sumTangX = textFieldSumTangX.getText();
-        String sumTangY = textFieldSumTangY.getText();
-        String sumTangZ = textFieldSumTangZ.getText();
-        String sumResTangX = null;
-        String sumResTangY = null;
-        String sumResTangZ = null;
-        if (Double.parseDouble(sumTangX) < Double.parseDouble(rw)) {
-            sumResTangX = sumTangX + " кг/см^2" + " < Rw = " + rw + " кг/см^2;"
-                    + " Условие прочности выполнено";
-        } else {
-            sumResTangX = sumTangX + " кг/см^2" + " > Rw = " + rw + " кг/см^2;"
-                    + " Условие прочности не выполнено!!!";
-        }
-
-        if (Double.parseDouble(sumTangY) < Double.parseDouble(rw)) {
-            sumResTangY = sumTangY + " кг/см^2" + " < Rw = " + rw + " кг/см^2;"
-                    + " Условие прочности выполнено";
-        } else {
-            sumResTangY = sumTangY + " кг/см^2" + " > Rw = " + rw + " кг/см^2;"
-                    + " Условие прочности не выполнено!!!";
-        }
-
-        if (Double.parseDouble(sumTangZ) < Double.parseDouble(rw)) {
-            sumResTangZ = sumTangZ + " кг/см^2" + " < Rw = " + rw + " кг/см^2;"
-                    + " Условие прочности выполнено";
-        } else {
-            sumResTangZ = sumTangZ + " кг/см^2" + " > Rw = " + rw + " кг/см^2;"
-                    + " Условие прочности не выполнено!!!";
-        }
-        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + "                    Суммарные касательные напряжения\n"
-                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + " τx = " + sumResTangX + "\n"
-                + " τy = " + sumResTangY + "\n"
-                + " τz = " + sumResTangZ + "\n"
-                + "-------------------------------------------------------------------------------\n";
-    }
-
-    public String textTangStrEquivalent() {
-        String tangStrEquivalent = textFieldTangStrEquivalent.getText();
-        String tangStrEquivalentResult;
-        String rw = textCalcResistance();
-        if (Double.parseDouble(tangStrEquivalent) < Double.parseDouble(rw)) {
-            tangStrEquivalentResult = tangStrEquivalent + " кг/см^2" + " < Rw = " + rw + " кг/см^2;"
-                    + " Условие прочности выполнено";
-        } else {
-            tangStrEquivalentResult = tangStrEquivalent + " кг/см^2" + " > Rw = " + rw + " кг/см^2;"
-                    + " Условие прочности не выполнено!!!";
-        }
-
-        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + "                    Приведенные касательные напряжения\n"
-                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + " τпр = " + tangStrEquivalentResult + "\n"
                 + "-------------------------------------------------------------------------------\n";
     }
 
