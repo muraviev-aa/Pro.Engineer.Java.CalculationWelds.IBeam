@@ -1315,7 +1315,8 @@ public class Weld extends JFrame implements RoundUp {
                 + printText.textName(name) + printText.textSizeBeam(profileName, heightBeamRes, flangeWidthRes,
                 flangeThicknessRes, wallThicknessRes, radiusRes) + printText.textWeldK(flangeKfRes, wallKfRes)
                 + textBf() + textBz() + printText.textSolutionResistance(metalWeld, borderWeld, steelCategory)
-                + textSectionCalc(rwf, rwz) + textRibs() + printText.textCharacterSections(ix, iy, wx, wy, s, l)
+                + textSectionCalc(rwf, rwz) + textRibs()
+                + printText.textCharacterSections(ix, iy, wx, wy, s, l)
                 + printText.textForceAndMoment(textForceN, textForceQx, textForceQy, textMomMx, textMomMy)
                 + printText.textSumTang(rw, sumTangX, sumTangY, sumTangZ)
                 + printText.textTangStrEquivalent(tangStrEquivalent, rw);
@@ -1381,22 +1382,23 @@ public class Weld extends JFrame implements RoundUp {
     }
 
     public String textRibs() {
+        String comboBoxReadText = String.valueOf(comboBox1.getSelectedItem());
         String textRibs = null;
-        if (comboBox1.getSelectedItem() == "withoutRibs") {
+        if (Objects.equals(comboBoxReadText, "withoutRibs")) {
             textRibs = textWithoutRibs();
-        } else if (comboBox1.getSelectedItem() == "allRibs") {
+        } else if (Objects.equals(comboBoxReadText, "allRibs")) {
             textRibs = textRibsOne() + textRibsTwo() + textRibsThree();
-        } else if (comboBox1.getSelectedItem() == "ribsNumberOne") {
+        } else if (Objects.equals(comboBoxReadText, "ribsNumberOne")) {
             textRibs = textRibsOne();
-        } else if (comboBox1.getSelectedItem() == "ribsNumberTwo") {
+        } else if (Objects.equals(comboBoxReadText, "ribsNumberTwo")) {
             textRibs = textRibsTwo();
-        } else if (comboBox1.getSelectedItem() == "ribsNumberThree") {
+        } else if (Objects.equals(comboBoxReadText, "ribsNumberThree")) {
             textRibs = textRibsThree();
-        } else if (comboBox1.getSelectedItem() == "ribsNumbersOneTwo") {
+        } else if (Objects.equals(comboBoxReadText, "ribsNumbersOneTwo")) {
             textRibs = textRibsOne() + textRibsTwo();
-        } else if (comboBox1.getSelectedItem() == "ribsNumbersOneThree") {
+        } else if (Objects.equals(comboBoxReadText, "ribsNumbersOneThree")) {
             textRibs = textRibsOne() + textRibsThree();
-        } else if (comboBox1.getSelectedItem() == "ribsNumbersTwoThree") {
+        } else if (Objects.equals(comboBoxReadText, "ribsNumbersTwoThree")) {
             textRibs = textRibsTwo() + textRibsThree();
         }
         return textRibs;
