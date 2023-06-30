@@ -129,4 +129,39 @@ public class PrintText {
                 + " τпр = " + tangStrEquivalentResult + "\n"
                 + "-------------------------------------------------------------------------------\n";
     }
+
+    public String textWithoutRibs() {
+        return "~~~~~~~~~~~\n"
+                + " Ребер нет " + "\n"
+                + "~~~~~~~~~~~\n";
+    }
+
+    public String textRibsOne(String ribLengthOne, String sideWeldOne,
+                              String ribThicknessOne, String ribBevelOne) {
+        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + "                   Размеры первого ребра (у полки), см\n"
+                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + " Длина: " + ribLengthOne + "; " + "Катет шва: " + sideWeldOne + "; "
+                + " Толщина: " + ribThicknessOne + "; " + " Скос: " + ribBevelOne + "\n"
+                + "-------------------------------------------------------------------------------\n";
+    }
+
+    public String textRibsTwo(String ribLengthTwo, String sideWeldTwo, String ribThicknessTwo) {
+        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + "              Размеры второго ребра (продолжение полки), см\n"
+                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + " Длина: " + ribLengthTwo + "; " + "Катет шва: " + sideWeldTwo + "; "
+                + " Толщина: " + ribThicknessTwo + "\n"
+                + "-------------------------------------------------------------------------------\n";
+    }
+
+    public String textRibsThree(String ribLengthThree, String sideWeldThree,
+                                String ribThicknessThree, String ribBevelThree) {
+        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + "                   Размеры третьего ребра (у стенки), см\n"
+                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + " Длина: " + ribLengthThree + "; " + "Катет шва: " + sideWeldThree + "; "
+                + " Толщина: " + ribThicknessThree + "; " + " Скос: " + ribBevelThree + "\n"
+                + "-------------------------------------------------------------------------------\n";
+    }
 }

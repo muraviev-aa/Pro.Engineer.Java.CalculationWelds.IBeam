@@ -1382,70 +1382,56 @@ public class Weld extends JFrame implements RoundUp {
     }
 
     public String textRibs() {
+        PrintText printText = new PrintText();
         String comboBoxReadText = String.valueOf(comboBox1.getSelectedItem());
-        String textRibs = null;
-        if (Objects.equals(comboBoxReadText, "withoutRibs")) {
-            textRibs = textWithoutRibs();
-        } else if (Objects.equals(comboBoxReadText, "allRibs")) {
-            textRibs = textRibsOne() + textRibsTwo() + textRibsThree();
-        } else if (Objects.equals(comboBoxReadText, "ribsNumberOne")) {
-            textRibs = textRibsOne();
-        } else if (Objects.equals(comboBoxReadText, "ribsNumberTwo")) {
-            textRibs = textRibsTwo();
-        } else if (Objects.equals(comboBoxReadText, "ribsNumberThree")) {
-            textRibs = textRibsThree();
-        } else if (Objects.equals(comboBoxReadText, "ribsNumbersOneTwo")) {
-            textRibs = textRibsOne() + textRibsTwo();
-        } else if (Objects.equals(comboBoxReadText, "ribsNumbersOneThree")) {
-            textRibs = textRibsOne() + textRibsThree();
-        } else if (Objects.equals(comboBoxReadText, "ribsNumbersTwoThree")) {
-            textRibs = textRibsTwo() + textRibsThree();
-        }
-        return textRibs;
-    }
-
-    public String textWithoutRibs() {
-        return "~~~~~~~~~~~\n"
-                + " Ребер нет " + "\n"
-                + "~~~~~~~~~~~\n";
-    }
-
-    public String textRibsOne() {
+        /**
+         * Без ребер
+         */
+        String withoutRibs = printText.textWithoutRibs();
+        /**
+         * Первое ребро
+         */
         String ribLengthOne = textFieldRibLength1.getText();
         String sideWeldOne = textFieldRibSide1.getText();
         String ribThicknessOne = textFieldRibThickness1.getText();
         String ribBevelOne = textFieldRibBevel1.getText();
-        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + "                   Размеры первого ребра (у полки), см\n"
-                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + " Длина: " + ribLengthOne + "; " + "Катет шва: " + sideWeldOne + "; "
-                + " Толщина: " + ribThicknessOne + "; " + " Скос: " + ribBevelOne + "\n"
-                + "-------------------------------------------------------------------------------\n";
-    }
-
-    public String textRibsTwo() {
+        String ribsOne = printText.textRibsOne(ribLengthOne, sideWeldOne,
+                ribThicknessOne, ribBevelOne);
+        /**
+         * Второе ребро
+         */
         String ribLengthTwo = textFieldRibLength2.getText();
         String sideWeldTwo = textFieldRibSide2.getText();
         String ribThicknessTwo = textFieldRibThickness2.getText();
-        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + "              Размеры второго ребра (продолжение полки), см\n"
-                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + " Длина: " + ribLengthTwo + "; " + "Катет шва: " + sideWeldTwo + "; "
-                + " Толщина: " + ribThicknessTwo + "\n"
-                + "-------------------------------------------------------------------------------\n";
-    }
-
-    public String textRibsThree() {
+        String ribsTwo = printText.textRibsTwo(ribLengthTwo, sideWeldTwo, ribThicknessTwo);
+        /**
+         * Третье ребро
+         */
         String ribLengthThree = textFieldRibLength3.getText();
         String sideWeldThree = textFieldRibSide3.getText();
         String ribThicknessThree = textFieldRibThickness3.getText();
         String ribBevelThree = textFieldRibBevel3.getText();
-        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + "                   Размеры третьего ребра (у стенки), см\n"
-                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + " Длина: " + ribLengthThree + "; " + "Катет шва: " + sideWeldThree + "; "
-                + " Толщина: " + ribThicknessThree + "; " + " Скос: " + ribBevelThree + "\n"
-                + "-------------------------------------------------------------------------------\n";
+        String ribsThree = printText.textRibsThree(ribLengthThree, sideWeldThree,
+                ribThicknessThree, ribBevelThree);
+        String textRibs = null;
+        if (Objects.equals(comboBoxReadText, "withoutRibs")) {
+            textRibs = withoutRibs;
+        } else if (Objects.equals(comboBoxReadText, "allRibs")) {
+            textRibs = ribsOne + ribsTwo + ribsThree;
+        } else if (Objects.equals(comboBoxReadText, "ribsNumberOne")) {
+            textRibs = ribsOne;
+        } else if (Objects.equals(comboBoxReadText, "ribsNumberTwo")) {
+            textRibs = ribsTwo;
+        } else if (Objects.equals(comboBoxReadText, "ribsNumberThree")) {
+            textRibs = ribsThree;
+        } else if (Objects.equals(comboBoxReadText, "ribsNumbersOneTwo")) {
+            textRibs = ribsOne + ribsTwo;
+        } else if (Objects.equals(comboBoxReadText, "ribsNumbersOneThree")) {
+            textRibs = ribsOne + ribsThree;
+        } else if (Objects.equals(comboBoxReadText, "ribsNumbersTwoThree")) {
+            textRibs = ribsTwo + ribsThree;
+        }
+        return textRibs;
     }
 
     public void checkResultSolution() {
