@@ -1309,12 +1309,14 @@
                             <children>
                               <component id="5b44f" class="javax.swing.JLabel" binding="labelMechWeld">
                                 <constraints>
-                                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                                    <preferred-size width="200" height="14"/>
+                                  </grid>
                                 </constraints>
                                 <properties>
                                   <font size="16"/>
                                   <foreground color="-14471751"/>
-                                  <text value="Условие выполнено"/>
+                                  <text value="Условие п.14.1.8"/>
                                 </properties>
                               </component>
                             </children>
@@ -1360,12 +1362,14 @@
                             <children>
                               <component id="5195b" class="javax.swing.JLabel" binding="labelAutomatWeld">
                                 <constraints>
-                                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                                    <preferred-size width="200" height="14"/>
+                                  </grid>
                                 </constraints>
                                 <properties>
                                   <font size="16"/>
                                   <foreground color="-14471751"/>
-                                  <text value="Условие выполнено"/>
+                                  <text value="Условие п.14.1.8"/>
                                 </properties>
                               </component>
                             </children>
@@ -1411,12 +1415,14 @@
                             <children>
                               <component id="ccb7d" class="javax.swing.JLabel" binding="labelHandWeld">
                                 <constraints>
-                                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                                    <preferred-size width="200" height="14"/>
+                                  </grid>
                                 </constraints>
                                 <properties>
                                   <font size="16"/>
                                   <foreground color="-14471751"/>
-                                  <text value="Условие выполнено"/>
+                                  <text value="Условие п.14.1.8"/>
                                 </properties>
                               </component>
                             </children>
@@ -1439,7 +1445,7 @@
                         </constraints>
                         <properties>
                           <font size="14"/>
-                          <text value="Проверить свар. матер."/>
+                          <text value="Проверить св. матер."/>
                         </properties>
                       </component>
                       <component id="947ad" class="javax.swing.JButton" binding="buttonResetCheckManerial">

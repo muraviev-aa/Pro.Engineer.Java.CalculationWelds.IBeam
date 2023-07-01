@@ -273,6 +273,10 @@ public class Weld extends JFrame implements RoundUp {
         final ButtonGroup checkBoxGroupIBeam = new ButtonGroup();
         checkBoxGroupIBeam.add(checkBox25B1);
         checkBoxGroupIBeam.add(checkBox70B4);
+        final ButtonGroup checkBoxGroupMaterial = new ButtonGroup();
+        checkBoxGroupMaterial.add(checkBoxMechWeld);
+        checkBoxGroupMaterial.add(checkBoxHandWeld);
+        checkBoxGroupMaterial.add(checkBoxAutomatWeld);
         setSize(1000, 770);
         label1.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().
                 getImage(getClass().getResource("/withoutRibs.png"))));
@@ -533,6 +537,19 @@ public class Weld extends JFrame implements RoundUp {
             checkResult.setVisible(false);
         });
         buttonPrint.addActionListener(e -> printString());
+        buttonCheckMaterial.addActionListener(e -> {
+            if (checkBoxGroupMaterial.getSelection() == null) {
+                JOptionPane.showMessageDialog(null,
+                        "Выберите вид сварки");
+            }
+            controlWeldMaterial();
+        });
+        buttonResetCheckManerial.addActionListener(e -> {
+            checkBoxGroupMaterial.clearSelection();
+            labelMechWeld.setText("Условие п.14.1.8");
+            labelHandWeld.setText("Условие п.14.1.8");
+            labelAutomatWeld.setText("Условие п.14.1.8");
+        });
     }
 
     public void calcTangStrN() {
@@ -1464,6 +1481,32 @@ public class Weld extends JFrame implements RoundUp {
             writer.write(text);
         } catch (IOException e) {
             System.err.println(e.getMessage());
+        }
+    }
+
+    public void controlWeldMaterial() {
+        int rwf = Integer.parseInt(labelRwf.getText());
+        int rwz = Integer.parseInt(labelRwz.getText());
+        int rwzResult1 = (int) (rwz * 1.1);
+        int rwzResult2 = (int) (rwz * (factorZ / factorF));
+        if (checkBoxMechWeld.isSelected()) {
+            if (rwf > rwz) {
+                labelMechWeld.setText("Условие выполнено");
+            } else {
+                labelMechWeld.setText("Условие не выполнено!!!");
+            }
+        } else if (checkBoxHandWeld.isSelected()) {
+            if (rwzResult1 <= rwf && rwf <= rwzResult2) {
+                labelHandWeld.setText("Условие выполнено");
+            } else {
+                labelHandWeld.setText("Условие не выполнено!!!");
+            }
+        } else if (checkBoxAutomatWeld.isSelected()) {
+            if (rwz < rwf && rwf < rwzResult2) {
+                labelAutomatWeld.setText("Условие выполнено");
+            } else {
+                labelAutomatWeld.setText("Условие не выполнено!!!");
+            }
         }
     }
 
