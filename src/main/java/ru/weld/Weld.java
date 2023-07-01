@@ -11,8 +11,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Objects;
 
 public class Weld extends JFrame implements RoundUp {
@@ -89,6 +87,14 @@ public class Weld extends JFrame implements RoundUp {
     private JTextField textFieldPath;
     private JTextField textFieldProfilName;
     private JLabel checkResult;
+    private JCheckBox checkBoxMechWeld;
+    private JButton buttonCheckMaterial;
+    private JCheckBox checkBoxHandWeld;
+    private JCheckBox checkBoxAutomatWeld;
+    private JButton buttonResetCheckManerial;
+    private JLabel labelMechWeld;
+    private JLabel labelHandWeld;
+    private JLabel labelAutomatWeld;
     double heightBeam;
     double flangeWidth;
     double flangeThickness;
@@ -252,6 +258,8 @@ public class Weld extends JFrame implements RoundUp {
         buttonResetSizeRibs.setPreferredSize(dimension);
         buttonCalcTangStr.setPreferredSize(dimension);
         buttonResetTangStr.setPreferredSize(dimension);
+        buttonCheckMaterial.setPreferredSize(dimension);
+        buttonResetCheckManerial.setPreferredSize(dimension);
         buttonPrint.setPreferredSize(dimension);
         final ButtonGroup checkBoxGroupBf = new ButtonGroup();
         checkBoxGroupBf.add(checkBox1And1);
