@@ -538,11 +538,12 @@ public class Weld extends JFrame implements RoundUp {
         });
         buttonPrint.addActionListener(e -> printString());
         buttonCheckMaterial.addActionListener(e -> {
+            basicCheck();
             if (checkBoxGroupMaterial.getSelection() == null) {
                 JOptionPane.showMessageDialog(null,
                         "Выберите вид сварки");
             }
-            controlWeldMaterial();
+            controlWeldMaterial(rwf, rwz);
         });
         buttonResetCheckManerial.addActionListener(e -> {
             checkBoxGroupMaterial.clearSelection();
@@ -1340,7 +1341,7 @@ public class Weld extends JFrame implements RoundUp {
                 + printText.textName(name) + printText.textSizeBeam(profileName, heightBeamRes, flangeWidthRes,
                 flangeThicknessRes, wallThicknessRes, radiusRes) + printText.textWeldK(flangeKfRes, wallKfRes)
                 + textBf() + textBz() + printText.textSolutionResistance(metalWeld, borderWeld, steelCategory)
-                + textSectionCalc(rwf, rwz) + textRibs()
+                + printResultCheckWeldMaterial(rwf, rwz) + textSectionCalc(rwf, rwz) + textRibs()
                 + printText.textCharacterSections(ix, iy, wx, wy, s, l)
                 + printText.textForceAndMoment(textForceN, textForceQx, textForceQy, textMomMx, textMomMy)
                 + printText.textSumTang(rw, sumTangX, sumTangY, sumTangZ)
@@ -1465,14 +1466,15 @@ public class Weld extends JFrame implements RoundUp {
         String sumTangY = textFieldSumTangY.getText();
         String sumTangZ = textFieldSumTangZ.getText();
         String tangStrEquivalent = textFieldTangStrEquivalent.getText();
+        String resultNegative = "Условие прочности не выполнено!!!";
         if (Double.parseDouble(sumTangX) > Double.parseDouble(rw)) {
-            checkResult.setText("Условие прочности не выполнено!!!");
+            checkResult.setText(resultNegative);
         } else if (Double.parseDouble(sumTangY) > Double.parseDouble(rw)) {
-            checkResult.setText("Условие прочности не выполнено!!!");
+            checkResult.setText(resultNegative);
         } else if (Double.parseDouble(sumTangZ) > Double.parseDouble(rw)) {
-            checkResult.setText("Условие прочности не выполнено!!!");
+            checkResult.setText(resultNegative);
         } else if (Double.parseDouble(tangStrEquivalent) > Double.parseDouble(rw)) {
-            checkResult.setText("Условие прочности не выполнено!!!");
+            checkResult.setText(resultNegative);
         }
     }
 
@@ -1484,30 +1486,78 @@ public class Weld extends JFrame implements RoundUp {
         }
     }
 
-    public void controlWeldMaterial() {
-        int rwf = Integer.parseInt(labelRwf.getText());
-        int rwz = Integer.parseInt(labelRwz.getText());
-        int rwzResult1 = (int) (rwz * 1.1);
-        int rwzResult2 = (int) (rwz * (factorZ / factorF));
+    public void controlWeldMaterial(double rwf, double rwz) {
+        int rwfRes = (int) rwf;
+        int rwzRes = (int) rwz;
+        int rwzResult1 = (int) (rwzRes * 1.1);
+        int rwzResult2 = (int) (rwzRes * (factorZ / factorF));
+        String result = "Условие выполнено";
+        String resultNegative = "Условие не выполнено!!!";
         if (checkBoxMechWeld.isSelected()) {
-            if (rwf > rwz) {
-                labelMechWeld.setText("Условие выполнено");
+            if (rwfRes > rwzRes) {
+                labelMechWeld.setText(result);
             } else {
-                labelMechWeld.setText("Условие не выполнено!!!");
+                labelMechWeld.setText(resultNegative);
             }
         } else if (checkBoxHandWeld.isSelected()) {
-            if (rwzResult1 <= rwf && rwf <= rwzResult2) {
-                labelHandWeld.setText("Условие выполнено");
+            if (rwzResult1 <= rwfRes && rwfRes <= rwzResult2) {
+                labelHandWeld.setText(result);
             } else {
-                labelHandWeld.setText("Условие не выполнено!!!");
+                labelHandWeld.setText(resultNegative);
             }
         } else if (checkBoxAutomatWeld.isSelected()) {
-            if (rwz < rwf && rwf < rwzResult2) {
-                labelAutomatWeld.setText("Условие выполнено");
+            if (rwzRes < rwfRes && rwfRes < rwzResult2) {
+                labelAutomatWeld.setText(result);
+                System.out.println("Rwz = " + rwzRes + " < " + "Rwf = " + rwfRes + " < " + "rwzResult2 = " + rwzResult2);
             } else {
-                labelAutomatWeld.setText("Условие не выполнено!!!");
+                labelAutomatWeld.setText(resultNegative);
+                System.out.println("Rwz = " + rwzRes + " < " + "Rwf = " + rwfRes + " < " + "rwzResult2 = " + rwzResult2);
             }
         }
+    }
+
+    public String printResultCheckWeldMaterial(double rwf, double rwz) {
+        int rwfRes = (int) rwf;
+        int rwzRes = (int) rwz;
+        int rwzResult1 = (int) (rwzRes * 1.1);
+        int rwzResult2 = (int) (rwzRes * (factorZ / factorF));
+        String result = " ; Условие выполнено";
+        String resultNegative = " ; Условие не выполнено!!!";
+        String resultPrint = null;
+        if (checkBoxMechWeld.isSelected()) {
+            if (rwfRes > rwzRes) {
+                resultPrint = "Механизированная сварка" + "\n"
+                        + " " + rwfRes + " кг/см^2" + " > " + rwzRes + " кг/см^2" + result;
+            } else {
+                resultPrint = "Механизированная сварка" + "\n"
+                        + " " + rwfRes + " кг/см^2" + " > " + rwzRes + " кг/см^2" + resultNegative;
+            }
+        } else if (checkBoxHandWeld.isSelected()) {
+            if (rwzResult1 <= rwfRes && rwfRes <= rwzResult2) {
+                resultPrint = "Ручная сварка" + "\n"
+                        + " " + rwzResult1 + " кг/см^2" + " <= " + rwfRes + " кг/см^2"
+                        + " <= " + rwzResult2 + " кг/см^2" + result;
+            } else {
+                resultPrint = "Ручная сварка" + "\n"
+                        + " " + rwzResult1 + " кг/см^2" + " <= " + rwfRes + " кг/см^2"
+                        + " <= " + rwzResult2 + " кг/см^2" + resultNegative;
+            }
+        } else if (checkBoxAutomatWeld.isSelected()) {
+            if (rwzRes < rwfRes && rwfRes < rwzResult2) {
+                resultPrint = "Автоматизированная сварка" + "\n"
+                        + " " + rwzRes + " кг/см^2" + " < " + rwfRes + " кг/см^2"
+                        + " < " + rwzResult2 + " кг/см^2" + result;
+            } else {
+                resultPrint = "Автоматизированная сварка" + "\n"
+                        + " " + rwzRes + " кг/см^2" + " < " + rwfRes + " кг/см^2"
+                        + " < " + rwzResult2 + " кг/см^2" + resultNegative;
+            }
+        }
+        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + "                    Проверка сварочных материалов\n"
+                + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + " " + resultPrint + "\n"
+                + "-------------------------------------------------------------------------------\n";
     }
 
     public static void main(String[] args) {
