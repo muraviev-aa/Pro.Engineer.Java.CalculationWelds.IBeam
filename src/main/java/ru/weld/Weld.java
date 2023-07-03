@@ -95,6 +95,8 @@ public class Weld extends JFrame implements RoundUp {
     private JLabel labelMechWeld;
     private JLabel labelHandWeld;
     private JLabel labelAutomatWeld;
+    private JLabel labelRwf1;
+    private JLabel labelClassSteel1;
     double heightBeam;
     double flangeWidth;
     double flangeThickness;
@@ -779,6 +781,7 @@ public class Weld extends JFrame implements RoundUp {
                 int i = table.getSelectedRow();
                 TableModel model = table.getModel();
                 labelRwf.setText(model.getValueAt(i, 1).toString());
+                labelRwf1.setText(model.getValueAt(i, 0).toString());
             }
         });
     }
@@ -800,6 +803,7 @@ public class Weld extends JFrame implements RoundUp {
                 TableModel model = table.getModel();
                 labelRwz.setText(model.getValueAt(i, 2).toString());
                 labelClassSteel.setText(model.getValueAt(i, 0).toString());
+                labelClassSteel1.setText(model.getValueAt(i, 0).toString());
             }
         });
     }
@@ -1508,10 +1512,8 @@ public class Weld extends JFrame implements RoundUp {
         } else if (checkBoxAutomatWeld.isSelected()) {
             if (rwzRes < rwfRes && rwfRes < rwzResult2) {
                 labelAutomatWeld.setText(result);
-                System.out.println("Rwz = " + rwzRes + " < " + "Rwf = " + rwfRes + " < " + "rwzResult2 = " + rwzResult2);
             } else {
                 labelAutomatWeld.setText(resultNegative);
-                System.out.println("Rwz = " + rwzRes + " < " + "Rwf = " + rwfRes + " < " + "rwzResult2 = " + rwzResult2);
             }
         }
     }
