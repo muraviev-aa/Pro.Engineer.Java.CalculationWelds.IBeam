@@ -1323,6 +1323,7 @@ public class Weld extends JFrame implements RoundUp {
         String flangeKfRes = textFieldFlangeKf.getText();
         String wallKfRes = textFieldWallKf.getText();
         String metalWeld = String.valueOf(labelRwf.getText());
+        String weldMaterial = String.valueOf(labelRwf1.getText());
         String borderWeld = String.valueOf(labelRwz.getText());
         String steelCategory = String.valueOf(labelClassSteel.getText());
         String ix = String.valueOf(textFieldIx.getText());
@@ -1344,7 +1345,8 @@ public class Weld extends JFrame implements RoundUp {
         String text = printText.textDate()
                 + printText.textName(name) + printText.textSizeBeam(profileName, heightBeamRes, flangeWidthRes,
                 flangeThicknessRes, wallThicknessRes, radiusRes) + printText.textWeldK(flangeKfRes, wallKfRes)
-                + textBf() + textBz() + printText.textSolutionResistance(metalWeld, borderWeld, steelCategory)
+                + textBf() + textBz() + printText.textSolutionResistance(metalWeld, borderWeld,
+                steelCategory, weldMaterial)
                 + printResultCheckWeldMaterial(rwf, rwz) + textSectionCalc(rwf, rwz) + textRibs()
                 + printText.textCharacterSections(ix, iy, wx, wy, s, l)
                 + printText.textForceAndMoment(textForceN, textForceQx, textForceQy, textMomMx, textMomMy)
