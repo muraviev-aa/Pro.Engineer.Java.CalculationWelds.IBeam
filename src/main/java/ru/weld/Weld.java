@@ -97,6 +97,9 @@ public class Weld extends JFrame implements RoundUp {
     private JLabel labelAutomatWeld;
     private JLabel labelRwf1;
     private JLabel labelClassSteel1;
+    private JLabel labelMechWeldForm;
+    private JLabel labelHandWeldForm;
+    private JLabel labelAutomatWeldForm;
     double heightBeam;
     double flangeWidth;
     double flangeThickness;
@@ -285,6 +288,7 @@ public class Weld extends JFrame implements RoundUp {
         tabbedPane1.setEnabledAt(1, false);
         tabbedPane1.setEnabledAt(2, false);
         tabbedPane1.setEnabledAt(3, false);
+        labelMechWeldForm.setVisible(false);
         setLocationRelativeTo(null);
         setVisible(true);
         comboBox1.addActionListener(new ActionListener() {
@@ -549,10 +553,12 @@ public class Weld extends JFrame implements RoundUp {
         });
         buttonResetCheckManerial.addActionListener(e -> {
             checkBoxGroupMaterial.clearSelection();
+            labelMechWeldForm.setVisible(false);
             labelMechWeld.setText("Условие п.14.1.8");
             labelHandWeld.setText("Условие п.14.1.8");
             labelAutomatWeld.setText("Условие п.14.1.8");
         });
+        checkBoxMechWeld.addActionListener(e -> labelMechWeldForm.setVisible(true));
     }
 
     public void calcTangStrN() {

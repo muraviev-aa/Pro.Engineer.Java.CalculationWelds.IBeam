@@ -1292,10 +1292,11 @@
                         <children>
                           <component id="6e59b" class="javax.swing.JCheckBox" binding="checkBoxMechWeld">
                             <constraints>
-                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
                               <font size="16"/>
+                              <horizontalTextPosition value="11"/>
                               <text value="Выбрать"/>
                             </properties>
                           </component>
@@ -1327,7 +1328,7 @@
                                 <properties/>
                                 <border type="none"/>
                                 <children>
-                                  <component id="ad9b9" class="javax.swing.JLabel">
+                                  <component id="ad9b9" class="javax.swing.JLabel" binding="labelMechWeldForm">
                                     <constraints>
                                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
                                         <preferred-size width="300" height="16"/>
@@ -1366,7 +1367,7 @@
                         <children>
                           <component id="c5959" class="javax.swing.JCheckBox" binding="checkBoxAutomatWeld">
                             <constraints>
-                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
                               <font size="16"/>
@@ -1401,7 +1402,7 @@
                                 <properties/>
                                 <border type="none"/>
                                 <children>
-                                  <component id="83e36" class="javax.swing.JLabel">
+                                  <component id="83e36" class="javax.swing.JLabel" binding="labelAutomatWeldForm">
                                     <constraints>
                                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
                                         <preferred-size width="300" height="16"/>
@@ -1440,7 +1441,7 @@
                         <children>
                           <component id="b485a" class="javax.swing.JCheckBox" binding="checkBoxHandWeld">
                             <constraints>
-                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
                               <font size="16"/>
@@ -1475,7 +1476,7 @@
                                 <properties/>
                                 <border type="none"/>
                                 <children>
-                                  <component id="3f1ca" class="javax.swing.JLabel">
+                                  <component id="3f1ca" class="javax.swing.JLabel" binding="labelHandWeldForm">
                                     <constraints>
                                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
                                         <preferred-size width="300" height="16"/>
