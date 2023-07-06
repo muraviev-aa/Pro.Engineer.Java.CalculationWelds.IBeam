@@ -100,6 +100,9 @@ public class Weld extends JFrame implements RoundUp {
     private JLabel labelMechWeldForm;
     private JLabel labelHandWeldForm;
     private JLabel labelAutomatWeldForm;
+    private JLabel labelAutomatWeldNegativ;
+    private JLabel labelHandWeldNegativ;
+    private JLabel labelMechWeldNegativ;
     double heightBeam;
     double flangeWidth;
     double flangeThickness;
@@ -289,6 +292,11 @@ public class Weld extends JFrame implements RoundUp {
         tabbedPane1.setEnabledAt(2, false);
         tabbedPane1.setEnabledAt(3, false);
         labelMechWeldForm.setVisible(false);
+        labelHandWeldForm.setVisible(false);
+        labelAutomatWeldForm.setVisible(false);
+        labelMechWeldNegativ.setVisible(false);
+        labelAutomatWeldNegativ.setVisible(false);
+        labelHandWeldNegativ.setVisible(false);
         setLocationRelativeTo(null);
         setVisible(true);
         comboBox1.addActionListener(new ActionListener() {
@@ -554,11 +562,33 @@ public class Weld extends JFrame implements RoundUp {
         buttonResetCheckManerial.addActionListener(e -> {
             checkBoxGroupMaterial.clearSelection();
             labelMechWeldForm.setVisible(false);
+            labelHandWeldForm.setVisible(false);
+            labelAutomatWeldForm.setVisible(false);
+            labelMechWeldNegativ.setVisible(false);
+            labelAutomatWeldNegativ.setVisible(false);
+            labelHandWeldNegativ.setVisible(false);
+            labelMechWeld.setVisible(true);
             labelMechWeld.setText("Условие п.14.1.8");
+            labelHandWeld.setVisible(true);
             labelHandWeld.setText("Условие п.14.1.8");
+            labelAutomatWeld.setVisible(true);
             labelAutomatWeld.setText("Условие п.14.1.8");
         });
-        checkBoxMechWeld.addActionListener(e -> labelMechWeldForm.setVisible(true));
+        checkBoxMechWeld.addActionListener(e -> {
+            labelMechWeldForm.setVisible(true);
+            labelHandWeldForm.setVisible(false);
+            labelAutomatWeldForm.setVisible(false);
+        });
+        checkBoxHandWeld.addActionListener(e -> {
+            labelMechWeldForm.setVisible(false);
+            labelHandWeldForm.setVisible(true);
+            labelAutomatWeldForm.setVisible(false);
+        });
+        checkBoxAutomatWeld.addActionListener(e -> {
+            labelMechWeldForm.setVisible(false);
+            labelHandWeldForm.setVisible(false);
+            labelAutomatWeldForm.setVisible(true);
+        });
     }
 
     public void calcTangStrN() {
@@ -1504,24 +1534,26 @@ public class Weld extends JFrame implements RoundUp {
         int rwzResult1 = (int) (rwzRes * 1.1);
         int rwzResult2 = (int) (rwzRes * (factorZ / factorF));
         String result = "Условие выполнено";
-        String resultNegative = "Условие не выполнено!!!";
         if (checkBoxMechWeld.isSelected()) {
             if (rwfRes > rwzRes) {
                 labelMechWeld.setText(result);
             } else {
-                labelMechWeld.setText(resultNegative);
+                labelMechWeld.setVisible(false);
+                labelMechWeldNegativ.setVisible(true);
             }
         } else if (checkBoxHandWeld.isSelected()) {
             if (rwzResult1 <= rwfRes && rwfRes <= rwzResult2) {
                 labelHandWeld.setText(result);
             } else {
-                labelHandWeld.setText(resultNegative);
+                labelHandWeld.setVisible(false);
+                labelHandWeldNegativ.setVisible(true);
             }
         } else if (checkBoxAutomatWeld.isSelected()) {
             if (rwzRes < rwfRes && rwfRes < rwzResult2) {
                 labelAutomatWeld.setText(result);
             } else {
-                labelAutomatWeld.setText(resultNegative);
+                labelAutomatWeld.setVisible(false);
+                labelAutomatWeldNegativ.setVisible(true);
             }
         }
     }
